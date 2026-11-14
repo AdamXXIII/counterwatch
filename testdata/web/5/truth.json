@@ -1,0 +1,51 @@
+{
+ "width": 1440,
+ "height": 900,
+ "my_team": [
+  {
+   "hero": "junkerqueen",
+   "role": "tank"
+  },
+  {
+   "hero": "soldier76",
+   "role": "damage"
+  },
+  {
+   "hero": "sierra",
+   "role": "damage"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  },
+  {
+   "hero": "mercy",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "mauga",
+   "role": "tank"
+  },
+  {
+   "hero": "mei",
+   "role": "damage"
+  },
+  {
+   "hero": "cassidy",
+   "role": "damage"
+  },
+  {
+   "hero": "kiriko",
+   "role": "support"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. 1440x900 (16:10) source; custom colours ally pink, enemy gold. UI scales with width, board sits at the same place once scaled to 1920 wide and centre-cropped to 1080.",
+ "phase": "end_of_match",
+ "phase_evidence": "ENDORSE PLAYERS button, STAY AS TEAM prompt"
+}

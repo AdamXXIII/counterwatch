@@ -1,0 +1,51 @@
+{
+ "width": 2560,
+ "height": 1440,
+ "my_team": [
+  {
+   "hero": "roadhog",
+   "role": "tank"
+  },
+  {
+   "hero": "ashe",
+   "role": "damage"
+  },
+  {
+   "hero": "shion",
+   "role": "damage"
+  },
+  {
+   "hero": "mercy",
+   "role": "support"
+  },
+  {
+   "hero": "kiriko",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "roadhog",
+   "role": "tank"
+  },
+  {
+   "hero": "junkrat",
+   "role": "damage"
+  },
+  {
+   "hero": "ashe",
+   "role": "damage"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  },
+  {
+   "hero": "mercy",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. 2560x1440 source.",
+ "phase": "end_of_match",
+ "phase_evidence": "ENDORSE PLAYERS button"
+}

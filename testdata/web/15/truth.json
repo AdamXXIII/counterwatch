@@ -1,0 +1,51 @@
+{
+ "width": 3440,
+ "height": 1440,
+ "my_team": [
+  {
+   "hero": "dva",
+   "role": "tank"
+  },
+  {
+   "hero": "torbjorn",
+   "role": "damage"
+  },
+  {
+   "hero": "mei",
+   "role": "damage"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  },
+  {
+   "hero": "juno",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "orisa",
+   "role": "tank"
+  },
+  {
+   "hero": "genji",
+   "role": "damage"
+  },
+  {
+   "hero": "sierra",
+   "role": "damage"
+  },
+  {
+   "hero": "kiriko",
+   "role": "support"
+  },
+  {
+   "hero": "ana",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. 3440x1440 ultrawide source: the UI stays in a centred 16:9 area (scale by height, crop the middle 1920).",
+ "phase": "end_of_match",
+ "phase_evidence": "ENDORSE PLAYERS button"
+}

@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "winston",
+   "role": "tank"
+  },
+  {
+   "hero": "bastion",
+   "role": "damage"
+  },
+  {
+   "hero": "pharah",
+   "role": "damage"
+  },
+  {
+   "hero": "mercy",
+   "role": "support"
+  },
+  {
+   "hero": "kiriko",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "reinhardt",
+   "role": "tank"
+  },
+  {
+   "hero": "genji",
+   "role": "damage"
+  },
+  {
+   "hero": "sojourn",
+   "role": "damage"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  },
+  {
+   "hero": "mizuki",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. Custom team colours: ally pink, enemy yellow (colour-blind/team colour options).",
+ "phase": "end_of_match",
+ "phase_evidence": "Athena \"Victory\" chat line"
+}

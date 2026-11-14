@@ -1,0 +1,2921 @@
+{
+ "as_of": "2026-11-14",
+ "patch": "Season 5 \"A Grim Doctrine\" midseason (2026-11-03 patch, 2026-11-05 hotfix); 5v5 role queue",
+ "sources": [
+  {
+   "id": "bz_heroes",
+   "url": "https://overwatch.blizzard.com/en-us/heroes/",
+   "used_for": "Current roster (54 heroes) and per-hero ability pages, e.g. /heroes/dmon/, /heroes/doctrine/, /heroes/sombra/, /heroes/roadhog/"
+  },
+  {
+   "id": "bz_s1_2026",
+   "url": "https://overwatch.blizzard.com/en-us/news/24246206",
+   "used_for": "Season 1 2026 spotlight: 5 new heroes (Domina, Emre, Mizuki, Anran, Jetpack Cat) and sub-role lists"
+  },
+  {
+   "id": "bz_pn_2026_02",
+   "url": "https://overwatch.blizzard.com/en-us/news/patch-notes/live/2026/02/",
+   "used_for": "Feb 2026 patch: sub-role passives, tank role passive, D.Va health, perk removals"
+  },
+  {
+   "id": "bz_pn_2026_10",
+   "url": "https://overwatch.blizzard.com/en-us/news/patch-notes/live/2026/10/",
+   "used_for": "Season 5 (2026-10-06): Roadhog rework, Sombra rework to Support, Doctrine tuning, hitbox changes; 2026-10-13 hotfix"
+  },
+  {
+   "id": "bz_pn_2026_11",
+   "url": "https://overwatch.blizzard.com/en-us/news/patch-notes/live/2026/11/",
+   "used_for": "Season 5 midseason 2026-11-03 balance patch and 2026-11-05 hotfix"
+  },
+  {
+   "id": "bz_rates",
+   "url": "https://overwatch.blizzard.com/en-us/rates/",
+   "used_for": "Official hero win/pick rates (since start of latest patch)"
+  },
+  {
+   "id": "cw_tier",
+   "url": "https://www.counterwatch.gg/stats/overwatch/tier-list",
+   "used_for": "Win rate/pick rate tier list, 5v5 all ranks, 2026-09-14 to 2026-11-14"
+  },
+  {
+   "id": "cw_heroes",
+   "url": "https://www.counterwatch.gg/stats/overwatch/heroes/<slug>",
+   "used_for": "Per-hero counter ratings (counters / strong against), all ranks, all game types (not 5v5-only), updated 2026-11-14"
+  },
+  {
+   "id": "cw_s5_meta",
+   "url": "https://www.counterwatch.gg/blog/overwatch-season-5-a-grim-doctrine-first-month-meta-torbjorn-eb37211e",
+   "used_for": "Season 5 first-month meta, 1,468,176 hero-matches (2026-10-19..11-01)"
+  },
+  {
+   "id": "cw_swap_death",
+   "url": "https://www.counterwatch.gg/blog/a-swap-after-a-death-costs-about-2-5-points-of-your-next-fig-8362507d",
+   "used_for": "Cost of swapping after a death (3.46M swaps, 2026-09-07..11-02)"
+  },
+  {
+   "id": "cw_counterpick",
+   "url": "https://www.counterwatch.gg/blog/counter-picking-in-overwatch-a-stats-backed-guide-b381e8c0",
+   "used_for": "Counter-pick thresholds and timing rules"
+  },
+  {
+   "id": "cw_onetrick",
+   "url": "https://www.counterwatch.gg/blog/one-trick-heroes-in-overwatch-when-otp-works-and-when-it-doe-9c68976b",
+   "used_for": "When one-tricking works"
+  },
+  {
+   "id": "esgg_counters",
+   "url": "https://esports.gg/news/overwatch/overwatch-2-hero-counters/",
+   "used_for": "esports.gg 2026 counter table for every hero (includes Doctrine)"
+  },
+  {
+   "id": "moba_guides",
+   "url": "https://mobalytics.gg/overwatch/heroes/<slug>-guide",
+   "used_for": "Mobalytics hero guides: how-to-counter and synergy sections (domina, doctrine, vendetta, sierra, shion, wuyang, jetpack-cat, mizuki, anran, emre, freja, hazard, juno, sombra, roadhog)"
+  },
+  {
+   "id": "shack_s3",
+   "url": "https://shacknews.com/article/134028/overwatch-2-season-3-patch-notes?amphtml=1",
+   "used_for": "Ult charge retained on swap reduced from 30% to 25%"
+  },
+  {
+   "id": "esgg_tank_swap",
+   "url": "https://esports.gg/opinion/overwatch/overwatch-2-tanks-switching-heroes-stop-it",
+   "used_for": "Opinion: tanks over-swap; ult economy"
+  },
+  {
+   "id": "dignitas_switch",
+   "url": "https://dignitas.gg/articles/overwatch-a-basic-guide-to-hero-switching",
+   "used_for": "Classic switching rules (2016): do not swap with ult nearly ready, do not break comp"
+  },
+  {
+   "id": "jeuvideo",
+   "url": "https://jeu.video/en/guide/overwatch-2-counters-objective",
+   "used_for": "Swap after the same threat stops you two fights running"
+  }
+ ],
+ "note": "Reasons are mechanics. A tag like [2026-11-03] marks a reason that depends on a 2025-2026 change. stat_counter_ratings are counterwatch.gg counter ratings (duel/teamfight edge with hero strength removed, all ranks, all game types, page data 2026-11-14). Hero 55 (Hudson) is announced for Season 6 and not released, so not covered.",
+ "heroes": {
+  "ana": {
+   "name": "Ana",
+   "role": "support",
+   "subrole": "tactician"
+  },
+  "anran": {
+   "name": "Anran",
+   "role": "damage",
+   "subrole": "flanker"
+  },
+  "ashe": {
+   "name": "Ashe",
+   "role": "damage",
+   "subrole": "sharpshooter"
+  },
+  "baptiste": {
+   "name": "Baptiste",
+   "role": "support",
+   "subrole": "tactician"
+  },
+  "bastion": {
+   "name": "Bastion",
+   "role": "damage",
+   "subrole": "specialist"
+  },
+  "brigitte": {
+   "name": "Brigitte",
+   "role": "support",
+   "subrole": "survivor"
+  },
+  "cassidy": {
+   "name": "Cassidy",
+   "role": "damage",
+   "subrole": "sharpshooter"
+  },
+  "dmon": {
+   "name": "D.Mon",
+   "role": "tank",
+   "subrole": "stalwart"
+  },
+  "doctrine": {
+   "name": "Doctrine",
+   "role": "support",
+   "subrole": "survivor"
+  },
+  "domina": {
+   "name": "Domina",
+   "role": "tank",
+   "subrole": "stalwart"
+  },
+  "doomfist": {
+   "name": "Doomfist",
+   "role": "tank",
+   "subrole": "initiator"
+  },
+  "dva": {
+   "name": "D.Va",
+   "role": "tank",
+   "subrole": "initiator"
+  },
+  "echo": {
+   "name": "Echo",
+   "role": "damage",
+   "subrole": "recon"
+  },
+  "emre": {
+   "name": "Emre",
+   "role": "damage",
+   "subrole": "specialist"
+  },
+  "freja": {
+   "name": "Freja",
+   "role": "damage",
+   "subrole": "recon"
+  },
+  "genji": {
+   "name": "Genji",
+   "role": "damage",
+   "subrole": "flanker"
+  },
+  "hanzo": {
+   "name": "Hanzo",
+   "role": "damage",
+   "subrole": "sharpshooter"
+  },
+  "hazard": {
+   "name": "Hazard",
+   "role": "tank",
+   "subrole": "initiator"
+  },
+  "illari": {
+   "name": "Illari",
+   "role": "support",
+   "subrole": "survivor"
+  },
+  "jetpackcat": {
+   "name": "Jetpack Cat",
+   "role": "support",
+   "subrole": "tactician"
+  },
+  "junkerqueen": {
+   "name": "Junker Queen",
+   "role": "tank",
+   "subrole": "stalwart"
+  },
+  "junkrat": {
+   "name": "Junkrat",
+   "role": "damage",
+   "subrole": "specialist"
+  },
+  "juno": {
+   "name": "Juno",
+   "role": "support",
+   "subrole": "survivor"
+  },
+  "kiriko": {
+   "name": "Kiriko",
+   "role": "support",
+   "subrole": "medic"
+  },
+  "lifeweaver": {
+   "name": "Lifeweaver",
+   "role": "support",
+   "subrole": "medic"
+  },
+  "lucio": {
+   "name": "Lúcio",
+   "role": "support",
+   "subrole": "tactician"
+  },
+  "mauga": {
+   "name": "Mauga",
+   "role": "tank",
+   "subrole": "bruiser"
+  },
+  "mei": {
+   "name": "Mei",
+   "role": "damage",
+   "subrole": "specialist"
+  },
+  "mercy": {
+   "name": "Mercy",
+   "role": "support",
+   "subrole": "medic"
+  },
+  "mizuki": {
+   "name": "Mizuki",
+   "role": "support",
+   "subrole": "survivor"
+  },
+  "moira": {
+   "name": "Moira",
+   "role": "support",
+   "subrole": "medic"
+  },
+  "orisa": {
+   "name": "Orisa",
+   "role": "tank",
+   "subrole": "bruiser"
+  },
+  "pharah": {
+   "name": "Pharah",
+   "role": "damage",
+   "subrole": "recon"
+  },
+  "ramattra": {
+   "name": "Ramattra",
+   "role": "tank",
+   "subrole": "stalwart"
+  },
+  "reaper": {
+   "name": "Reaper",
+   "role": "damage",
+   "subrole": "flanker"
+  },
+  "reinhardt": {
+   "name": "Reinhardt",
+   "role": "tank",
+   "subrole": "stalwart"
+  },
+  "roadhog": {
+   "name": "Roadhog",
+   "role": "tank",
+   "subrole": "bruiser"
+  },
+  "shion": {
+   "name": "Shion",
+   "role": "damage",
+   "subrole": "flanker"
+  },
+  "sierra": {
+   "name": "Sierra",
+   "role": "damage",
+   "subrole": "recon"
+  },
+  "sigma": {
+   "name": "Sigma",
+   "role": "tank",
+   "subrole": "stalwart"
+  },
+  "sojourn": {
+   "name": "Sojourn",
+   "role": "damage",
+   "subrole": "sharpshooter"
+  },
+  "soldier76": {
+   "name": "Soldier: 76",
+   "role": "damage",
+   "subrole": "specialist"
+  },
+  "sombra": {
+   "name": "Sombra",
+   "role": "support",
+   "subrole": "tactician"
+  },
+  "symmetra": {
+   "name": "Symmetra",
+   "role": "damage",
+   "subrole": "specialist"
+  },
+  "torbjorn": {
+   "name": "Torbjörn",
+   "role": "damage",
+   "subrole": "specialist"
+  },
+  "tracer": {
+   "name": "Tracer",
+   "role": "damage",
+   "subrole": "flanker"
+  },
+  "vendetta": {
+   "name": "Vendetta",
+   "role": "damage",
+   "subrole": "flanker"
+  },
+  "venture": {
+   "name": "Venture",
+   "role": "damage",
+   "subrole": "flanker"
+  },
+  "widowmaker": {
+   "name": "Widowmaker",
+   "role": "damage",
+   "subrole": "sharpshooter"
+  },
+  "winston": {
+   "name": "Winston",
+   "role": "tank",
+   "subrole": "initiator"
+  },
+  "wreckingball": {
+   "name": "Wrecking Ball",
+   "role": "tank",
+   "subrole": "initiator"
+  },
+  "wuyang": {
+   "name": "Wuyang",
+   "role": "support",
+   "subrole": "survivor"
+  },
+  "zarya": {
+   "name": "Zarya",
+   "role": "tank",
+   "subrole": "bruiser"
+  },
+  "zenyatta": {
+   "name": "Zenyatta",
+   "role": "support",
+   "subrole": "tactician"
+  }
+ },
+ "matchups": {
+  "ana": {
+   "strong_vs": {
+    "domina": "Domina has no mobility: Sleep Dart and Biotic Grenade land freely, and Ana out-ranges her 25 m beam",
+    "junkerqueen": "Biotic Grenade stops the self-healing from Wounds, her main sustain",
+    "hazard": "Sleep Dart and Biotic Grenade on a Hazard who must commit into melee",
+    "roadhog": "Biotic Grenade anti-heal shuts off Take a Breather, his only sustain",
+    "mauga": "Biotic Grenade shuts off Cardiac Overdrive lifesteal",
+    "vendetta": "Sleep Dart stops Vendetta mid-combo (Mobalytics)",
+    "shion": "Sleep Dart stops Shion mid-Joyride or mid-ult (esports.gg names Ana)",
+    "bastion": "Sleep Dart stops Bastion in Assault configuration (esports.gg names Ana)",
+    "ramattra": "Biotic Grenade stops Ramattra's Nemesis sustain (esports.gg names Ana)"
+   },
+   "weak_vs": {
+    "winston": "Jump Pack reaches an immobile Ana; Barrier Projector blocks Sleep Dart",
+    "tracer": "Tracer dives an immobile Ana",
+    "anran": "Inferno Rush reaches an immobile Ana and Dancing Blaze dodges the Sleep Dart",
+    "kiriko": "Protection Suzu cleanses Biotic Grenade anti-heal and Sleep Dart off allies (esports.gg names Kiriko)",
+    "widowmaker": "Widowmaker out-ranges Ana and headshots her through Sleep Dart range (esports.gg)"
+   }
+  },
+  "anran": {
+   "strong_vs": {
+    "genji": "Fire burn keeps ticking through Deflect and fans out-trade him at close range",
+    "ana": "Inferno Rush reaches an immobile Ana and Dancing Blaze dodges the Sleep Dart",
+    "illari": "Inferno Rush reaches Illari and burn keeps ticking after she escapes; Dancing Blaze dodges Solar Rifle charged shot",
+    "doctrine": "Inferno Rush follows Doctrine after Shrouded Momentum, when he cannot escape again",
+    "lifeweaver": "Inferno Rush reaches Lifeweaver, who has no burst to kill her and whose Life Grip does not cleanse burn",
+    "zenyatta": "Inferno Rush reaches an immobile Zenyatta; Dancing Blaze dodges his volley",
+    "baptiste": "Dancing Blaze dodges Immortality-Field-protected fights and burn ticks through Regenerative Burst heals",
+    "emre": "Emre has no CC or strong escape; Inferno Rush and fans win the close-range fight (Mobalytics)",
+    "soldier76": "Inferno Rush reaches Soldier and Dancing Blaze dodges his damage",
+    "sombra": "Inferno Rush chases the Translocator line (Mobalytics)"
+   },
+   "weak_vs": {
+    "dmon": "Anran must fight at fan range, which is exactly where Plasma Saber and Surging Strike land; Power Barrier eats her fire projectiles",
+    "reinhardt": "Anran fights at fan range, inside Rocket Hammer reach; Barrier Field eats her fire projectiles",
+    "winston": "Tesla Cannon ignores Dancing Blaze dodging timing windows and chases her Inferno Rush; Barrier Projector blocks fans",
+    "venture": "Venture out-trades Anran at close range",
+    "cassidy": "Peacekeeper burst and Flashbang hinder catch Anran before she reaches fan range (Mobalytics names Cassidy)",
+    "kiriko": "Protection Suzu cleanses her Ignition burn and gives invulnerability through Vermillion Ascent",
+    "reaper": "Shotguns out-damage her at the close range she must fight in; Wraith Form dodges the burn",
+    "sojourn": "Charged Railgun burst kills Anran on approach or right after Dancing Blaze (Mobalytics)",
+    "junkrat": "Steel Trap and Concussion Mine stop Anran on Inferno Rush",
+    "moira": "Biotic Grasp needs no aim against a fast-moving Anran"
+   }
+  },
+  "ashe": {
+   "strong_vs": {
+    "ramattra": "Ashe out-ranges Omnic Form poke and dodges Nemesis with Coach Gun",
+    "roadhog": "Ashe out-ranges his short-range Scrap Gun ([2026-10-06] falloff now 20-35 m)",
+    "zarya": "Out-ranges her beam from high ground",
+    "pharah": "Ashe hitscan shots kill Pharah from range",
+    "freja": "Ashe hitscan shots her during Updraft and Take Aim float (Mobalytics: out-snipe her)",
+    "symmetra": "Ashe out-ranges Symmetra, whose beam reaches only short range",
+    "jetpackcat": "Hitscan Viper shots hit a flying Cat; Mobalytics lists Ashe as a Cat counter-swap",
+    "juno": "Hitscan punishes Juno during Glide Boost and hover",
+    "junkrat": "Ashe out-ranges Frag Launcher and Dynamite counters his spam",
+    "echo": "Hitscan Viper shots punish Echo in the air"
+   },
+   "weak_vs": {
+    "wreckingball": "Ball reaches her high ground and knocks her out of aim",
+    "doomfist": "Rocket Punch reaches Ashe on high ground",
+    "widowmaker": "Widowmaker out-ranges Ashe and wins the headshot duel at long range",
+    "lifeweaver": "Life Grip rescues a teammate before Ashe finishes the follow-up headshot; Petal Platform contests her high ground",
+    "winston": "Jump Pack reaches Ashe on high ground and Tesla Cannon ignores her Coach Gun range",
+    "genji": "Deflect returns Viper shots and Dynamite; Swift Strike reaches her high ground"
+   }
+  },
+  "baptiste": {
+   "strong_vs": {
+    "reinhardt": "Immortality Field denies Charge pins and hammer kill combos; Amplification Matrix doubles damage into his shield",
+    "wreckingball": "Immortality Field denies Piledriver kill combos; burst heals reset his dive damage",
+    "roadhog": "Immortality Field and burst heal save hooked allies, removing Roadhog's kill pressure",
+    "pharah": "Baptiste hitscan burst and Exo Boots fight her in the air",
+    "echo": "Biotic Launcher burst and hitscan punish Echo in the air",
+    "sombra": "Regenerative Burst and Immortality Field undo Sombra burst; hitscan finishes her after Translocator",
+    "brigitte": "Baptiste out-ranges Brigitte and Immortality Field denies her Whip Shot picks"
+   },
+   "weak_vs": {
+    "genji": "Deflect returns Bap grenades and Genji dives him",
+    "anran": "Dancing Blaze dodges Immortality-Field-protected fights and burn ticks through Regenerative Burst heals",
+    "emre": "Take Aim burst rifle out-ranges Baptiste and Siphon Blaster sustains through his burst",
+    "sojourn": "Charged Railgun headshot kills a Baptiste who has used Exo Boots and Regenerative Burst",
+    "illari": "Solar Rifle charged shots out-range Baptiste",
+    "reaper": "Shadow Step flanks Baptiste and shotguns burst him (esports.gg)",
+    "venture": "Burrow surfaces under Baptiste (esports.gg names Venture)"
+   }
+  },
+  "bastion": {
+   "strong_vs": {
+    "dmon": "Assault configuration shreds Power Barrier and her armoured mech from outside saber range ([2026-10-13] D.Mon armour 275->250)",
+    "domina": "Assault configuration burns through barrier panels from range, removing her only protection (Mobalytics: shield buster)",
+    "winston": "Assault configuration melts Barrier Projector and his big hitbox at the range he must dive into",
+    "orisa": "Assault configuration out-damages Fortify and her armour",
+    "roadhog": "Assault configuration out-damages Take a Breather on a huge hitbox",
+    "wreckingball": "Assault configuration shreds Ball's Adaptive Shield and large hitbox",
+    "reinhardt": "Assault configuration shreds Barrier Field"
+   },
+   "weak_vs": {
+    "genji": "Deflect reflects Assault configuration fire back at Bastion",
+    "tracer": "Tracer flanks Bastion and blinks out of Assault configuration fire",
+    "sierra": "Tracking Shot auto-tracks a slow Bastion from range and Anchor Drone grapple escapes Assault configuration",
+    "hanzo": "Storm Arrows burst a slow-moving Bastion from range",
+    "doctrine": "Deliverance lowers Bastion max health and Invigorating Drones heal through Assault configuration fire",
+    "sombra": "Translocator flanks Bastion from behind; Weaken ([2026-11-03] 40%, was 50%) cuts his Assault configuration damage",
+    "illari": "Solar Rifle charged shot out-ranges Bastion and Healing Pylon sustains through his damage",
+    "ana": "Sleep Dart stops Bastion in Assault configuration (esports.gg names Ana)"
+   }
+  },
+  "brigitte": {
+   "strong_vs": {
+    "dva": "Rocket Flail melee and Whip Shot are not stopped by Defense Matrix; Barrier Shield soaks Fusion Cannon spread; repeated knockbacks interrupt Boosters",
+    "wreckingball": "Shield Bash stun and Whip Shot knock him away from the backline; Repair Pack sustains the target",
+    "sigma": "Rocket Flail and Whip Shot are melee, so Kinetic Grasp cannot absorb them",
+    "zarya": "Whip Shot and Shield Bash do not give Zarya much charge and Barrier Shield blocks her beam",
+    "tracer": "Whip Shot and Shield Bash stop her dive",
+    "reaper": "Barrier Shield blocks shotgun pellets and Whip Shot knocks Reaper out of range",
+    "moira": "Barrier Shield blocks Biotic Orb and Brigitte wins melee range",
+    "genji": "Barrier Shield blocks Shuriken and Shield Bash stuns Genji",
+    "sombra": "Shield Bash and Whip Shot punish Sombra after Translocator",
+    "vendetta": "Shield Bash stuns Vendetta mid-combo"
+   },
+   "weak_vs": {
+    "ramattra": "Nemesis Form punches pierce Barrier Shield",
+    "pharah": "Brigitte cannot reach Pharah in the air",
+    "freja": "Freja plays outside Whip Shot range and Take Aim bolts arc over Barrier Shield from Updraft",
+    "junkrat": "Frag Launcher splash breaks Barrier Shield and Brigitte cannot reach him (esports.gg)",
+    "dmon": "Plasma Saber and Power Barrier beat Brigitte at the melee range she needs",
+    "baptiste": "Baptiste out-ranges Brigitte and Immortality Field denies her Whip Shot picks",
+    "echo": "Echo flies above Brigitte's melee kit"
+   }
+  },
+  "cassidy": {
+   "strong_vs": {
+    "wreckingball": "Flashbang hinders Ball, locking his movement abilities, and Peacekeeper hitscan lands on his large hitbox",
+    "zarya": "Peacekeeper out-ranges Particle Cannon; Cassidy shoots Zarya when both bubbles are on cooldown",
+    "tracer": "Flashbang hinders Tracer (no Blink or Recall while hindered) and Peacekeeper body shots finish her",
+    "pharah": "Cassidy hitscan punishes her in the air",
+    "vendetta": "Flashbang hinders Vendetta so she cannot Whirlwind Dash or Soaring Slice out (Mobalytics names Flashbang as her counter)",
+    "sierra": "Hitscan can shoot the fragile Anchor Drone before she grapples, leaving her stranded (Mobalytics: break the drone)",
+    "anran": "Peacekeeper burst and Flashbang hinder catch Anran before she reaches fan range (Mobalytics names Cassidy)",
+    "freja": "Peacekeeper hitscan hits Freja during Take Aim slow-fall; Flashbang hinder blocks Quick Dash",
+    "echo": "Hitscan Peacekeeper punishes Echo in the air",
+    "jetpackcat": "Hitscan Peacekeeper punishes a flying Cat ([2026-10-06] Deadeye can no longer ride Cat Lifeline)"
+   },
+   "weak_vs": {
+    "sigma": "Kinetic Grasp absorbs his shots and Barrier blocks Deadeye",
+    "widowmaker": "Widow's Kiss scoped shots out-range Peacekeeper falloff",
+    "hanzo": "Charged arrow headshots out-range Cassidy's Peacekeeper"
+   }
+  },
+  "dmon": {
+   "strong_vs": {
+    "anran": "Anran must fight at fan range, which is exactly where Plasma Saber and Surging Strike land; Power Barrier eats her fire projectiles",
+    "widowmaker": "Power Barrier blocks the sightline and Propulsors close distance on a scoped Widowmaker",
+    "mercy": "Propulsors and Surging Strike reach low-damage backliners; Limit Break makes the pocketed target take increased damage",
+    "lifeweaver": "Propulsors reach Lifeweaver, who has no burst to fight back at saber range",
+    "dva": "Defense Matrix eats projectiles but not Plasma Saber melee, and Power Barrier absorbs Fusion Cannon spread",
+    "brigitte": "Plasma Saber and Power Barrier beat Brigitte at the melee range she needs"
+   },
+   "weak_vs": {
+    "mauga": "Incendiary Chainguns burn ([2026-11-03] burn DoT 15->20) and Cardiac Overdrive lifesteal out-sustain D.Mon in the close range her Plasma Saber needs",
+    "ramattra": "Nemesis Form punches pierce Power Barrier and Block out-trades her melee saber at the same range",
+    "bastion": "Assault configuration shreds Power Barrier and her armoured mech from outside saber range ([2026-10-13] D.Mon armour 275->250)",
+    "torbjorn": "Turret keeps hitting her from an angle her frontal Power Barrier cannot cover; Overload armour wins the close-range trade",
+    "pharah": "Flies above Plasma Saber reach and splashes over a frontal Power Barrier; D.Mon has no vertical answer besides the Repeater",
+    "echo": "Flight keeps Echo out of saber range; Sticky Bombs land over the frontal barrier",
+    "jetpackcat": "Permanent flight keeps Jetpack Cat out of saber range while Pawjectiles chip; Catnapper tethers her off her team",
+    "orisa": "Fortify ignores Surging Strike knockback and Energy Javelin interrupts her engage",
+    "freja": "Freja stays out of saber range and fires Take Aim bolts from above over Power Barrier",
+    "reaper": "Shotguns do full damage against D.Mon at close range"
+   }
+  },
+  "doctrine": {
+   "strong_vs": {
+    "ramattra": "Deliverance lowers his max health so Nemesis armour cannot carry him through fights",
+    "roadhog": "Deliverance lowers his maximum health, cutting Take a Breather value ([2026-10-06] Doctrine release)",
+    "zarya": "Deliverance lowers max health so bubbles absorb less of the fight",
+    "bastion": "Deliverance lowers Bastion max health and Invigorating Drones heal through Assault configuration fire",
+    "sigma": "Deliverance lowers Sigma max health so Kinetic Grasp shields cover less of the fight"
+   },
+   "weak_vs": {
+    "winston": "Jump Pack lands after Shrouded Momentum is used; Doctrine cannot use abilities while dashing",
+    "genji": "Genji dives Doctrine after Shrouded Momentum and Deflect returns Infused blasts",
+    "tracer": "Blink keeps Tracer outside his drone value and she dives him once Shrouded Momentum is on cooldown (Mobalytics)",
+    "venture": "Burrow surfaces on Doctrine after Shrouded Momentum",
+    "vendetta": "Soaring Slice reaches Doctrine once Shrouded Momentum is spent ([2026-11-03] its cooldown 8->10 s)",
+    "anran": "Inferno Rush follows Doctrine after Shrouded Momentum, when he cannot escape again",
+    "sombra": "Weaken ([2026-11-03] 40%, was 50%) cuts Doctrine healing and damage; EMP hacks him out of Shrouded Momentum (esports.gg)",
+    "kiriko": "Protection Suzu cleanses the Deliverance max-health debuff (esports.gg names Kiriko)",
+    "lucio": "Soundwave boops Doctrine out of drone range and speed breaks his line of sight"
+   }
+  },
+  "domina": {
+   "strong_vs": {
+    "wreckingball": "Sonic Repulsors knocks Ball back and stuns him on wall impact, and Photon Magnum hits his large hitbox from range",
+    "doomfist": "Sonic Repulsors knocks Doomfist out of melee and stuns on walls; her beam punishes his approach",
+    "hazard": "Hazard must be in melee range; Repulsors pushes him back out and the beam out-ranges Bonespur",
+    "genji": "Photon Magnum beam cannot be reflected by Deflect; Barrier Array blocks Shuriken spam"
+   },
+   "weak_vs": {
+    "symmetra": "Photon Projector gains charge from barriers, so Barrier Array panels feed Symmetra full beam damage",
+    "ana": "Domina has no mobility: Sleep Dart and Biotic Grenade land freely, and Ana out-ranges her 25 m beam",
+    "bastion": "Assault configuration burns through barrier panels from range, removing her only protection (Mobalytics: shield buster)",
+    "junkrat": "Grenade and mine splash breaks several Barrier Array panels at once",
+    "winston": "Jump Pack lands behind the segmented barrier; she has no mobility to escape dive",
+    "reaper": "Gets inside beam range where her only answer is Sonic Repulsors; shotguns win point-blank",
+    "reinhardt": "Brawl tank: once Rein closes distance, Domina only has Repulsors (Mobalytics weakness: vulnerable to brawl)",
+    "sierra": "Tracking Shot keeps hitting Domina while Anchor Drone takes an angle around her frontal Barrier Array",
+    "mei": "Endothermic Blaster beam cannot be blocked by Barrier Array"
+   }
+  },
+  "doomfist": {
+   "strong_vs": {
+    "widowmaker": "Rocket Punch reaches her perch and knocks her out of scope",
+    "lifeweaver": "Rocket Punch reaches and kills a Lifeweaver with little burst",
+    "venture": "Rocket Punch and Seismic Slam catch Venture as she surfaces from Burrow at close range",
+    "vendetta": "Rocket Punch displaces her out of combos; a projectile stun/knockback is her weakness",
+    "soldier76": "Rocket Punch reaches Soldier, who has no CC",
+    "ashe": "Rocket Punch reaches Ashe on high ground",
+    "hanzo": "Rocket Punch reaches Hanzo, who needs time to aim",
+    "freja": "Rocket Punch chases Freja at close range (Mobalytics names Doomfist)",
+    "sombra": "Rocket Punch chases Sombra after Translocator"
+   },
+   "weak_vs": {
+    "domina": "Sonic Repulsors knocks Doomfist out of melee and stuns on walls; her beam punishes his approach",
+    "reinhardt": "Hammer and Earthshatter punish Doomfist landing in melee; Barrier absorbs his poke",
+    "junkerqueen": "Doomfist must commit into melee; Carnage, Shotgun and Rampage anti-heal punish every dive",
+    "mauga": "Chainguns and armour out-sustain Doomfist burst; he cannot CC through Overrun",
+    "roadhog": "Chain Hook interrupts Doomfist's approach and Scrap Gun burst follows",
+    "pharah": "Doomfist has no way to reach a flying Pharah",
+    "echo": "Flight keeps Echo out of his punches",
+    "mei": "Ice Wall cuts off his Rocket Punch path and Cryo-Freeze negates his burst",
+    "orisa": "Energy Javelin stuns Doomfist out of his punch and Fortify ignores his knockbacks",
+    "sigma": "Accretion stuns Doomfist out of his engage and Kinetic Grasp absorbs his projectile poke",
+    "zarya": "Projected Barrier blocks his punches and turns them into Zarya energy",
+    "mizuki": "Binding Chain hinders Doomfist's Rocket Punch"
+   }
+  },
+  "dva": {
+   "strong_vs": {
+    "freja": "Defense Matrix eats Take Aim explosive bolts and Bola Shot projectiles",
+    "hanzo": "Defense Matrix eats Storm Arrows and charged arrows; Boosters reach him on high ground",
+    "emre": "Defense Matrix deletes Cyber Frag and Siphon Blaster explosive rounds",
+    "mercy": "Boosters dive the backline and Fusion Cannons burst low-mobility healers",
+    "lifeweaver": "Boosters reach Lifeweaver, and Matrix eats his Healing Blossom/Thorn Volley projectiles",
+    "jetpackcat": "Boosters keep up with flight and Defense Matrix blocks Pawjectiles (Mobalytics lists D.Va as a Cat counter-swap)",
+    "pharah": "Defense Matrix eats rockets and Barrage; Boosters chase her in the air",
+    "junkrat": "Defense Matrix eats Frag Launcher grenades and Concussion Mines",
+    "sombra": "Boosters chase the Translocator line and shoot Sombra out of stealth (Mobalytics)",
+    "illari": "Defense Matrix eats Solar Rifle shots and Boosters dive Illari (esports.gg)",
+    "wuyang": "Defense Matrix eats Wuyang's orb and Boosters dive him (esports.gg)"
+   },
+   "weak_vs": {
+    "dmon": "Defense Matrix eats projectiles but not Plasma Saber melee, and Power Barrier absorbs Fusion Cannon spread",
+    "brigitte": "Rocket Flail melee and Whip Shot are not stopped by Defense Matrix; Barrier Shield soaks Fusion Cannon spread; repeated knockbacks interrupt Boosters",
+    "reinhardt": "Barrier Field blocks Fusion Cannons; Rocket Hammer melee and Earthshatter cannot be Matrixed",
+    "mei": "Endothermic Blaster is a beam, so Defense Matrix does nothing to it",
+    "symmetra": "Photon Projector beam ignores Defense Matrix and ramps on the large mech hitbox",
+    "zarya": "Particle Cannon beam ignores Defense Matrix; bubbles absorb Micro Missiles",
+    "lucio": "Soundwave boops D.Va off high ground and out of position; wall-ride speed dodges Fusion Cannon range",
+    "ramattra": "Ravenous Vortex pulls D.Va out of flight; Nemesis punches cannot be Matrixed",
+    "moira": "Biotic Grasp beam ignores Defense Matrix",
+    "mizuki": "Binding Chain hinders D.Va's Boosters"
+   }
+  },
+  "echo": {
+   "strong_vs": {
+    "dmon": "Flight keeps Echo out of saber range; Sticky Bombs land over the frontal barrier",
+    "reinhardt": "Sticky Bombs and Focusing Beam come from the air, above Barrier Field",
+    "doomfist": "Flight keeps Echo out of his punches",
+    "venture": "Flight keeps Echo out of her reach",
+    "pharah": "Echo fights Pharah in the air and Focusing Beam bursts her",
+    "hanzo": "Echo flies above Hanzo with Sticky Bombs and Focusing Beam",
+    "junkrat": "Echo flies over Junkrat, who cannot hit air targets well (esports.gg)",
+    "reaper": "Echo stays above Reaper's shotgun range (esports.gg)",
+    "sigma": "Echo flies above Experimental Barrier and Sticky Bombs land behind it",
+    "widowmaker": "Flight reaches Widowmaker's perch and Focusing Beam bursts her",
+    "hazard": "Echo flies above Hazard and bursts him after Spike Guard (Mobalytics)",
+    "kiriko": "Echo flies above Kiriko and Sticky Bombs burst her (esports.gg)",
+    "sombra": "Flight follows the Translocator line so Echo can shoot Sombra as she reappears (Mobalytics names Echo)",
+    "brigitte": "Echo flies above Brigitte's melee kit"
+   },
+   "weak_vs": {
+    "shion": "Hitscan Kira Pistols and Execution hit Echo in the air",
+    "ashe": "Hitscan Viper shots punish Echo in the air",
+    "soldier76": "Hitscan punishes Echo in the air",
+    "moira": "Biotic Grasp needs no aim against a flying Echo",
+    "illari": "Solar Rifle charged shots punish Echo in the air",
+    "baptiste": "Biotic Launcher burst and hitscan punish Echo in the air",
+    "cassidy": "Hitscan Peacekeeper punishes Echo in the air",
+    "juno": "Pulsar Torpedoes lock onto Echo in the air"
+   }
+  },
+  "emre": {
+   "strong_vs": {
+    "pharah": "Emre burst rifle and Take Aim hit her in the air",
+    "jetpackcat": "Take Aim tightens burst-rifle accuracy at range, hitting a flying Cat ([2026-11-03] Cat health 225->200)",
+    "junkrat": "Emre zooms with Take Aim and out-ranges Frag Launcher spam",
+    "zenyatta": "Siphon Blaster lifesteal and burst rifle out-trade an immobile Zenyatta",
+    "baptiste": "Take Aim burst rifle out-ranges Baptiste and Siphon Blaster sustains through his burst"
+   },
+   "weak_vs": {
+    "dva": "Defense Matrix deletes Cyber Frag and Siphon Blaster explosive rounds",
+    "zarya": "Bubbles absorb Cyber Frag and Siphon Blaster burst",
+    "widowmaker": "Widowmaker out-ranges his burst rifle and Cyber Frag (Mobalytics)",
+    "anran": "Emre has no CC or strong escape; Inferno Rush and fans win the close-range fight (Mobalytics)",
+    "sombra": "Translocator stealth closes to the close range Emre is weak at; Weaken ([2026-11-03] 40%, was 50%) cuts Siphon Blaster lifesteal"
+   }
+  },
+  "freja": {
+   "strong_vs": {
+    "reinhardt": "Updraft lets Take Aim bolts come down over Barrier Field",
+    "pharah": "Take Aim explosive bolts and Updraft fight her in the air",
+    "sierra": "Take Aim bolt bursts Sierra after she commits Anchor Drone and has no escape",
+    "mauga": "Freja bursts from range Mauga cannot match and Updraft keeps her off his Overrun path",
+    "brigitte": "Freja plays outside Whip Shot range and Take Aim bolts arc over Barrier Shield from Updraft",
+    "dmon": "Freja stays out of saber range and fires Take Aim bolts from above over Power Barrier"
+   },
+   "weak_vs": {
+    "dva": "Defense Matrix eats Take Aim explosive bolts and Bola Shot projectiles",
+    "sigma": "Kinetic Grasp absorbs Take Aim bolts and Bola Shot",
+    "genji": "Deflect reflects Take Aim bolts; Genji chases her after Updraft",
+    "widowmaker": "Widowmaker shoots Freja during Updraft (Mobalytics)",
+    "ashe": "Ashe hitscan shots her during Updraft and Take Aim float (Mobalytics: out-snipe her)",
+    "moira": "Biotic Grasp needs no aim against a Freja dashing around; Fade avoids Bola Shot",
+    "soldier76": "Hitscan punishes Freja during Updraft and Take Aim slow-fall",
+    "cassidy": "Peacekeeper hitscan hits Freja during Take Aim slow-fall; Flashbang hinder blocks Quick Dash",
+    "lucio": "Speed and wall-ride chase her down at close range (Mobalytics names Lúcio)",
+    "doomfist": "Rocket Punch chases Freja at close range (Mobalytics names Doomfist)"
+   }
+  },
+  "genji": {
+   "strong_vs": {
+    "lifeweaver": "Swift Strike reaches Lifeweaver and Deflect turns his projectiles back ([2026-10-06] Swift Strike 50->60)",
+    "bastion": "Deflect reflects Assault configuration fire back at Bastion",
+    "doctrine": "Genji dives Doctrine after Shrouded Momentum and Deflect returns Infused blasts",
+    "kiriko": "Swift Strike and Dash reach Kiriko; Deflect returns her kunai",
+    "sierra": "Deflect reflects Helix Rifle fire and Swift Strike reaches her when Anchor Drone is down",
+    "mizuki": "Genji kites Mizuki outside his close-range kit and Deflect returns his projectiles",
+    "freja": "Deflect reflects Take Aim bolts; Genji chases her after Updraft",
+    "sojourn": "Deflect reflects the Railgun shot and Swift Strike reaches her",
+    "baptiste": "Deflect returns Bap grenades and Genji dives him",
+    "ashe": "Deflect returns Viper shots and Dynamite; Swift Strike reaches her high ground",
+    "hanzo": "Deflect returns Storm Arrows and charged arrows to Hanzo",
+    "soldier76": "Deflect returns Heavy Pulse Rifle fire and Helix Rockets",
+    "zenyatta": "Genji dives an immobile Zenyatta",
+    "illari": "Deflect returns Solar Rifle shots and Swift Strike reaches Illari",
+    "wuyang": "Deflect returns Wuyang's orb and Swift Strike reaches him"
+   },
+   "weak_vs": {
+    "domina": "Photon Magnum beam cannot be reflected by Deflect; Barrier Array blocks Shuriken spam",
+    "winston": "Tesla Cannon is a beam and cannot be Deflected",
+    "wreckingball": "Ball's knockbacks and Adaptive Shield break Genji duels",
+    "hazard": "Spike Guard blocks Shuriken and Jagged Wall cuts off his escape",
+    "zarya": "Particle Cannon beam cannot be Deflected",
+    "moira": "Biotic Grasp beam cannot be Deflected and needs no aim",
+    "anran": "Fire burn keeps ticking through Deflect and fans out-trade him at close range",
+    "mei": "Endothermic Blaster beam cannot be Deflected",
+    "symmetra": "Turrets slow him and her beam cannot be Deflected",
+    "brigitte": "Barrier Shield blocks Shuriken and Shield Bash stuns Genji"
+   }
+  },
+  "hanzo": {
+   "strong_vs": {
+    "tracer": "Storm Arrows burst her from close range",
+    "bastion": "Storm Arrows burst a slow-moving Bastion from range",
+    "mizuki": "Hanzo out-ranges Mizuki's close-to-medium kit",
+    "cassidy": "Charged arrow headshots out-range Cassidy's Peacekeeper",
+    "sombra": "Sonic Arrow reveals stealthed Sombra (esports.gg names Hanzo)"
+   },
+   "weak_vs": {
+    "dva": "Defense Matrix eats Storm Arrows and charged arrows; Boosters reach him on high ground",
+    "doomfist": "Rocket Punch reaches Hanzo, who needs time to aim",
+    "sigma": "Kinetic Grasp absorbs arrows and Experimental Barrier blocks his sightlines",
+    "zarya": "Bubbles absorb Hanzo's burst and Zarya gains charge",
+    "genji": "Deflect returns Storm Arrows and charged arrows to Hanzo",
+    "winston": "Jump Pack reaches Hanzo and Tesla Cannon needs no aim",
+    "echo": "Echo flies above Hanzo with Sticky Bombs and Focusing Beam"
+   }
+  },
+  "hazard": {
+   "strong_vs": {
+    "genji": "Spike Guard blocks Shuriken and Jagged Wall cuts off his escape",
+    "widowmaker": "Vault climbs to her perch and Jagged Wall traps her there",
+    "mercy": "Violent Leap and Jagged Wall isolate a low-damage support",
+    "tracer": "Downpour immobilises her and Jagged Wall cuts off Blink paths",
+    "lucio": "Downpour immobilises Lúcio and Jagged Wall cuts his wall-ride",
+    "jetpackcat": "Downpour immobilises a flying Cat and Jagged Wall cuts off her approach"
+   },
+   "weak_vs": {
+    "domina": "Hazard must be in melee range; Repulsors pushes him back out and the beam out-ranges Bonespur",
+    "reinhardt": "Barrier Field blocks Bonespur, and Hazard must enter hammer range to fight",
+    "mauga": "Chainguns and armour shred Hazard and outlast Spike Guard",
+    "sigma": "Accretion stuns him out of Violent Leap and Experimental Barrier blocks Downpour from above",
+    "orisa": "Energy Javelin stuns him out of leap and Fortify blunts his burst",
+    "zenyatta": "Discord Orb amplifies damage on Hazard from range he cannot reach",
+    "ana": "Sleep Dart and Biotic Grenade on a Hazard who must commit into melee",
+    "sombra": "Cyberspace Weaken ([2026-11-03] 40%, was 50%) cuts his damage during Spike Guard; EMP stops his leap",
+    "ramattra": "Ravenous Vortex slows Hazard and Nemesis out-brawls Spike Guard",
+    "echo": "Echo flies above Hazard and bursts him after Spike Guard (Mobalytics)",
+    "mizuki": "Binding Chain hinders Hazard's Violent Leap"
+   }
+  },
+  "illari": {
+   "strong_vs": {
+    "pharah": "Illari Solar Rifle charged shots punish Pharah ([2026-11-03] charge time 0.65->0.575 s)",
+    "bastion": "Solar Rifle charged shot out-ranges Bastion and Healing Pylon sustains through his damage",
+    "echo": "Solar Rifle charged shots punish Echo in the air",
+    "baptiste": "Solar Rifle charged shots out-range Baptiste",
+    "jetpackcat": "Solar Rifle charged shots punish a flying Cat (Mobalytics lists Illari)",
+    "torbjorn": "Solar Rifle charged shots out-range Torbjörn and his turret"
+   },
+   "weak_vs": {
+    "anran": "Inferno Rush reaches Illari and burn keeps ticking after she escapes; Dancing Blaze dodges Solar Rifle charged shot",
+    "moira": "Fade dodges Illari charged shots and Biotic Grasp chips her",
+    "dva": "Defense Matrix eats Solar Rifle shots and Boosters dive Illari (esports.gg)",
+    "genji": "Deflect returns Solar Rifle shots and Swift Strike reaches Illari",
+    "sombra": "Translocator stealth dives Illari and Weaken ([2026-11-03] 40%, was 50%) cuts her healing",
+    "kiriko": "Protection Suzu cleanses Captive Sun damage (esports.gg names Kiriko)"
+   }
+  },
+  "jetpackcat": {
+   "strong_vs": {
+    "dmon": "Permanent flight keeps Jetpack Cat out of saber range while Pawjectiles chip; Catnapper tethers her off her team",
+    "reinhardt": "Flight goes over Barrier Field; Catnapper tethers a Rein who cannot reach the air",
+    "pharah": "Permanent flight lets Jetpack Cat contest her in the air",
+    "mei": "Permanent flight keeps Jetpack Cat above Ice Wall and out of beam range",
+    "mizuki": "Permanent flight keeps Jetpack Cat out of Mizuki's close range kit",
+    "wuyang": "Permanent flight lets Cat dodge Wuyang's orb and Catnapper tethers him",
+    "zenyatta": "Permanent flight lets Cat flank an immobile Zenyatta"
+   },
+   "weak_vs": {
+    "dva": "Boosters keep up with flight and Defense Matrix blocks Pawjectiles (Mobalytics lists D.Va as a Cat counter-swap)",
+    "emre": "Take Aim tightens burst-rifle accuracy at range, hitting a flying Cat ([2026-11-03] Cat health 225->200)",
+    "ashe": "Hitscan Viper shots hit a flying Cat; Mobalytics lists Ashe as a Cat counter-swap",
+    "soldier76": "Hitscan Heavy Pulse Rifle punishes a flying Cat; Mobalytics lists hitscan as her weakness",
+    "illari": "Solar Rifle charged shots punish a flying Cat (Mobalytics lists Illari)",
+    "juno": "Pulsar Torpedoes lock onto a flying Cat",
+    "hazard": "Downpour immobilises a flying Cat and Jagged Wall cuts off her approach",
+    "sombra": "Translocator stealth reaches Cat and Weaken ([2026-11-03] 40%, was 50%) cuts her healing (esports.gg)",
+    "winston": "Tesla Cannon needs no aim against a flying Cat",
+    "cassidy": "Hitscan Peacekeeper punishes a flying Cat ([2026-10-06] Deadeye can no longer ride Cat Lifeline)"
+   }
+  },
+  "junkerqueen": {
+   "strong_vs": {
+    "winston": "Jagged Blade pull and Rampage anti-heal punish a Winston jump; her shotgun outdamages Tesla Cannon up close ([2026-11-03] JQ health 375->425, Carnage cd 9->7)",
+    "wreckingball": "Jagged Blade pulls Ball back into her shotgun range and Rampage anti-heal stops his health-pack and support healing",
+    "doomfist": "Doomfist must commit into melee; Carnage, Shotgun and Rampage anti-heal punish every dive",
+    "zenyatta": "Commanding Shout rushes Zenyatta and Jagged Blade pulls him in (esports.gg)"
+   },
+   "weak_vs": {
+    "sombra": "[2026-10-06] Cyberspace Weaken ([2026-11-03] 40%, was 50%) cuts her damage and the healing she gets from Wounds; EMP hacks Rampage/Carnage",
+    "sierra": "Tracking Shot locks Helix Rifle onto a big brawl tank; Anchor Drone grapple keeps Sierra out of Carnage range",
+    "moira": "Fade escapes Jagged Blade pull and Carnage, while the auto-locking beam chips her constantly",
+    "mei": "Ice Wall cuts off her Commanding Shout rush and Cryo-Freeze negates Wounds/Rampage",
+    "junkrat": "Spam splash and mines punish her rush path and Trap stops the engage",
+    "ana": "Biotic Grenade stops the self-healing from Wounds, her main sustain",
+    "kiriko": "Protection Suzu cleanses Wounds and Rampage anti-heal off allies"
+   }
+  },
+  "junkrat": {
+   "strong_vs": {
+    "domina": "Grenade and mine splash breaks several Barrier Array panels at once",
+    "junkerqueen": "Spam splash and mines punish her rush path and Trap stops the engage",
+    "tracer": "Steel Trap and Concussion Mine catch her blink paths",
+    "vendetta": "Steel Trap and Concussion Mine stop Vendetta",
+    "shion": "Steel Trap and Concussion Mine stop Joyride paths; spam punishes her short effective range (esports.gg names Junkrat)",
+    "torbjorn": "Frag Launcher bank shots kill the turret from out of its sight line (esports.gg names Junkrat)",
+    "brigitte": "Frag Launcher splash breaks Barrier Shield and Brigitte cannot reach him (esports.gg)",
+    "anran": "Steel Trap and Concussion Mine stop Anran on Inferno Rush",
+    "reinhardt": "Frag Launcher splash breaks Barrier Field (esports.gg names Junkrat)",
+    "mizuki": "Frag Launcher spam punishes Mizuki from outside his range (esports.gg)"
+   },
+   "weak_vs": {
+    "dva": "Defense Matrix eats Frag Launcher grenades and Concussion Mines",
+    "widowmaker": "Widowmaker kills Junkrat from beyond his spam range",
+    "pharah": "Pharah splashes Junkrat from above; Junkrat cannot hit air targets well",
+    "emre": "Emre zooms with Take Aim and out-ranges Frag Launcher spam",
+    "ashe": "Ashe out-ranges Frag Launcher and Dynamite counters his spam",
+    "echo": "Echo flies over Junkrat, who cannot hit air targets well (esports.gg)",
+    "lifeweaver": "Petal Platform lifts allies out of Junkrat spam and RIP-Tire paths"
+   }
+  },
+  "juno": {
+   "strong_vs": {
+    "reinhardt": "Pulsar Torpedoes lock on over Barrier Field; Juno stays airborne out of hammer range",
+    "pharah": "Pulsar Torpedoes lock onto Pharah",
+    "mei": "Pulsar Torpedoes lock on over Ice Wall; Juno hovers out of beam range",
+    "echo": "Pulsar Torpedoes lock onto Echo in the air",
+    "jetpackcat": "Pulsar Torpedoes lock onto a flying Cat",
+    "torbjorn": "Pulsar Torpedoes lock on over cover and Juno hovers above the turret",
+    "wuyang": "Pulsar Torpedoes lock onto Wuyang and Juno outheals him"
+   },
+   "weak_vs": {
+    "tracer": "Tracer dives Juno, who has no self-heal (Mobalytics)",
+    "shion": "Joyride reaches Juno and hitscan bursts her; Juno has no self-heal",
+    "ashe": "Hitscan punishes Juno during Glide Boost and hover",
+    "soldier76": "Hitscan punishes Juno during Glide Boost",
+    "reaper": "Shotguns burst Juno, who has no self-heal",
+    "sombra": "Translocator stealth dives Juno, who has no self-heal; Weaken ([2026-11-03] 40%, was 50%) cuts her healing",
+    "winston": "Jump Pack reaches Juno, who has no self-heal",
+    "widowmaker": "Widowmaker headshots Juno during Glide Boost"
+   }
+  },
+  "kiriko": {
+   "strong_vs": {
+    "junkerqueen": "Protection Suzu cleanses Wounds and Rampage anti-heal off allies",
+    "mauga": "Protection Suzu cleanses burn and makes allies invulnerable through Cage Fight",
+    "anran": "Protection Suzu cleanses her Ignition burn and gives invulnerability through Vermillion Ascent",
+    "mei": "Protection Suzu makes allies invulnerable through Blizzard freeze (esports.gg)",
+    "sombra": "Protection Suzu cleanses EMP hack effects and Swift Step escapes",
+    "doctrine": "Protection Suzu cleanses the Deliverance max-health debuff (esports.gg names Kiriko)",
+    "ana": "Protection Suzu cleanses Biotic Grenade anti-heal and Sleep Dart off allies (esports.gg names Kiriko)",
+    "roadhog": "Protection Suzu makes a hooked ally invulnerable during the follow-up",
+    "widowmaker": "Swift Step teleports to a picked ally and Suzu saves the target",
+    "zenyatta": "Protection Suzu cleanses Orb of Discord",
+    "illari": "Protection Suzu cleanses Captive Sun damage (esports.gg names Kiriko)"
+   },
+   "weak_vs": {
+    "genji": "Swift Strike and Dash reach Kiriko; Deflect returns her kunai",
+    "venture": "Burrow surfaces on Kiriko for burst",
+    "pharah": "Pharah splashes Kiriko from above",
+    "vendetta": "Soaring Slice reaches Kiriko",
+    "echo": "Echo flies above Kiriko and Sticky Bombs burst her (esports.gg)"
+   }
+  },
+  "lifeweaver": {
+   "strong_vs": {
+    "ashe": "Life Grip rescues a teammate before Ashe finishes the follow-up headshot; Petal Platform contests her high ground",
+    "junkrat": "Petal Platform lifts allies out of Junkrat spam and RIP-Tire paths",
+    "widowmaker": "Life Grip pulls allies out of Widowmaker sightlines",
+    "torbjorn": "Life Grip pulls allies out of turret range"
+   },
+   "weak_vs": {
+    "dmon": "Propulsors reach Lifeweaver, who has no burst to fight back at saber range",
+    "dva": "Boosters reach Lifeweaver, and Matrix eats his Healing Blossom/Thorn Volley projectiles",
+    "winston": "Jump Pack lands on Lifeweaver, who has little burst to fight back",
+    "wreckingball": "Ball reaches and displaces Lifeweaver, who cannot burst him",
+    "doomfist": "Rocket Punch reaches and kills a Lifeweaver with little burst",
+    "genji": "Swift Strike reaches Lifeweaver and Deflect turns his projectiles back ([2026-10-06] Swift Strike 50->60)",
+    "tracer": "Tracer blinks onto Lifeweaver, who cannot burst her",
+    "vendetta": "Soaring Slice reaches Lifeweaver, who cannot burst her",
+    "anran": "Inferno Rush reaches Lifeweaver, who has no burst to kill her and whose Life Grip does not cleanse burn",
+    "sombra": "Translocator stealth reaches Lifeweaver and Weaken ([2026-11-03] 40%, was 50%) cuts his healing",
+    "pharah": "Pharah splashes Lifeweaver from above (esports.gg)"
+   }
+  },
+  "lucio": {
+   "strong_vs": {
+    "dva": "Soundwave boops D.Va off high ground and out of position; wall-ride speed dodges Fusion Cannon range",
+    "roadhog": "Soundwave boops hooked allies away and speed boost dodges the hook",
+    "widowmaker": "Lúcio reaches Widowmaker and boops her off her perch",
+    "freja": "Speed and wall-ride chase her down at close range (Mobalytics names Lúcio)",
+    "sombra": "Speed and wall-ride chase the Translocator line (Mobalytics)",
+    "doctrine": "Soundwave boops Doctrine out of drone range and speed breaks his line of sight",
+    "zenyatta": "Lúcio wall-rides into Zenyatta and Soundwave boops him off his position",
+    "mauga": "Soundwave boops Mauga out of Cage Fight range and Sound Barrier absorbs it",
+    "sigma": "Speed boost brawls past Experimental Barrier and Soundwave boops him",
+    "mizuki": "Soundwave boops Mizuki and speed outruns Binding Chain"
+   },
+   "weak_vs": {
+    "hazard": "Downpour immobilises Lúcio and Jagged Wall cuts his wall-ride",
+    "ramattra": "Ravenous Vortex grounds Lúcio off walls and slows him",
+    "pharah": "Pharah splashes Lúcio from above",
+    "venture": "Burrow surfaces under Lúcio and Drill Dash pins him at close range",
+    "winston": "Tesla Cannon needs no aim against a wall-riding Lúcio",
+    "vendetta": "Soaring Slice follows Lúcio and Vendetta wins at close range"
+   }
+  },
+  "mauga": {
+   "strong_vs": {
+    "dmon": "Incendiary Chainguns burn ([2026-11-03] burn DoT 15->20) and Cardiac Overdrive lifesteal out-sustain D.Mon in the close range her Plasma Saber needs",
+    "winston": "Chainguns crit-chain a big hitbox that Tesla Cannon cannot outduel, and Overrun stomps him off Jump Pack landings",
+    "wreckingball": "Chainguns crit and burn melt Adaptive Shield; Ball cannot outheal sustained fire (largest counter rating on counterwatch.gg, +21.4)",
+    "doomfist": "Chainguns and armour out-sustain Doomfist burst; he cannot CC through Overrun",
+    "hazard": "Chainguns and armour shred Hazard and outlast Spike Guard",
+    "ramattra": "Chainguns outlast Nemesis Block and burn bypasses his sustain",
+    "mercy": "Sustained chaingun fire out-damages Mercy healing"
+   },
+   "weak_vs": {
+    "symmetra": "Photon Projector ramps on his huge hitbox; he has no barrier to stop it",
+    "sierra": "Tracking Shot locks Helix Rifle onto a big target from range Mauga cannot match",
+    "sombra": "[2026-10-06] Cyberspace Weaken ([2026-11-03] 40%, was 50%) cuts his damage and Cardiac Overdrive lifesteal",
+    "sojourn": "Railgun charged shots on a large crit box",
+    "sigma": "Kinetic Grasp absorbs Chaingun fire and turns it into shields",
+    "kiriko": "Protection Suzu cleanses burn and makes allies invulnerable through Cage Fight",
+    "ana": "Biotic Grenade shuts off Cardiac Overdrive lifesteal",
+    "zenyatta": "Discord Orb on a big tank with no barrier",
+    "freja": "Freja bursts from range Mauga cannot match and Updraft keeps her off his Overrun path",
+    "torbjorn": "Turret and Overload armour (armour reduces Chaingun damage per bullet) out-trade Mauga",
+    "mei": "Ice Wall splits Mauga from his team and Endothermic Blaster slows his Overrun",
+    "lucio": "Soundwave boops Mauga out of Cage Fight range and Sound Barrier absorbs it"
+   }
+  },
+  "mei": {
+   "strong_vs": {
+    "dva": "Endothermic Blaster is a beam, so Defense Matrix does nothing to it",
+    "junkerqueen": "Ice Wall cuts off her Commanding Shout rush and Cryo-Freeze negates Wounds/Rampage",
+    "doomfist": "Ice Wall cuts off his Rocket Punch path and Cryo-Freeze negates his burst",
+    "genji": "Endothermic Blaster beam cannot be Deflected",
+    "venture": "Ice Wall and Cryo-Freeze block her Burrow engage",
+    "roadhog": "Ice Wall blocks Chain Hook and Cryo-Freeze negates his burst",
+    "mauga": "Ice Wall splits Mauga from his team and Endothermic Blaster slows his Overrun",
+    "sigma": "Ice Wall blocks Accretion and Endothermic Blaster beam cannot be absorbed by Kinetic Grasp",
+    "domina": "Endothermic Blaster beam cannot be blocked by Barrier Array"
+   },
+   "weak_vs": {
+    "pharah": "Pharah stays above Mei",
+    "jetpackcat": "Permanent flight keeps Jetpack Cat above Ice Wall and out of beam range",
+    "juno": "Pulsar Torpedoes lock on over Ice Wall; Juno hovers out of beam range",
+    "wuyang": "Xuanwu Staff orb steers around Ice Wall to hit Mei",
+    "orisa": "Fortify ignores Endothermic Blaster slow and Orisa out-ranges Mei (esports.gg)",
+    "kiriko": "Protection Suzu makes allies invulnerable through Blizzard freeze (esports.gg)"
+   }
+  },
+  "mercy": {
+   "strong_vs": {},
+   "weak_vs": {
+    "dmon": "Propulsors and Surging Strike reach low-damage backliners; Limit Break makes the pocketed target take increased damage",
+    "dva": "Boosters dive the backline and Fusion Cannons burst low-mobility healers",
+    "wreckingball": "Grappling Claw and Piledriver reach and displace Mercy; she has no damage to fight back ([2026-11-05] faster grapple retract)",
+    "hazard": "Violent Leap and Jagged Wall isolate a low-damage support",
+    "roadhog": "Chain Hook pulls Mercy out of Guardian Angel range",
+    "mauga": "Sustained chaingun fire out-damages Mercy healing",
+    "tracer": "Tracer chases Mercy",
+    "vendetta": "Soaring Slice reaches Mercy",
+    "reaper": "Shotguns burst a low-damage Mercy at close range",
+    "sombra": "Translocator stealth reaches Mercy and Weaken ([2026-11-03] 40%, was 50%) cuts her healing (esports.gg)"
+   }
+  },
+  "mizuki": {
+   "strong_vs": {
+    "tracer": "Binding Chain hinders Tracer, preventing Blink (Mobalytics: like Flashbang and Whip Shot in one)",
+    "hazard": "Binding Chain hinders Hazard's Violent Leap",
+    "dva": "Binding Chain hinders D.Va's Boosters",
+    "doomfist": "Binding Chain hinders Doomfist's Rocket Punch"
+   },
+   "weak_vs": {
+    "genji": "Genji kites Mizuki outside his close-range kit and Deflect returns his projectiles",
+    "pharah": "Pharah stays out of his close-to-medium range kit",
+    "hanzo": "Hanzo out-ranges Mizuki's close-to-medium kit",
+    "jetpackcat": "Permanent flight keeps Jetpack Cat out of Mizuki's close range kit",
+    "lucio": "Soundwave boops Mizuki and speed outruns Binding Chain",
+    "junkrat": "Frag Launcher spam punishes Mizuki from outside his range (esports.gg)"
+   }
+  },
+  "moira": {
+   "strong_vs": {
+    "junkerqueen": "Fade escapes Jagged Blade pull and Carnage, while the auto-locking beam chips her constantly",
+    "genji": "Biotic Grasp beam cannot be Deflected and needs no aim",
+    "tracer": "Biotic Grasp needs no aim against a fast flanker",
+    "sierra": "Biotic Grasp needs no aim, so Sierra grappling between angles on Anchor Drone keeps taking damage; Fade dodges Tremor Charge",
+    "freja": "Biotic Grasp needs no aim against a Freja dashing around; Fade avoids Bola Shot",
+    "echo": "Biotic Grasp needs no aim against a flying Echo",
+    "sombra": "Biotic Grasp needs no aim against a stealthed or teleporting Sombra (esports.gg)",
+    "anran": "Biotic Grasp needs no aim against a fast-moving Anran",
+    "illari": "Fade dodges Illari charged shots and Biotic Grasp chips her",
+    "dva": "Biotic Grasp beam ignores Defense Matrix"
+   },
+   "weak_vs": {
+    "roadhog": "Chain Hook catches Moira when Fade is down; Trash Compactor does not need aim",
+    "reaper": "Shotguns burst Moira at close range where she has to be for her beam",
+    "brigitte": "Barrier Shield blocks Biotic Orb and Brigitte wins melee range"
+   }
+  },
+  "orisa": {
+   "strong_vs": {
+    "hazard": "Energy Javelin stuns him out of leap and Fortify blunts his burst",
+    "doomfist": "Energy Javelin stuns Doomfist out of his punch and Fortify ignores his knockbacks",
+    "winston": "Energy Javelin knocks him out of a jump; Fortify outlasts Tesla Cannon",
+    "widowmaker": "Javelin Spin and Fortify let Orisa walk into Widow's sightline and pressure with her gun",
+    "dmon": "Fortify ignores Surging Strike knockback and Energy Javelin interrupts her engage",
+    "roadhog": "Fortify ignores Chain Hook pull and stun",
+    "mei": "Fortify ignores Endothermic Blaster slow and Orisa out-ranges Mei (esports.gg)"
+   },
+   "weak_vs": {
+    "symmetra": "Photon Projector ramps on her big hitbox and Fortify does not stop the beam",
+    "torbjorn": "Turret and Overload armour out-trade her from angles Fortify cannot cover",
+    "zenyatta": "Orb of Discord counters Fortify damage reduction by amplifying all damage on her",
+    "bastion": "Assault configuration out-damages Fortify and her armour"
+   }
+  },
+  "pharah": {
+   "strong_vs": {
+    "dmon": "Flies above Plasma Saber reach and splashes over a frontal Power Barrier; D.Mon has no vertical answer besides the Repeater",
+    "reinhardt": "Flies above Barrier Field and splashes behind it; Rein has no ranged answer except Fire Strike",
+    "doomfist": "Doomfist has no way to reach a flying Pharah",
+    "ramattra": "Flies out of Nemesis punch range",
+    "venture": "Venture cannot reach Pharah in the air",
+    "brigitte": "Brigitte cannot reach Pharah in the air",
+    "vendetta": "Vendetta cannot reach Pharah in the air",
+    "junkrat": "Pharah splashes Junkrat from above; Junkrat cannot hit air targets well",
+    "mizuki": "Pharah stays out of his close-to-medium range kit",
+    "mei": "Pharah stays above Mei",
+    "torbjorn": "Pharah splashes turrets and Torbjörn from above",
+    "lucio": "Pharah splashes Lúcio from above",
+    "kiriko": "Pharah splashes Kiriko from above",
+    "symmetra": "Symmetra beam and turrets struggle against an air target (esports.gg names Pharah)",
+    "reaper": "Pharah flies above Reaper's shotgun range (esports.gg)",
+    "lifeweaver": "Pharah splashes Lifeweaver from above (esports.gg)"
+   },
+   "weak_vs": {
+    "dva": "Defense Matrix eats rockets and Barrage; Boosters chase her in the air",
+    "widowmaker": "Widowmaker headshots Pharah from range",
+    "juno": "Pulsar Torpedoes lock onto Pharah",
+    "echo": "Echo fights Pharah in the air and Focusing Beam bursts her",
+    "ashe": "Ashe hitscan shots kill Pharah from range",
+    "baptiste": "Baptiste hitscan burst and Exo Boots fight her in the air",
+    "jetpackcat": "Permanent flight lets Jetpack Cat contest her in the air",
+    "cassidy": "Cassidy hitscan punishes her in the air",
+    "soldier76": "Soldier hitscan punishes her in the air",
+    "emre": "Emre burst rifle and Take Aim hit her in the air",
+    "freja": "Take Aim explosive bolts and Updraft fight her in the air",
+    "illari": "Illari Solar Rifle charged shots punish Pharah ([2026-11-03] charge time 0.65->0.575 s)",
+    "sierra": "Tracking Shot locks her rifle onto Pharah"
+   }
+  },
+  "ramattra": {
+   "strong_vs": {
+    "dmon": "Nemesis Form punches pierce Power Barrier and Block out-trades her melee saber at the same range",
+    "reinhardt": "Nemesis Form punches pierce Barrier Field",
+    "sigma": "Nemesis Form punches pierce Experimental Barrier",
+    "winston": "Ravenous Vortex pulls Winston out of Jump Pack and Nemesis punches pierce his Barrier Projector",
+    "brigitte": "Nemesis Form punches pierce Barrier Shield",
+    "dva": "Ravenous Vortex pulls D.Va out of flight; Nemesis punches cannot be Matrixed",
+    "lucio": "Ravenous Vortex grounds Lúcio off walls and slows him",
+    "hazard": "Ravenous Vortex slows Hazard and Nemesis out-brawls Spike Guard"
+   },
+   "weak_vs": {
+    "zenyatta": "Orb of Discord from range; Zen stays outside Nemesis reach",
+    "doctrine": "Deliverance lowers his max health so Nemesis armour cannot carry him through fights",
+    "pharah": "Flies out of Nemesis punch range",
+    "mauga": "Chainguns outlast Nemesis Block and burn bypasses his sustain",
+    "ashe": "Ashe out-ranges Omnic Form poke and dodges Nemesis with Coach Gun",
+    "ana": "Biotic Grenade stops Ramattra's Nemesis sustain (esports.gg names Ana)"
+   }
+  },
+  "reaper": {
+   "strong_vs": {
+    "domina": "Gets inside beam range where her only answer is Sonic Repulsors; shotguns win point-blank",
+    "winston": "Shotguns do full damage against a large target that has to be at close range",
+    "anran": "Shotguns out-damage her at the close range she must fight in; Wraith Form dodges the burn",
+    "mercy": "Shotguns burst a low-damage Mercy at close range",
+    "wreckingball": "Shotguns shred Ball's large hitbox at close range",
+    "moira": "Shotguns burst Moira at close range where she has to be for her beam",
+    "juno": "Shotguns burst Juno, who has no self-heal",
+    "dmon": "Shotguns do full damage against D.Mon at close range",
+    "baptiste": "Shadow Step flanks Baptiste and shotguns burst him (esports.gg)"
+   },
+   "weak_vs": {
+    "shion": "Shion fights from mid range with hitscan pistols, outside Reaper shotgun falloff",
+    "sojourn": "Railgun burst kills Reaper from range before his shotgun applies",
+    "brigitte": "Barrier Shield blocks shotgun pellets and Whip Shot knocks Reaper out of range",
+    "widowmaker": "Widowmaker out-ranges Reaper's shotgun",
+    "pharah": "Pharah flies above Reaper's shotgun range (esports.gg)",
+    "echo": "Echo stays above Reaper's shotgun range (esports.gg)"
+   }
+  },
+  "reinhardt": {
+   "strong_vs": {
+    "dva": "Barrier Field blocks Fusion Cannons; Rocket Hammer melee and Earthshatter cannot be Matrixed",
+    "domina": "Brawl tank: once Rein closes distance, Domina only has Repulsors (Mobalytics weakness: vulnerable to brawl)",
+    "hazard": "Barrier Field blocks Bonespur, and Hazard must enter hammer range to fight",
+    "anran": "Anran fights at fan range, inside Rocket Hammer reach; Barrier Field eats her fire projectiles",
+    "wreckingball": "Barrier Field and hammer swings punish Ball diving the frontline; Earthshatter knocks him down",
+    "doomfist": "Hammer and Earthshatter punish Doomfist landing in melee; Barrier absorbs his poke",
+    "venture": "Hammer swings hit Venture as she surfaces from Burrow at melee range",
+    "zarya": "Barrier Field blocks her beam and hammer swings into bubbles gain her little"
+   },
+   "weak_vs": {
+    "pharah": "Flies above Barrier Field and splashes behind it; Rein has no ranged answer except Fire Strike",
+    "torbjorn": "Turret and Overload damage from multiple angles while Rein can only shield one direction",
+    "baptiste": "Immortality Field denies Charge pins and hammer kill combos; Amplification Matrix doubles damage into his shield",
+    "zenyatta": "Orb of Discord amplifies all damage on Rein, and Zen never has to enter hammer range",
+    "ramattra": "Nemesis Form punches pierce Barrier Field",
+    "jetpackcat": "Flight goes over Barrier Field; Catnapper tethers a Rein who cannot reach the air",
+    "echo": "Sticky Bombs and Focusing Beam come from the air, above Barrier Field",
+    "sombra": "EMP destroys barriers around Sombra and hacks Rein out of abilities ([2026-10-06] EMP is now her only hack)",
+    "juno": "Pulsar Torpedoes lock on over Barrier Field; Juno stays airborne out of hammer range",
+    "freja": "Updraft lets Take Aim bolts come down over Barrier Field",
+    "bastion": "Assault configuration shreds Barrier Field",
+    "junkrat": "Frag Launcher splash breaks Barrier Field (esports.gg names Junkrat)"
+   }
+  },
+  "roadhog": {
+   "strong_vs": {
+    "winston": "[2026-10-06 rework] Chain Hook pulls Winston out of a jump and Scrap Gun burst kills him before Barrier helps",
+    "wreckingball": "Chain Hook pulls Ball out of Roll and the Scrap Gun burst follows",
+    "doomfist": "Chain Hook interrupts Doomfist's approach and Scrap Gun burst follows",
+    "widowmaker": "Chain Hook pulls her off a perch for a kill",
+    "moira": "Chain Hook catches Moira when Fade is down; Trash Compactor does not need aim",
+    "mercy": "Chain Hook pulls Mercy out of Guardian Angel range",
+    "tracer": "Chain Hook pulls Tracer in and Scrap Gun burst punishes her before Recall ([2026-10-06] shorter 0.3 s stun and 4.5 m pull make the combo less reliable)"
+   },
+   "weak_vs": {
+    "baptiste": "Immortality Field and burst heal save hooked allies, removing Roadhog's kill pressure",
+    "doctrine": "Deliverance lowers his maximum health, cutting Take a Breather value ([2026-10-06] Doctrine release)",
+    "lucio": "Soundwave boops hooked allies away and speed boost dodges the hook",
+    "ana": "Biotic Grenade anti-heal shuts off Take a Breather, his only sustain",
+    "zenyatta": "Orb of Discord on a huge hitbox with no damage-mitigation besides Breather",
+    "bastion": "Assault configuration out-damages Take a Breather on a huge hitbox",
+    "ashe": "Ashe out-ranges his short-range Scrap Gun ([2026-10-06] falloff now 20-35 m)",
+    "sojourn": "Railgun charged shots on a large crit box from outside hook range",
+    "orisa": "Fortify ignores Chain Hook pull and stun",
+    "torbjorn": "Overload armour beats Scrap Gun pellets, and Turret punishes him from an angle Trash Compactor does not face",
+    "mei": "Ice Wall blocks Chain Hook and Cryo-Freeze negates his burst",
+    "sombra": "Cyberspace Weaken ([2026-11-03] 40%, was 50%) cuts Roadhog's Take a Breather healing",
+    "kiriko": "Protection Suzu makes a hooked ally invulnerable during the follow-up"
+   }
+  },
+  "shion": {
+   "strong_vs": {
+    "tracer": "Kira Pistols are hitscan with mid-range reach and Evade overhealth wins the duel with Tracer",
+    "reaper": "Shion fights from mid range with hitscan pistols, outside Reaper shotgun falloff",
+    "echo": "Hitscan Kira Pistols and Execution hit Echo in the air",
+    "juno": "Joyride reaches Juno and hitscan bursts her; Juno has no self-heal"
+   },
+   "weak_vs": {
+    "vendetta": "Warding Stance blocks Kira Pistols and Vendetta wins melee",
+    "junkrat": "Steel Trap and Concussion Mine stop Joyride paths; spam punishes her short effective range (esports.gg names Junkrat)",
+    "ana": "Sleep Dart stops Shion mid-Joyride or mid-ult (esports.gg names Ana)",
+    "sombra": "Translocator stealth catches Shion when Joyride is down and Cyberspace Weaken ([2026-11-03] 40%, was 50%) cuts her burst (esports.gg names Sombra)"
+   }
+  },
+  "sierra": {
+   "strong_vs": {
+    "junkerqueen": "Tracking Shot locks Helix Rifle onto a big brawl tank; Anchor Drone grapple keeps Sierra out of Carnage range",
+    "mauga": "Tracking Shot locks Helix Rifle onto a big target from range Mauga cannot match",
+    "zarya": "Tracking Shot locks onto a slow brawl tank from range",
+    "pharah": "Tracking Shot locks her rifle onto Pharah",
+    "bastion": "Tracking Shot auto-tracks a slow Bastion from range and Anchor Drone grapple escapes Assault configuration",
+    "domina": "Tracking Shot keeps hitting Domina while Anchor Drone takes an angle around her frontal Barrier Array"
+   },
+   "weak_vs": {
+    "genji": "Deflect reflects Helix Rifle fire and Swift Strike reaches her when Anchor Drone is down",
+    "moira": "Biotic Grasp needs no aim, so Sierra grappling between angles on Anchor Drone keeps taking damage; Fade dodges Tremor Charge",
+    "winston": "Jump Pack follows her grapple, Tesla Cannon needs no aim, and Barrier Projector blocks the tracked shots",
+    "cassidy": "Hitscan can shoot the fragile Anchor Drone before she grapples, leaving her stranded (Mobalytics: break the drone)",
+    "soldier76": "Hitscan breaks Anchor Drone at range and out-trades her at mid range where her spiral spread is loose",
+    "freja": "Take Aim bolt bursts Sierra after she commits Anchor Drone and has no escape"
+   }
+  },
+  "sigma": {
+   "strong_vs": {
+    "hazard": "Accretion stuns him out of Violent Leap and Experimental Barrier blocks Downpour from above",
+    "hanzo": "Kinetic Grasp absorbs arrows and Experimental Barrier blocks his sightlines",
+    "widowmaker": "Experimental Barrier blocks her sightline and Accretion punishes her peek",
+    "doomfist": "Accretion stuns Doomfist out of his engage and Kinetic Grasp absorbs his projectile poke",
+    "freja": "Kinetic Grasp absorbs Take Aim bolts and Bola Shot",
+    "vendetta": "Accretion stuns Vendetta out of Soaring Slice; she has no answer to projectile CC",
+    "cassidy": "Kinetic Grasp absorbs his shots and Barrier blocks Deadeye",
+    "mauga": "Kinetic Grasp absorbs Chaingun fire and turns it into shields"
+   },
+   "weak_vs": {
+    "symmetra": "Photon Projector charges off Experimental Barrier, gaining full damage from his own shield",
+    "brigitte": "Rocket Flail and Whip Shot are melee, so Kinetic Grasp cannot absorb them",
+    "zarya": "Particle Cannon beam cannot be absorbed by Kinetic Grasp",
+    "ramattra": "Nemesis Form punches pierce Experimental Barrier",
+    "sombra": "EMP destroys Experimental Barrier and hacks him out of Kinetic Grasp",
+    "mei": "Ice Wall blocks Accretion and Endothermic Blaster beam cannot be absorbed by Kinetic Grasp",
+    "echo": "Echo flies above Experimental Barrier and Sticky Bombs land behind it",
+    "doctrine": "Deliverance lowers Sigma max health so Kinetic Grasp shields cover less of the fight",
+    "lucio": "Speed boost brawls past Experimental Barrier and Soundwave boops him"
+   }
+  },
+  "sojourn": {
+   "strong_vs": {
+    "roadhog": "Railgun charged shots on a large crit box from outside hook range",
+    "mauga": "Railgun charged shots on a large crit box",
+    "anran": "Charged Railgun burst kills Anran on approach or right after Dancing Blaze (Mobalytics)",
+    "reaper": "Railgun burst kills Reaper from range before his shotgun applies",
+    "baptiste": "Charged Railgun headshot kills a Baptiste who has used Exo Boots and Regenerative Burst"
+   },
+   "weak_vs": {
+    "winston": "Jump Pack reaches her and Barrier Projector blocks Railgun lines",
+    "genji": "Deflect reflects the Railgun shot and Swift Strike reaches her",
+    "widowmaker": "Widowmaker out-ranges Railgun and denies its charge-up time",
+    "wreckingball": "Ball dives Sojourn, and Railgun charge falls off when she is displaced"
+   }
+  },
+  "soldier76": {
+   "strong_vs": {
+    "zarya": "Out-ranges her beam; Soldier kites while bubbles are down",
+    "pharah": "Soldier hitscan punishes her in the air",
+    "sierra": "Hitscan breaks Anchor Drone at range and out-trades her at mid range where her spiral spread is loose",
+    "freja": "Hitscan punishes Freja during Updraft and Take Aim slow-fall",
+    "jetpackcat": "Hitscan Heavy Pulse Rifle punishes a flying Cat; Mobalytics lists hitscan as her weakness",
+    "juno": "Hitscan punishes Juno during Glide Boost",
+    "echo": "Hitscan punishes Echo in the air"
+   },
+   "weak_vs": {
+    "doomfist": "Rocket Punch reaches Soldier, who has no CC",
+    "vendetta": "Warding Stance blocks his fire and Soaring Slice reaches him",
+    "genji": "Deflect returns Heavy Pulse Rifle fire and Helix Rockets",
+    "anran": "Inferno Rush reaches Soldier and Dancing Blaze dodges his damage"
+   }
+  },
+  "sombra": {
+   "strong_vs": {
+    "reinhardt": "EMP destroys barriers around Sombra and hacks Rein out of abilities ([2026-10-06] EMP is now her only hack)",
+    "junkerqueen": "[2026-10-06] Cyberspace Weaken ([2026-11-03] 40%, was 50%) cuts her damage and the healing she gets from Wounds; EMP hacks Rampage/Carnage",
+    "wreckingball": "[2026-10-06] Only EMP can hack him now (Hack was removed); EMP hacks him out of Roll and abilities and deals damage based on his current health",
+    "hazard": "Cyberspace Weaken ([2026-11-03] 40%, was 50%) cuts his damage during Spike Guard; EMP stops his leap",
+    "sigma": "EMP destroys Experimental Barrier and hacks him out of Kinetic Grasp",
+    "mauga": "[2026-10-06] Cyberspace Weaken ([2026-11-03] 40%, was 50%) cuts his damage and Cardiac Overdrive lifesteal",
+    "zarya": "[2026-10-06] Cyberspace Weaken ([2026-11-03] 40%, was 50%) cuts her Particle Cannon damage",
+    "widowmaker": "Translocator stealth reaches her perch",
+    "shion": "Translocator stealth catches Shion when Joyride is down and Cyberspace Weaken ([2026-11-03] 40%, was 50%) cuts her burst (esports.gg names Sombra)",
+    "emre": "Translocator stealth closes to the close range Emre is weak at; Weaken ([2026-11-03] 40%, was 50%) cuts Siphon Blaster lifesteal",
+    "torbjorn": "[2026-10-06] Hotfix can hack most enemy deployables, shutting off his turret",
+    "bastion": "Translocator flanks Bastion from behind; Weaken ([2026-11-03] 40%, was 50%) cuts his Assault configuration damage",
+    "juno": "Translocator stealth dives Juno, who has no self-heal; Weaken ([2026-11-03] 40%, was 50%) cuts her healing",
+    "doctrine": "Weaken ([2026-11-03] 40%, was 50%) cuts Doctrine healing and damage; EMP hacks him out of Shrouded Momentum (esports.gg)",
+    "lifeweaver": "Translocator stealth reaches Lifeweaver and Weaken ([2026-11-03] 40%, was 50%) cuts his healing",
+    "mercy": "Translocator stealth reaches Mercy and Weaken ([2026-11-03] 40%, was 50%) cuts her healing (esports.gg)",
+    "roadhog": "Cyberspace Weaken ([2026-11-03] 40%, was 50%) cuts Roadhog's Take a Breather healing",
+    "illari": "Translocator stealth dives Illari and Weaken ([2026-11-03] 40%, was 50%) cuts her healing",
+    "jetpackcat": "Translocator stealth reaches Cat and Weaken ([2026-11-03] 40%, was 50%) cuts her healing (esports.gg)"
+   },
+   "weak_vs": {
+    "tracer": "Tracer Blinks onto the Translocator beacon and kills Sombra as she reappears",
+    "venture": "Venture surfaces under Sombra and Translocator escapes cannot outrun Burrow",
+    "baptiste": "Regenerative Burst and Immortality Field undo Sombra burst; hitscan finishes her after Translocator",
+    "kiriko": "Protection Suzu cleanses EMP hack effects and Swift Step escapes",
+    "doomfist": "Rocket Punch chases Sombra after Translocator",
+    "hanzo": "Sonic Arrow reveals stealthed Sombra (esports.gg names Hanzo)",
+    "moira": "Biotic Grasp needs no aim against a stealthed or teleporting Sombra (esports.gg)",
+    "zenyatta": "Snap Kick and Orb of Discord punish Sombra (esports.gg names Zenyatta)",
+    "dva": "Boosters chase the Translocator line and shoot Sombra out of stealth (Mobalytics)",
+    "anran": "Inferno Rush chases the Translocator line (Mobalytics)",
+    "lucio": "Speed and wall-ride chase the Translocator line (Mobalytics)",
+    "winston": "Jump Pack follows the Translocator line and Tesla Cannon needs no aim to reveal a stealthed Sombra (Mobalytics names Winston)",
+    "echo": "Flight follows the Translocator line so Echo can shoot Sombra as she reappears (Mobalytics names Echo)",
+    "brigitte": "Shield Bash and Whip Shot punish Sombra after Translocator"
+   }
+  },
+  "symmetra": {
+   "strong_vs": {
+    "dva": "Photon Projector beam ignores Defense Matrix and ramps on the large mech hitbox",
+    "domina": "Photon Projector gains charge from barriers, so Barrier Array panels feed Symmetra full beam damage",
+    "wreckingball": "Sentry Turrets slow Roll, and Photon Projector ramps on his large hitbox",
+    "orisa": "Photon Projector ramps on her big hitbox and Fortify does not stop the beam",
+    "sigma": "Photon Projector charges off Experimental Barrier, gaining full damage from his own shield",
+    "mauga": "Photon Projector ramps on his huge hitbox; he has no barrier to stop it",
+    "zarya": "Photon Projector charges off Projected Barrier, so Zarya's bubbles feed Symmetra damage",
+    "genji": "Turrets slow him and her beam cannot be Deflected"
+   },
+   "weak_vs": {
+    "widowmaker": "Widowmaker kills Symmetra from beyond turret range",
+    "wuyang": "Xuanwu Staff orb can be steered around corners to clear Sentry Turrets",
+    "ashe": "Ashe out-ranges Symmetra, whose beam reaches only short range",
+    "winston": "Jump Pack and Tesla Cannon clear turret nests and dive Symmetra (esports.gg)",
+    "pharah": "Symmetra beam and turrets struggle against an air target (esports.gg names Pharah)"
+   }
+  },
+  "torbjorn": {
+   "strong_vs": {
+    "dmon": "Turret keeps hitting her from an angle her frontal Power Barrier cannot cover; Overload armour wins the close-range trade",
+    "reinhardt": "Turret and Overload damage from multiple angles while Rein can only shield one direction",
+    "winston": "Turret and Overload armour punish Winston landing on the backline",
+    "orisa": "Turret and Overload armour out-trade her from angles Fortify cannot cover",
+    "tracer": "Turret tracks her and punishes flanks",
+    "roadhog": "Overload armour beats Scrap Gun pellets, and Turret punishes him from an angle Trash Compactor does not face",
+    "mauga": "Turret and Overload armour (armour reduces Chaingun damage per bullet) out-trade Mauga",
+    "wreckingball": "Turret targets Ball automatically and helps break Adaptive Shield"
+   },
+   "weak_vs": {
+    "widowmaker": "Widowmaker kills turrets and Torbjörn from range",
+    "pharah": "Pharah splashes turrets and Torbjörn from above",
+    "junkrat": "Frag Launcher bank shots kill the turret from out of its sight line (esports.gg names Junkrat)",
+    "sombra": "[2026-10-06] Hotfix can hack most enemy deployables, shutting off his turret",
+    "wuyang": "Xuanwu Staff orb can be steered around cover to destroy a hidden turret",
+    "illari": "Solar Rifle charged shots out-range Torbjörn and his turret",
+    "juno": "Pulsar Torpedoes lock on over cover and Juno hovers above the turret",
+    "lifeweaver": "Life Grip pulls allies out of turret range"
+   }
+  },
+  "tracer": {
+   "strong_vs": {
+    "doctrine": "Blink keeps Tracer outside his drone value and she dives him once Shrouded Momentum is on cooldown (Mobalytics)",
+    "lifeweaver": "Tracer blinks onto Lifeweaver, who cannot burst her",
+    "juno": "Tracer dives Juno, who has no self-heal (Mobalytics)",
+    "zenyatta": "Tracer dives an immobile Zenyatta",
+    "mercy": "Tracer chases Mercy",
+    "widowmaker": "Tracer reaches and duels Widowmaker",
+    "bastion": "Tracer flanks Bastion and blinks out of Assault configuration fire",
+    "ana": "Tracer dives an immobile Ana",
+    "sombra": "Tracer Blinks onto the Translocator beacon and kills Sombra as she reappears"
+   },
+   "weak_vs": {
+    "hazard": "Downpour immobilises her and Jagged Wall cuts off Blink paths",
+    "cassidy": "Flashbang hinders Tracer (no Blink or Recall while hindered) and Peacekeeper body shots finish her",
+    "junkrat": "Steel Trap and Concussion Mine catch her blink paths",
+    "hanzo": "Storm Arrows burst her from close range",
+    "roadhog": "Chain Hook pulls Tracer in and Scrap Gun burst punishes her before Recall ([2026-10-06] shorter 0.3 s stun and 4.5 m pull make the combo less reliable)",
+    "torbjorn": "Turret tracks her and punishes flanks",
+    "moira": "Biotic Grasp needs no aim against a fast flanker",
+    "brigitte": "Whip Shot and Shield Bash stop her dive",
+    "shion": "Kira Pistols are hitscan with mid-range reach and Evade overhealth wins the duel with Tracer",
+    "mizuki": "Binding Chain hinders Tracer, preventing Blink (Mobalytics: like Flashbang and Whip Shot in one)"
+   }
+  },
+  "vendetta": {
+   "strong_vs": {
+    "lifeweaver": "Soaring Slice reaches Lifeweaver, who cannot burst her",
+    "kiriko": "Soaring Slice reaches Kiriko",
+    "widowmaker": "Soaring Slice reaches Widowmaker",
+    "doctrine": "Soaring Slice reaches Doctrine once Shrouded Momentum is spent ([2026-11-03] its cooldown 8->10 s)",
+    "mercy": "Soaring Slice reaches Mercy",
+    "soldier76": "Warding Stance blocks his fire and Soaring Slice reaches him",
+    "shion": "Warding Stance blocks Kira Pistols and Vendetta wins melee",
+    "zenyatta": "Soaring Slice reaches an immobile Zenyatta",
+    "lucio": "Soaring Slice follows Lúcio and Vendetta wins at close range"
+   },
+   "weak_vs": {
+    "doomfist": "Rocket Punch displaces her out of combos; a projectile stun/knockback is her weakness",
+    "sigma": "Accretion stuns Vendetta out of Soaring Slice; she has no answer to projectile CC",
+    "pharah": "Vendetta cannot reach Pharah in the air",
+    "cassidy": "Flashbang hinders Vendetta so she cannot Whirlwind Dash or Soaring Slice out (Mobalytics names Flashbang as her counter)",
+    "ana": "Sleep Dart stops Vendetta mid-combo (Mobalytics)",
+    "junkrat": "Steel Trap and Concussion Mine stop Vendetta",
+    "brigitte": "Shield Bash stuns Vendetta mid-combo"
+   }
+  },
+  "venture": {
+   "strong_vs": {
+    "widowmaker": "Burrow reaches Widow and surfaces at melee range",
+    "kiriko": "Burrow surfaces on Kiriko for burst",
+    "anran": "Venture out-trades Anran at close range",
+    "doctrine": "Burrow surfaces on Doctrine after Shrouded Momentum",
+    "sombra": "Venture surfaces under Sombra and Translocator escapes cannot outrun Burrow",
+    "lucio": "Burrow surfaces under Lúcio and Drill Dash pins him at close range",
+    "zenyatta": "Burrow surfaces on an immobile Zenyatta",
+    "baptiste": "Burrow surfaces under Baptiste (esports.gg names Venture)"
+   },
+   "weak_vs": {
+    "reinhardt": "Hammer swings hit Venture as she surfaces from Burrow at melee range",
+    "doomfist": "Rocket Punch and Seismic Slam catch Venture as she surfaces from Burrow at close range",
+    "pharah": "Venture cannot reach Pharah in the air",
+    "mei": "Ice Wall and Cryo-Freeze block her Burrow engage",
+    "echo": "Flight keeps Echo out of her reach"
+   }
+  },
+  "widowmaker": {
+   "strong_vs": {
+    "ashe": "Widowmaker out-ranges Ashe and wins the headshot duel at long range",
+    "symmetra": "Widowmaker kills Symmetra from beyond turret range",
+    "pharah": "Widowmaker headshots Pharah from range",
+    "cassidy": "Widow's Kiss scoped shots out-range Peacekeeper falloff",
+    "junkrat": "Widowmaker kills Junkrat from beyond his spam range",
+    "emre": "Widowmaker out-ranges his burst rifle and Cyber Frag (Mobalytics)",
+    "freja": "Widowmaker shoots Freja during Updraft (Mobalytics)",
+    "torbjorn": "Widowmaker kills turrets and Torbjörn from range",
+    "sojourn": "Widowmaker out-ranges Railgun and denies its charge-up time",
+    "reaper": "Widowmaker out-ranges Reaper's shotgun",
+    "ana": "Widowmaker out-ranges Ana and headshots her through Sleep Dart range (esports.gg)",
+    "juno": "Widowmaker headshots Juno during Glide Boost"
+   },
+   "weak_vs": {
+    "dmon": "Power Barrier blocks the sightline and Propulsors close distance on a scoped Widowmaker",
+    "winston": "Jump Pack reaches her perch and Tesla Cannon needs no aim; she has no answer at melee range",
+    "wreckingball": "Ball reaches her perch quickly and Piledriver knocks her out of scope",
+    "doomfist": "Rocket Punch reaches her perch and knocks her out of scope",
+    "hazard": "Vault climbs to her perch and Jagged Wall traps her there",
+    "orisa": "Javelin Spin and Fortify let Orisa walk into Widow's sightline and pressure with her gun",
+    "sigma": "Experimental Barrier blocks her sightline and Accretion punishes her peek",
+    "roadhog": "Chain Hook pulls her off a perch for a kill",
+    "zarya": "Bubbles protect allies from Widowmaker headshots",
+    "tracer": "Tracer reaches and duels Widowmaker",
+    "venture": "Burrow reaches Widow and surfaces at melee range",
+    "lucio": "Lúcio reaches Widowmaker and boops her off her perch",
+    "sombra": "Translocator stealth reaches her perch",
+    "vendetta": "Soaring Slice reaches Widowmaker",
+    "echo": "Flight reaches Widowmaker's perch and Focusing Beam bursts her",
+    "kiriko": "Swift Step teleports to a picked ally and Suzu saves the target",
+    "lifeweaver": "Life Grip pulls allies out of Widowmaker sightlines"
+   }
+  },
+  "winston": {
+   "strong_vs": {
+    "domina": "Jump Pack lands behind the segmented barrier; she has no mobility to escape dive",
+    "widowmaker": "Jump Pack reaches her perch and Tesla Cannon needs no aim; she has no answer at melee range",
+    "genji": "Tesla Cannon is a beam and cannot be Deflected",
+    "lifeweaver": "Jump Pack lands on Lifeweaver, who has little burst to fight back",
+    "anran": "Tesla Cannon ignores Dancing Blaze dodging timing windows and chases her Inferno Rush; Barrier Projector blocks fans",
+    "doctrine": "Jump Pack lands after Shrouded Momentum is used; Doctrine cannot use abilities while dashing",
+    "zenyatta": "Jump Pack lands on an immobile Zenyatta; Tesla Cannon needs no aim",
+    "ana": "Jump Pack reaches an immobile Ana; Barrier Projector blocks Sleep Dart",
+    "sojourn": "Jump Pack reaches her and Barrier Projector blocks Railgun lines",
+    "sierra": "Jump Pack follows her grapple, Tesla Cannon needs no aim, and Barrier Projector blocks the tracked shots",
+    "symmetra": "Jump Pack and Tesla Cannon clear turret nests and dive Symmetra (esports.gg)",
+    "ashe": "Jump Pack reaches Ashe on high ground and Tesla Cannon ignores her Coach Gun range",
+    "hanzo": "Jump Pack reaches Hanzo and Tesla Cannon needs no aim",
+    "sombra": "Jump Pack follows the Translocator line and Tesla Cannon needs no aim to reveal a stealthed Sombra (Mobalytics names Winston)",
+    "lucio": "Tesla Cannon needs no aim against a wall-riding Lúcio",
+    "juno": "Jump Pack reaches Juno, who has no self-heal",
+    "jetpackcat": "Tesla Cannon needs no aim against a flying Cat",
+    "wuyang": "Jump Pack reaches Wuyang, who has limited escape options (esports.gg)"
+   },
+   "weak_vs": {
+    "junkerqueen": "Jagged Blade pull and Rampage anti-heal punish a Winston jump; her shotgun outdamages Tesla Cannon up close ([2026-11-03] JQ health 375->425, Carnage cd 9->7)",
+    "roadhog": "[2026-10-06 rework] Chain Hook pulls Winston out of a jump and Scrap Gun burst kills him before Barrier helps",
+    "mauga": "Chainguns crit-chain a big hitbox that Tesla Cannon cannot outduel, and Overrun stomps him off Jump Pack landings",
+    "bastion": "Assault configuration melts Barrier Projector and his big hitbox at the range he must dive into",
+    "torbjorn": "Turret and Overload armour punish Winston landing on the backline",
+    "reaper": "Shotguns do full damage against a large target that has to be at close range",
+    "orisa": "Energy Javelin knocks him out of a jump; Fortify outlasts Tesla Cannon",
+    "ramattra": "Ravenous Vortex pulls Winston out of Jump Pack and Nemesis punches pierce his Barrier Projector"
+   }
+  },
+  "wreckingball": {
+   "strong_vs": {
+    "widowmaker": "Ball reaches her perch quickly and Piledriver knocks her out of scope",
+    "genji": "Ball's knockbacks and Adaptive Shield break Genji duels",
+    "mercy": "Grappling Claw and Piledriver reach and displace Mercy; she has no damage to fight back ([2026-11-05] faster grapple retract)",
+    "lifeweaver": "Ball reaches and displaces Lifeweaver, who cannot burst him",
+    "wuyang": "Ball reaches Wuyang, who has limited escape options and hard-to-land orb",
+    "ashe": "Ball reaches her high ground and knocks her out of aim",
+    "sojourn": "Ball dives Sojourn, and Railgun charge falls off when she is displaced"
+   },
+   "weak_vs": {
+    "domina": "Sonic Repulsors knocks Ball back and stuns him on wall impact, and Photon Magnum hits his large hitbox from range",
+    "reinhardt": "Barrier Field and hammer swings punish Ball diving the frontline; Earthshatter knocks him down",
+    "junkerqueen": "Jagged Blade pulls Ball back into her shotgun range and Rampage anti-heal stops his health-pack and support healing",
+    "mauga": "Chainguns crit and burn melt Adaptive Shield; Ball cannot outheal sustained fire (largest counter rating on counterwatch.gg, +21.4)",
+    "symmetra": "Sentry Turrets slow Roll, and Photon Projector ramps on his large hitbox",
+    "roadhog": "Chain Hook pulls Ball out of Roll and the Scrap Gun burst follows",
+    "baptiste": "Immortality Field denies Piledriver kill combos; burst heals reset his dive damage",
+    "sombra": "[2026-10-06] Only EMP can hack him now (Hack was removed); EMP hacks him out of Roll and abilities and deals damage based on his current health",
+    "cassidy": "Flashbang hinders Ball, locking his movement abilities, and Peacekeeper hitscan lands on his large hitbox",
+    "brigitte": "Shield Bash stun and Whip Shot knock him away from the backline; Repair Pack sustains the target",
+    "zarya": "Particle Cannon melts Adaptive Shield and Graviton Surge catches Ball",
+    "torbjorn": "Turret targets Ball automatically and helps break Adaptive Shield",
+    "bastion": "Assault configuration shreds Ball's Adaptive Shield and large hitbox",
+    "reaper": "Shotguns shred Ball's large hitbox at close range"
+   }
+  },
+  "wuyang": {
+   "strong_vs": {
+    "torbjorn": "Xuanwu Staff orb can be steered around cover to destroy a hidden turret",
+    "symmetra": "Xuanwu Staff orb can be steered around corners to clear Sentry Turrets",
+    "mei": "Xuanwu Staff orb steers around Ice Wall to hit Mei"
+   },
+   "weak_vs": {
+    "wreckingball": "Ball reaches Wuyang, who has limited escape options and hard-to-land orb",
+    "jetpackcat": "Permanent flight lets Cat dodge Wuyang's orb and Catnapper tethers him",
+    "winston": "Jump Pack reaches Wuyang, who has limited escape options (esports.gg)",
+    "dva": "Defense Matrix eats Wuyang's orb and Boosters dive him (esports.gg)",
+    "juno": "Pulsar Torpedoes lock onto Wuyang and Juno outheals him",
+    "genji": "Deflect returns Wuyang's orb and Swift Strike reaches him"
+   }
+  },
+  "zarya": {
+   "strong_vs": {
+    "dva": "Particle Cannon beam ignores Defense Matrix; bubbles absorb Micro Missiles",
+    "sigma": "Particle Cannon beam cannot be absorbed by Kinetic Grasp",
+    "genji": "Particle Cannon beam cannot be Deflected",
+    "doomfist": "Projected Barrier blocks his punches and turns them into Zarya energy",
+    "hanzo": "Bubbles absorb Hanzo's burst and Zarya gains charge",
+    "widowmaker": "Bubbles protect allies from Widowmaker headshots",
+    "wreckingball": "Particle Cannon melts Adaptive Shield and Graviton Surge catches Ball",
+    "emre": "Bubbles absorb Cyber Frag and Siphon Blaster burst",
+    "zenyatta": "Zarya walks into Zen with bubbles and her beam needs no aim"
+   },
+   "weak_vs": {
+    "symmetra": "Photon Projector charges off Projected Barrier, so Zarya's bubbles feed Symmetra damage",
+    "doctrine": "Deliverance lowers max health so bubbles absorb less of the fight",
+    "brigitte": "Whip Shot and Shield Bash do not give Zarya much charge and Barrier Shield blocks her beam",
+    "sombra": "[2026-10-06] Cyberspace Weaken ([2026-11-03] 40%, was 50%) cuts her Particle Cannon damage",
+    "sierra": "Tracking Shot locks onto a slow brawl tank from range",
+    "reinhardt": "Barrier Field blocks her beam and hammer swings into bubbles gain her little",
+    "soldier76": "Out-ranges her beam; Soldier kites while bubbles are down",
+    "cassidy": "Peacekeeper out-ranges Particle Cannon; Cassidy shoots Zarya when both bubbles are on cooldown",
+    "ashe": "Out-ranges her beam from high ground"
+   }
+  },
+  "zenyatta": {
+   "strong_vs": {
+    "reinhardt": "Orb of Discord amplifies all damage on Rein, and Zen never has to enter hammer range",
+    "hazard": "Discord Orb amplifies damage on Hazard from range he cannot reach",
+    "orisa": "Orb of Discord counters Fortify damage reduction by amplifying all damage on her",
+    "ramattra": "Orb of Discord from range; Zen stays outside Nemesis reach",
+    "roadhog": "Orb of Discord on a huge hitbox with no damage-mitigation besides Breather",
+    "mauga": "Discord Orb on a big tank with no barrier",
+    "sombra": "Snap Kick and Orb of Discord punish Sombra (esports.gg names Zenyatta)"
+   },
+   "weak_vs": {
+    "winston": "Jump Pack lands on an immobile Zenyatta; Tesla Cannon needs no aim",
+    "zarya": "Zarya walks into Zen with bubbles and her beam needs no aim",
+    "tracer": "Tracer dives an immobile Zenyatta",
+    "vendetta": "Soaring Slice reaches an immobile Zenyatta",
+    "anran": "Inferno Rush reaches an immobile Zenyatta; Dancing Blaze dodges his volley",
+    "emre": "Siphon Blaster lifesteal and burst rifle out-trade an immobile Zenyatta",
+    "kiriko": "Protection Suzu cleanses Orb of Discord",
+    "lucio": "Lúcio wall-rides into Zenyatta and Soundwave boops him off his position",
+    "junkerqueen": "Commanding Shout rushes Zenyatta and Jagged Blade pulls him in (esports.gg)",
+    "genji": "Genji dives an immobile Zenyatta",
+    "venture": "Burrow surfaces on an immobile Zenyatta",
+    "jetpackcat": "Permanent flight lets Cat flank an immobile Zenyatta"
+   }
+  }
+ },
+ "stat_counter_ratings": {
+  "ana": {
+   "countered_by": {
+    "anran": 7.3,
+    "winston": 5.4,
+    "lucio": 5.0,
+    "sombra": 4.7,
+    "wuyang": 4.6
+   },
+   "counters": {
+    "roadhog": 9.2,
+    "domina": 8.4,
+    "reinhardt": 7.3,
+    "torbjorn": 6.5,
+    "ramattra": 5.8
+   }
+  },
+  "anran": {
+   "countered_by": {
+    "winston": 9.3,
+    "wreckingball": 8.8,
+    "moira": 8.7,
+    "dmon": 7.6,
+    "reinhardt": 6.9
+   },
+   "counters": {
+    "genji": 8.0,
+    "ana": 7.3,
+    "illari": 6.9,
+    "doctrine": 5.9,
+    "lifeweaver": 5.9
+   }
+  },
+  "ashe": {
+   "countered_by": {
+    "widowmaker": 9.4,
+    "lifeweaver": 6.8,
+    "winston": 6.5,
+    "doomfist": 6.0,
+    "wreckingball": 5.8
+   },
+   "counters": {
+    "jetpackcat": 11.6,
+    "pharah": 10.7,
+    "juno": 7.0,
+    "ramattra": 6.1,
+    "junkrat": 5.9
+   }
+  },
+  "baptiste": {
+   "countered_by": {
+    "illari": 5.9,
+    "anran": 5.3,
+    "sojourn": 5.1,
+    "emre": 3.5,
+    "genji": 3.4
+   },
+   "counters": {
+    "roadhog": 12.9,
+    "pharah": 10.3,
+    "wreckingball": 10.1,
+    "sombra": 9.8,
+    "reinhardt": 9.4
+   }
+  },
+  "bastion": {
+   "countered_by": {
+    "genji": 7.9,
+    "doctrine": 7.8,
+    "tracer": 6.6,
+    "sombra": 5.5,
+    "illari": 5.3
+   },
+   "counters": {
+    "winston": 12.0,
+    "roadhog": 9.7,
+    "dmon": 6.6,
+    "wreckingball": 6.6,
+    "reinhardt": 6.1
+   }
+  },
+  "brigitte": {
+   "countered_by": {
+    "pharah": 10.0,
+    "ramattra": 9.3,
+    "junkrat": 6.8,
+    "reinhardt": 4.9,
+    "dmon": 4.8
+   },
+   "counters": {
+    "dva": 14.5,
+    "roadhog": 8.7,
+    "zarya": 8.7,
+    "reaper": 7.5,
+    "sigma": 6.5
+   }
+  },
+  "cassidy": {
+   "countered_by": {
+    "widowmaker": 7.1,
+    "wuyang": 5.2,
+    "hanzo": 4.9,
+    "domina": 4.0,
+    "sigma": 3.8
+   },
+   "counters": {
+    "jetpackcat": 10.5,
+    "pharah": 8.6,
+    "tracer": 8.5,
+    "moira": 4.9,
+    "juno": 4.4
+   }
+  },
+  "dmon": {
+   "countered_by": {
+    "mauga": 10.4,
+    "ramattra": 7.4,
+    "jetpackcat": 7.2,
+    "bastion": 6.6,
+    "torbjorn": 5.7
+   },
+   "counters": {
+    "anran": 7.6,
+    "widowmaker": 7.5,
+    "mercy": 7.4,
+    "lifeweaver": 7.4,
+    "dva": 6.6
+   }
+  },
+  "doctrine": {
+   "countered_by": {
+    "tracer": 9.3,
+    "vendetta": 7.3,
+    "lucio": 7.2,
+    "genji": 7.2,
+    "winston": 7.1
+   },
+   "counters": {
+    "roadhog": 11.4,
+    "ramattra": 9.6,
+    "zarya": 9.2,
+    "bastion": 7.8,
+    "sigma": 7.4
+   }
+  },
+  "domina": {
+   "countered_by": {
+    "symmetra": 10.7,
+    "ana": 8.4,
+    "lifeweaver": 6.3,
+    "mizuki": 5.9,
+    "mercy": 5.7
+   },
+   "counters": {
+    "wreckingball": 11.2,
+    "doomfist": 8.7,
+    "winston": 7.9,
+    "hazard": 6.6,
+    "genji": 5.5
+   }
+  },
+  "doomfist": {
+   "countered_by": {
+    "mauga": 18.1,
+    "roadhog": 9.7,
+    "pharah": 9.1,
+    "domina": 8.7,
+    "junkerqueen": 8.5
+   },
+   "counters": {
+    "widowmaker": 12.9,
+    "lifeweaver": 10.3,
+    "venture": 8.0,
+    "winston": 7.9,
+    "vendetta": 6.8
+   }
+  },
+  "dva": {
+   "countered_by": {
+    "brigitte": 14.5,
+    "reinhardt": 7.6,
+    "lucio": 6.8,
+    "dmon": 6.6,
+    "mei": 6.1
+   },
+   "counters": {
+    "lifeweaver": 7.9,
+    "mercy": 7.6,
+    "wreckingball": 7.1,
+    "freja": 6.7,
+    "domina": 5.3
+   }
+  },
+  "echo": {
+   "countered_by": {
+    "moira": 4.9,
+    "shion": 4.3,
+    "illari": 4.1,
+    "soldier76": 4.0,
+    "baptiste": 3.9
+   },
+   "counters": {
+    "pharah": 11.1,
+    "reinhardt": 6.8,
+    "sigma": 5.8,
+    "doomfist": 5.4,
+    "widowmaker": 5.1
+   }
+  },
+  "emre": {
+   "countered_by": {
+    "mercy": 4.6,
+    "lifeweaver": 4.5,
+    "widowmaker": 4.1,
+    "zarya": 3.6,
+    "anran": 3.5
+   },
+   "counters": {
+    "pharah": 8.2,
+    "jetpackcat": 5.4,
+    "junkrat": 4.5,
+    "zenyatta": 3.5,
+    "baptiste": 3.5
+   }
+  },
+  "freja": {
+   "countered_by": {
+    "dva": 6.7,
+    "ashe": 4.2,
+    "moira": 4.1,
+    "sigma": 4.0,
+    "soldier76": 4.0
+   },
+   "counters": {
+    "pharah": 6.9,
+    "reinhardt": 6.3,
+    "mauga": 5.0,
+    "brigitte": 4.8,
+    "dmon": 3.7
+   }
+  },
+  "genji": {
+   "countered_by": {
+    "wreckingball": 14.3,
+    "winston": 11.9,
+    "moira": 10.9,
+    "anran": 8.0,
+    "zarya": 7.9
+   },
+   "counters": {
+    "lifeweaver": 8.0,
+    "bastion": 7.9,
+    "doctrine": 7.2,
+    "kiriko": 7.1,
+    "sierra": 6.4
+   }
+  },
+  "hanzo": {
+   "countered_by": {
+    "zarya": 7.2,
+    "doomfist": 6.3,
+    "genji": 6.2,
+    "sigma": 6.2,
+    "wreckingball": 5.9
+   },
+   "counters": {
+    "tracer": 5.7,
+    "ashe": 5.6,
+    "bastion": 4.9,
+    "mizuki": 4.9,
+    "cassidy": 4.9
+   }
+  },
+  "hazard": {
+   "countered_by": {
+    "mauga": 14.1,
+    "sigma": 9.1,
+    "orisa": 8.1,
+    "reinhardt": 7.9,
+    "zenyatta": 7.8
+   },
+   "counters": {
+    "genji": 7.8,
+    "widowmaker": 7.5,
+    "mercy": 6.5,
+    "tracer": 6.4,
+    "lucio": 6.0
+   }
+  },
+  "illari": {
+   "countered_by": {
+    "anran": 6.9,
+    "winston": 5.2,
+    "moira": 5.1,
+    "venture": 3.9,
+    "lifeweaver": 3.4
+   },
+   "counters": {
+    "pharah": 7.2,
+    "baptiste": 5.9,
+    "bastion": 5.3,
+    "torbjorn": 4.4,
+    "echo": 4.1
+   }
+  },
+  "jetpackcat": {
+   "countered_by": {
+    "ashe": 11.6,
+    "cassidy": 10.5,
+    "soldier76": 7.7,
+    "winston": 6.2,
+    "hazard": 6.0
+   },
+   "counters": {
+    "pharah": 9.1,
+    "reinhardt": 8.1,
+    "dmon": 7.2,
+    "wuyang": 6.6,
+    "zenyatta": 6.1
+   }
+  },
+  "junkerqueen": {
+   "countered_by": {
+    "sombra": 9.4,
+    "sierra": 6.6,
+    "moira": 6.3,
+    "junkrat": 4.6,
+    "mei": 4.5
+   },
+   "counters": {
+    "winston": 10.1,
+    "wreckingball": 9.2,
+    "doomfist": 8.5,
+    "widowmaker": 3.6,
+    "hazard": 3.6
+   }
+  },
+  "junkrat": {
+   "countered_by": {
+    "pharah": 7.0,
+    "widowmaker": 6.7,
+    "ashe": 5.9,
+    "echo": 5.0,
+    "lifeweaver": 4.7
+   },
+   "counters": {
+    "tracer": 8.4,
+    "vendetta": 7.9,
+    "brigitte": 6.8,
+    "anran": 6.5,
+    "reinhardt": 5.6
+   }
+  },
+  "juno": {
+   "countered_by": {
+    "soldier76": 7.6,
+    "ashe": 7.0,
+    "tracer": 7.0,
+    "winston": 6.9,
+    "widowmaker": 6.0
+   },
+   "counters": {
+    "pharah": 12.2,
+    "torbjorn": 6.9,
+    "reinhardt": 6.7,
+    "roadhog": 6.1,
+    "zenyatta": 6.1
+   }
+  },
+  "kiriko": {
+   "countered_by": {
+    "vendetta": 8.2,
+    "genji": 7.1,
+    "venture": 6.9,
+    "winston": 6.3,
+    "dmon": 5.7
+   },
+   "counters": {
+    "widowmaker": 6.8,
+    "mauga": 6.7,
+    "zenyatta": 6.5,
+    "roadhog": 6.4,
+    "doctrine": 6.4
+   }
+  },
+  "lifeweaver": {
+   "countered_by": {
+    "wreckingball": 12.0,
+    "winston": 10.7,
+    "doomfist": 10.3,
+    "vendetta": 10.3,
+    "tracer": 8.4
+   },
+   "counters": {
+    "torbjorn": 9.6,
+    "widowmaker": 7.7,
+    "ashe": 6.8,
+    "sigma": 6.5,
+    "domina": 6.3
+   }
+  },
+  "lucio": {
+   "countered_by": {
+    "hazard": 6.0,
+    "pharah": 6.0,
+    "winston": 5.6,
+    "vendetta": 4.6,
+    "venture": 4.0
+   },
+   "counters": {
+    "roadhog": 9.5,
+    "doctrine": 7.2,
+    "dva": 6.8,
+    "zenyatta": 6.8,
+    "mauga": 6.4
+   }
+  },
+  "mauga": {
+   "countered_by": {
+    "symmetra": 12.3,
+    "sierra": 11.5,
+    "sombra": 11.2,
+    "mizuki": 8.1,
+    "sojourn": 7.8
+   },
+   "counters": {
+    "wreckingball": 21.4,
+    "winston": 18.8,
+    "doomfist": 18.1,
+    "hazard": 14.1,
+    "dmon": 10.4
+   }
+  },
+  "mei": {
+   "countered_by": {
+    "pharah": 5.4,
+    "jetpackcat": 5.1,
+    "juno": 4.5,
+    "widowmaker": 4.0,
+    "wuyang": 3.7
+   },
+   "counters": {
+    "dva": 6.1,
+    "roadhog": 5.5,
+    "mauga": 4.8,
+    "junkerqueen": 4.5,
+    "sigma": 4.3
+   }
+  },
+  "mercy": {
+   "countered_by": {
+    "wreckingball": 13.7,
+    "dva": 7.6,
+    "dmon": 7.4,
+    "reaper": 7.3,
+    "mauga": 7.1
+   },
+   "counters": {
+    "torbjorn": 7.7,
+    "zenyatta": 7.1,
+    "domina": 5.7,
+    "hanzo": 5.6,
+    "wuyang": 5.6
+   }
+  },
+  "mizuki": {
+   "countered_by": {
+    "genji": 5.7,
+    "hanzo": 4.9,
+    "jetpackcat": 4.4,
+    "pharah": 3.9,
+    "lucio": 3.5
+   },
+   "counters": {
+    "mauga": 8.1,
+    "domina": 5.9,
+    "hazard": 4.9,
+    "tracer": 4.5,
+    "dva": 4.3
+   }
+  },
+  "moira": {
+   "countered_by": {
+    "roadhog": 7.5,
+    "wreckingball": 7.3,
+    "doomfist": 6.5,
+    "reinhardt": 6.3,
+    "cassidy": 4.9
+   },
+   "counters": {
+    "genji": 10.9,
+    "anran": 8.7,
+    "sierra": 6.8,
+    "junkerqueen": 6.3,
+    "dva": 5.2
+   }
+  },
+  "orisa": {
+   "countered_by": {
+    "symmetra": 8.5,
+    "torbjorn": 5.4,
+    "lucio": 4.8,
+    "brigitte": 4.4,
+    "zenyatta": 4.2
+   },
+   "counters": {
+    "doomfist": 8.1,
+    "hazard": 8.1,
+    "widowmaker": 6.9,
+    "winston": 5.8,
+    "dmon": 4.8
+   }
+  },
+  "pharah": {
+   "countered_by": {
+    "juno": 12.2,
+    "echo": 11.1,
+    "ashe": 10.7,
+    "baptiste": 10.3,
+    "jetpackcat": 9.1
+   },
+   "counters": {
+    "reinhardt": 12.6,
+    "brigitte": 10.0,
+    "doomfist": 9.1,
+    "vendetta": 9.1,
+    "venture": 8.2
+   }
+  },
+  "ramattra": {
+   "countered_by": {
+    "zenyatta": 10.5,
+    "doctrine": 9.6,
+    "pharah": 6.3,
+    "mauga": 6.2,
+    "ashe": 6.1
+   },
+   "counters": {
+    "winston": 9.6,
+    "brigitte": 9.3,
+    "dmon": 7.4,
+    "hazard": 7.0,
+    "dva": 5.9
+   }
+  },
+  "reaper": {
+   "countered_by": {
+    "brigitte": 7.5,
+    "sojourn": 6.1,
+    "widowmaker": 5.6,
+    "genji": 4.7,
+    "vendetta": 4.7
+   },
+   "counters": {
+    "mercy": 7.3,
+    "wreckingball": 6.6,
+    "winston": 6.4,
+    "moira": 4.8,
+    "juno": 4.8
+   }
+  },
+  "reinhardt": {
+   "countered_by": {
+    "pharah": 12.6,
+    "torbjorn": 9.7,
+    "baptiste": 9.4,
+    "zenyatta": 9.3,
+    "jetpackcat": 8.1
+   },
+   "counters": {
+    "hazard": 7.9,
+    "dva": 7.6,
+    "anran": 6.9,
+    "wreckingball": 6.8,
+    "doomfist": 6.5
+   }
+  },
+  "roadhog": {
+   "countered_by": {
+    "baptiste": 12.9,
+    "doctrine": 11.4,
+    "bastion": 9.7,
+    "lucio": 9.5,
+    "ana": 9.2
+   },
+   "counters": {
+    "winston": 20.1,
+    "wreckingball": 10.2,
+    "doomfist": 9.7,
+    "widowmaker": 8.4,
+    "moira": 7.5
+   }
+  },
+  "shion": {
+   "countered_by": {
+    "vendetta": 5.3,
+    "anran": 4.9,
+    "venture": 4.7,
+    "widowmaker": 4.0,
+    "dmon": 3.5
+   },
+   "counters": {
+    "tracer": 4.7,
+    "pharah": 4.7,
+    "reaper": 4.6,
+    "echo": 4.3,
+    "juno": 4.0
+   }
+  },
+  "sierra": {
+   "countered_by": {
+    "moira": 6.8,
+    "genji": 6.4,
+    "winston": 5.7,
+    "widowmaker": 4.6,
+    "brigitte": 4.0
+   },
+   "counters": {
+    "mauga": 11.5,
+    "junkerqueen": 6.6,
+    "zarya": 5.5,
+    "domina": 4.2,
+    "bastion": 4.1
+   }
+  },
+  "sigma": {
+   "countered_by": {
+    "symmetra": 14.3,
+    "doctrine": 7.4,
+    "brigitte": 6.5,
+    "lifeweaver": 6.5,
+    "zarya": 5.9
+   },
+   "counters": {
+    "hazard": 9.1,
+    "doomfist": 7.0,
+    "hanzo": 6.2,
+    "widowmaker": 5.1,
+    "dva": 4.9
+   }
+  },
+  "sojourn": {
+   "countered_by": {
+    "winston": 4.3,
+    "genji": 3.8,
+    "mercy": 3.8,
+    "wreckingball": 3.7,
+    "lifeweaver": 3.6
+   },
+   "counters": {
+    "mauga": 7.8,
+    "reaper": 6.1,
+    "roadhog": 5.2,
+    "baptiste": 5.1,
+    "tracer": 4.6
+   }
+  },
+  "soldier76": {
+   "countered_by": {
+    "doomfist": 6.2,
+    "vendetta": 5.4,
+    "genji": 5.2,
+    "anran": 4.8,
+    "widowmaker": 4.7
+   },
+   "counters": {
+    "pharah": 7.8,
+    "jetpackcat": 7.7,
+    "juno": 7.6,
+    "echo": 4.0,
+    "freja": 4.0
+   }
+  },
+  "sombra": {
+   "countered_by": {
+    "baptiste": 9.8,
+    "venture": 6.5,
+    "tracer": 5.9,
+    "kiriko": 4.9,
+    "doomfist": 4.6
+   },
+   "counters": {
+    "mauga": 11.2,
+    "junkerqueen": 9.4,
+    "roadhog": 6.0,
+    "bastion": 5.5,
+    "zarya": 5.0
+   }
+  },
+  "symmetra": {
+   "countered_by": {
+    "widowmaker": 8.9,
+    "wuyang": 5.7,
+    "ashe": 5.7,
+    "moira": 4.8,
+    "doctrine": 4.8
+   },
+   "counters": {
+    "zarya": 14.8,
+    "sigma": 14.3,
+    "mauga": 12.3,
+    "domina": 10.7,
+    "wreckingball": 10.3
+   }
+  },
+  "torbjorn": {
+   "countered_by": {
+    "lifeweaver": 9.6,
+    "mercy": 7.7,
+    "juno": 6.9,
+    "ana": 6.5,
+    "wuyang": 6.0
+   },
+   "counters": {
+    "winston": 10.6,
+    "reinhardt": 9.7,
+    "roadhog": 8.5,
+    "mauga": 7.5,
+    "wreckingball": 5.8
+   }
+  },
+  "tracer": {
+   "countered_by": {
+    "cassidy": 8.5,
+    "junkrat": 8.4,
+    "hazard": 6.4,
+    "hanzo": 5.7,
+    "roadhog": 5.0
+   },
+   "counters": {
+    "doctrine": 9.3,
+    "lifeweaver": 8.4,
+    "juno": 7.0,
+    "bastion": 6.6,
+    "mercy": 6.3
+   }
+  },
+  "vendetta": {
+   "countered_by": {
+    "pharah": 9.1,
+    "junkrat": 7.9,
+    "wreckingball": 7.7,
+    "doomfist": 6.8,
+    "winston": 5.6
+   },
+   "counters": {
+    "lifeweaver": 10.3,
+    "kiriko": 8.2,
+    "widowmaker": 7.4,
+    "doctrine": 7.3,
+    "mercy": 6.0
+   }
+  },
+  "venture": {
+   "countered_by": {
+    "pharah": 8.2,
+    "doomfist": 8.0,
+    "reinhardt": 6.3,
+    "winston": 6.3,
+    "roadhog": 6.0
+   },
+   "counters": {
+    "kiriko": 6.9,
+    "widowmaker": 6.8,
+    "anran": 6.6,
+    "sombra": 6.5,
+    "doctrine": 5.2
+   }
+  },
+  "widowmaker": {
+   "countered_by": {
+    "winston": 17.5,
+    "wreckingball": 16.3,
+    "doomfist": 12.9,
+    "roadhog": 8.4,
+    "mauga": 8.4
+   },
+   "counters": {
+    "ashe": 9.4,
+    "symmetra": 8.9,
+    "pharah": 7.2,
+    "cassidy": 7.1,
+    "junkrat": 6.7
+   }
+  },
+  "winston": {
+   "countered_by": {
+    "roadhog": 20.1,
+    "mauga": 18.8,
+    "bastion": 12.0,
+    "torbjorn": 10.6,
+    "junkerqueen": 10.1
+   },
+   "counters": {
+    "widowmaker": 17.5,
+    "genji": 11.9,
+    "lifeweaver": 10.7,
+    "anran": 9.3,
+    "doctrine": 7.1
+   }
+  },
+  "wreckingball": {
+   "countered_by": {
+    "mauga": 21.4,
+    "domina": 11.2,
+    "symmetra": 10.3,
+    "roadhog": 10.2,
+    "baptiste": 10.1
+   },
+   "counters": {
+    "widowmaker": 16.3,
+    "genji": 14.3,
+    "mercy": 13.7,
+    "lifeweaver": 12.0,
+    "wuyang": 9.5
+   }
+  },
+  "wuyang": {
+   "countered_by": {
+    "wreckingball": 9.5,
+    "jetpackcat": 6.6,
+    "mercy": 5.6,
+    "winston": 5.5,
+    "juno": 5.0
+   },
+   "counters": {
+    "torbjorn": 6.0,
+    "zenyatta": 5.8,
+    "symmetra": 5.7,
+    "cassidy": 5.2,
+    "mauga": 4.8
+   }
+  },
+  "zarya": {
+   "countered_by": {
+    "symmetra": 14.8,
+    "doctrine": 9.2,
+    "brigitte": 8.7,
+    "sierra": 5.5,
+    "sombra": 5.0
+   },
+   "counters": {
+    "genji": 7.9,
+    "doomfist": 7.5,
+    "hanzo": 7.2,
+    "widowmaker": 7.2,
+    "wreckingball": 6.8
+   }
+  },
+  "zenyatta": {
+   "countered_by": {
+    "mercy": 7.1,
+    "lucio": 6.8,
+    "kiriko": 6.5,
+    "lifeweaver": 6.2,
+    "juno": 6.1
+   },
+   "counters": {
+    "ramattra": 10.5,
+    "reinhardt": 9.3,
+    "roadhog": 8.7,
+    "hazard": 7.8,
+    "winston": 6.0
+   }
+  }
+ },
+ "synergies": {
+  "ana": [
+   "genji",
+   "reinhardt",
+   "junkerqueen",
+   "mizuki"
+  ],
+  "anran": [
+   "zarya",
+   "dva",
+   "soldier76",
+   "cassidy",
+   "juno"
+  ],
+  "ashe": [
+   "sigma",
+   "domina",
+   "baptiste",
+   "mercy"
+  ],
+  "baptiste": [
+   "domina",
+   "sigma",
+   "orisa",
+   "ashe"
+  ],
+  "bastion": [
+   "orisa",
+   "mercy",
+   "baptiste"
+  ],
+  "brigitte": [
+   "reinhardt",
+   "junkerqueen",
+   "lucio"
+  ],
+  "cassidy": [
+   "orisa",
+   "baptiste",
+   "anran"
+  ],
+  "dmon": [
+   "lucio",
+   "kiriko",
+   "brigitte"
+  ],
+  "doctrine": [
+   "reinhardt",
+   "junkerqueen",
+   "reaper"
+  ],
+  "domina": [
+   "sojourn",
+   "ashe",
+   "baptiste",
+   "emre",
+   "freja"
+  ],
+  "doomfist": [
+   "tracer",
+   "genji",
+   "lucio",
+   "kiriko"
+  ],
+  "dva": [
+   "winston",
+   "genji",
+   "tracer",
+   "anran",
+   "kiriko"
+  ],
+  "echo": [
+   "mercy",
+   "jetpackcat",
+   "winston"
+  ],
+  "emre": [
+   "domina",
+   "sigma"
+  ],
+  "freja": [
+   "sigma",
+   "domina",
+   "mercy"
+  ],
+  "genji": [
+   "ana",
+   "zarya",
+   "winston",
+   "kiriko"
+  ],
+  "hanzo": [
+   "sigma",
+   "zenyatta"
+  ],
+  "hazard": [
+   "tracer",
+   "genji",
+   "lucio"
+  ],
+  "illari": [
+   "sigma",
+   "ashe",
+   "sojourn"
+  ],
+  "jetpackcat": [
+   "dva",
+   "echo",
+   "tracer",
+   "soldier76"
+  ],
+  "junkerqueen": [
+   "lucio",
+   "mizuki",
+   "kiriko",
+   "brigitte"
+  ],
+  "junkrat": [
+   "sigma",
+   "orisa",
+   "mercy"
+  ],
+  "juno": [
+   "reinhardt",
+   "reaper",
+   "dva",
+   "anran"
+  ],
+  "kiriko": [
+   "winston",
+   "genji",
+   "reinhardt",
+   "roadhog"
+  ],
+  "lifeweaver": [
+   "sigma",
+   "ashe",
+   "domina"
+  ],
+  "lucio": [
+   "reinhardt",
+   "junkerqueen",
+   "winston",
+   "mauga"
+  ],
+  "mauga": [
+   "kiriko",
+   "lucio",
+   "reaper"
+  ],
+  "mei": [
+   "reinhardt",
+   "junkerqueen",
+   "lucio"
+  ],
+  "mercy": [
+   "pharah",
+   "echo",
+   "freja",
+   "ashe",
+   "sojourn"
+  ],
+  "mizuki": [
+   "junkerqueen",
+   "ana"
+  ],
+  "moira": [
+   "reaper",
+   "junkerqueen",
+   "mauga"
+  ],
+  "orisa": [
+   "baptiste",
+   "kiriko",
+   "ashe",
+   "sojourn"
+  ],
+  "pharah": [
+   "mercy",
+   "juno"
+  ],
+  "ramattra": [
+   "lucio",
+   "brigitte",
+   "kiriko"
+  ],
+  "reaper": [
+   "juno",
+   "lucio",
+   "reinhardt",
+   "mauga"
+  ],
+  "reinhardt": [
+   "lucio",
+   "zarya",
+   "kiriko",
+   "brigitte",
+   "juno"
+  ],
+  "roadhog": [
+   "zenyatta",
+   "kiriko"
+  ],
+  "shion": [
+   "winston",
+   "dva",
+   "reinhardt"
+  ],
+  "sierra": [
+   "sigma"
+  ],
+  "sigma": [
+   "ashe",
+   "sojourn",
+   "baptiste",
+   "emre",
+   "freja",
+   "sierra"
+  ],
+  "sojourn": [
+   "domina",
+   "sigma",
+   "mercy"
+  ],
+  "soldier76": [
+   "jetpackcat",
+   "mercy",
+   "orisa"
+  ],
+  "sombra": [
+   "wreckingball",
+   "tracer",
+   "winston"
+  ],
+  "symmetra": [
+   "reinhardt",
+   "lucio"
+  ],
+  "torbjorn": [
+   "reinhardt",
+   "brigitte"
+  ],
+  "tracer": [
+   "winston",
+   "dva",
+   "jetpackcat",
+   "kiriko"
+  ],
+  "vendetta": [
+   "zarya",
+   "ana",
+   "zenyatta"
+  ],
+  "venture": [
+   "reinhardt",
+   "juno",
+   "lucio"
+  ],
+  "widowmaker": [
+   "sigma",
+   "mercy",
+   "lucio"
+  ],
+  "winston": [
+   "tracer",
+   "genji",
+   "dva",
+   "lucio",
+   "kiriko"
+  ],
+  "wreckingball": [
+   "tracer",
+   "sombra",
+   "echo",
+   "lucio"
+  ],
+  "wuyang": [
+   "winston",
+   "dva",
+   "sigma"
+  ],
+  "zarya": [
+   "reinhardt",
+   "genji",
+   "anran",
+   "vendetta"
+  ],
+  "zenyatta": [
+   "roadhog",
+   "genji",
+   "reinhardt"
+  ]
+ },
+ "archetypes": {
+  "dive": [
+   "winston",
+   "dva",
+   "doomfist",
+   "wreckingball",
+   "hazard",
+   "genji",
+   "tracer",
+   "anran",
+   "shion",
+   "vendetta",
+   "venture",
+   "sierra",
+   "echo",
+   "sombra",
+   "jetpackcat",
+   "kiriko",
+   "lucio",
+   "juno",
+   "wuyang",
+   "mercy"
+  ],
+  "brawl": [
+   "reinhardt",
+   "junkerqueen",
+   "dmon",
+   "mauga",
+   "ramattra",
+   "zarya",
+   "roadhog",
+   "hazard",
+   "reaper",
+   "mei",
+   "symmetra",
+   "torbjorn",
+   "venture",
+   "vendetta",
+   "brigitte",
+   "lucio",
+   "moira",
+   "doctrine",
+   "mizuki",
+   "kiriko",
+   "ana"
+  ],
+  "poke": [
+   "domina",
+   "sigma",
+   "orisa",
+   "ramattra",
+   "ashe",
+   "sojourn",
+   "widowmaker",
+   "hanzo",
+   "cassidy",
+   "soldier76",
+   "emre",
+   "freja",
+   "junkrat",
+   "pharah",
+   "bastion",
+   "sierra",
+   "baptiste",
+   "zenyatta",
+   "illari",
+   "ana",
+   "lifeweaver",
+   "wuyang",
+   "mercy"
+  ]
+ },
+ "swap_rules": [
+  "Default is to stay. Same-role swaps after a death win about 2.5 points fewer of the next fights than staying (score held equal); only 3.1% of swap matchups beat staying.",
+  "Swap when the swap answers the hero that is killing you: tank to Winston after a Widowmaker kill costs only -1.8 points vs -3.9 for an unrelated tank swap; DPS to Soldier: 76 after a Pharah kill costs -0.5 vs -3.9.",
+  "Comfort beats paper counters: swapping to a hero with under 30 min played in 90 days costs -5.1 points, 5+ hours costs -1.8. Only suggest heroes in the player's pool.",
+  "A real counter edge is 52-53% (prefer it if equally comfortable), 53-55% is worth swapping even if less practised, above 55% is a rare hard counter. Counters are modest; do not overstate them.",
+  "Lock counters only after the enemy comp is visible; an early counter gives the enemy a free re-pick.",
+  "Check what the team loses: a tank swap changes what supports can protect; a DPS swap changes ult economy. Only swap if the team can absorb it.",
+  "Counter-swapping matters most on tank (one tank per team in 5v5), so tank pools should be wider. Coaches converge on a primary plus a same-role secondary for counter-swaps and bans.",
+  "If the enemy comp holds two hard counters to your hero, switch to your backup; a hero under 50% at your rank is a reason to lean on the secondary.",
+  "Ult charge: a swap keeps at most 25% ultimate charge. Do not swap with ult nearly ready; spend it first.",
+  "Do not swap in a way that breaks the comp (no frontline, no healing), and do not swap mid-fight; swap while dead or in spawn.",
+  "Tanks who swap every death hurt their team more than any counter helps; one swap per clear, repeated problem.",
+  "Swap after the same threat stops your team two fights in a row (free sniper, unpressured Pharah, a flanker), not after one death.",
+  "Map and mode matter: an edge can vanish on another map or mode (Symmetra 49.2% on Push vs 59.4% on Flashpoint). Domina wants chokes and long halls (Havana, Junkertown) and struggles on high-ground maps (Gibraltar, Numbani).",
+  "Rank matters: below Diamond mechanics dominate and 1-2 heroes total is fine; matchups shift by rank, so weight counters less in low ranks.",
+  "[2026-02] Sub-role passives change swap value: Stalwart tanks have 40% knockback and slow resistance (weakens boop and slow counters), Bruisers take 25% less crit damage, Initiators heal 75 while airborne; Tactician supports keep up to 25% excess ult charge after ulting."
+ ],
+ "swap_rule_sources": [
+  {
+   "rule": "Default is to stay. Same-role swaps after a death win about 2.5 points fewer of the next fights than staying (score held equal); only 3.1% of swap matchups beat staying.",
+   "url": "https://www.counterwatch.gg/blog/a-swap-after-a-death-costs-about-2-5-points-of-your-next-fig-8362507d"
+  },
+  {
+   "rule": "Swap when the swap answers the hero that is killing you: tank to Winston after a Widowmaker kill costs only -1.8 points vs -3.9 for an unrelated tank swap; DPS to Soldier: 76 after a Pharah kill costs -0.5 vs -3.9.",
+   "url": "https://www.counterwatch.gg/blog/a-swap-after-a-death-costs-about-2-5-points-of-your-next-fig-8362507d"
+  },
+  {
+   "rule": "Comfort beats paper counters: swapping to a hero with under 30 min played in 90 days costs -5.1 points, 5+ hours costs -1.8. Only suggest heroes in the player's pool.",
+   "url": "https://www.counterwatch.gg/blog/a-swap-after-a-death-costs-about-2-5-points-of-your-next-fig-8362507d"
+  },
+  {
+   "rule": "A real counter edge is 52-53% (prefer it if equally comfortable), 53-55% is worth swapping even if less practised, above 55% is a rare hard counter. Counters are modest; do not overstate them.",
+   "url": "https://www.counterwatch.gg/blog/counter-picking-in-overwatch-a-stats-backed-guide-b381e8c0"
+  },
+  {
+   "rule": "Lock counters only after the enemy comp is visible; an early counter gives the enemy a free re-pick.",
+   "url": "https://www.counterwatch.gg/blog/counter-picking-in-overwatch-a-stats-backed-guide-b381e8c0"
+  },
+  {
+   "rule": "Check what the team loses: a tank swap changes what supports can protect; a DPS swap changes ult economy. Only swap if the team can absorb it.",
+   "url": "https://www.counterwatch.gg/blog/counter-picking-in-overwatch-a-stats-backed-guide-b381e8c0"
+  },
+  {
+   "rule": "Counter-swapping matters most on tank (one tank per team in 5v5), so tank pools should be wider. Coaches converge on a primary plus a same-role secondary for counter-swaps and bans.",
+   "url": "https://www.counterwatch.gg/blog/one-trick-heroes-in-overwatch-when-otp-works-and-when-it-doe-9c68976b"
+  },
+  {
+   "rule": "If the enemy comp holds two hard counters to your hero, switch to your backup; a hero under 50% at your rank is a reason to lean on the secondary.",
+   "url": "https://www.counterwatch.gg/blog/one-trick-heroes-in-overwatch-when-otp-works-and-when-it-doe-9c68976b"
+  },
+  {
+   "rule": "Ult charge: a swap keeps at most 25% ultimate charge. Do not swap with ult nearly ready; spend it first.",
+   "url": "https://shacknews.com/article/134028/overwatch-2-season-3-patch-notes?amphtml=1"
+  },
+  {
+   "rule": "Do not swap in a way that breaks the comp (no frontline, no healing), and do not swap mid-fight; swap while dead or in spawn.",
+   "url": "https://dignitas.gg/articles/overwatch-a-basic-guide-to-hero-switching"
+  },
+  {
+   "rule": "Tanks who swap every death hurt their team more than any counter helps; one swap per clear, repeated problem.",
+   "url": "https://esports.gg/opinion/overwatch/overwatch-2-tanks-switching-heroes-stop-it"
+  },
+  {
+   "rule": "Swap after the same threat stops your team two fights in a row (free sniper, unpressured Pharah, a flanker), not after one death.",
+   "url": "https://jeu.video/en/guide/overwatch-2-counters-objective"
+  },
+  {
+   "rule": "Map and mode matter: an edge can vanish on another map or mode (Symmetra 49.2% on Push vs 59.4% on Flashpoint). Domina wants chokes and long halls (Havana, Junkertown) and struggles on high-ground maps (Gibraltar, Numbani).",
+   "url": "https://www.counterwatch.gg/blog/overwatch-season-5-a-grim-doctrine-first-month-meta-torbjorn-eb37211e"
+  },
+  {
+   "rule": "Rank matters: below Diamond mechanics dominate and 1-2 heroes total is fine; matchups shift by rank, so weight counters less in low ranks.",
+   "url": "https://www.counterwatch.gg/blog/counter-picking-in-overwatch-a-stats-backed-guide-b381e8c0"
+  },
+  {
+   "rule": "[2026-02] Sub-role passives change swap value: Stalwart tanks have 40% knockback and slow resistance (weakens boop and slow counters), Bruisers take 25% less crit damage, Initiators heal 75 while airborne; Tactician supports keep up to 25% excess ult charge after ulting.",
+   "url": "https://overwatch.blizzard.com/en-us/news/patch-notes/live/2026/02/"
+  }
+ ],
+ "patch_flags": {
+  "ana": "[2026-11-03] Biotic Grenade damage 90->60 (anti-heal kept). [2026-10-06] Local Anesthetic perk.",
+  "anran": "[2026] New damage (Season 1). [2026-02] Dancing Blaze cleanse removed. [2026-11-03] Inferno Rush knockback removed, fans 22->24.",
+  "ashe": "[2026-02] Sidewinder perk removed.",
+  "bastion": "[2026-10-06] Reconfigure duration 6->5 s.",
+  "brigitte": "[2026-11-03] Inspire cooldown 1.25->1 s, instant heal 12->15.",
+  "cassidy": "[2026-02] Gun Slingin' perk removed. [2026-10-06] Deadeye cannot attach to Jetpack Cat Lifeline.",
+  "dmon": "[2026] New tank. 2026-10-13 armour 275->250; 2026-11-03 Power Barrier slower to deploy, Propulsors no impact damage, Overstrike lifesteal 150->125%.",
+  "doctrine": "[2026-10-06] New support (hero 54), Season 5. Nerfed 2026-10-13 and 2026-11-03 (Scepter output, Infuse and Shrouded Momentum cooldowns).",
+  "domina": "[2026] New tank (Season 1). [2026-10-06] Crystal Charge cd 8->7 s, Reconstruction lifesteal 75->100%.",
+  "dva": "[2026-02] Health 375->325 (5v5). [2026-10-06] Micro Missiles fire rate 11->14.",
+  "echo": "[2026-11-03] Aerial Munitions refills ammo.",
+  "emre": "[2026] New damage (Season 1). [2026-11-03] Cyber Frag detonates faster.",
+  "genji": "[2026-10-06] Swift Strike 50->60, Dragonblade 110->100. [2026-11-03] Deflect 2->1.5 s.",
+  "hanzo": "[2026-11-03] Sonic Disruption can no longer override Sombra's hacked health packs.",
+  "illari": "[2026-02] Solar Flare perk change. [2026-11-03] Faster charge, stronger Pylon.",
+  "jetpackcat": "[2026] New support (Season 1). [2026-10-06] Cassidy Deadeye can no longer ride Lifeline. [2026-11-03] Health 225->200.",
+  "junkerqueen": "[2026-11-03] Health 375->425, Carnage cooldown 9->7 s.",
+  "kiriko": "[2026-10-13] Health 225->250.",
+  "lifeweaver": "[2026-02] Several perks removed; Tree of Life converts overhealing at 100%.",
+  "lucio": "[2026-10-06] Sound Barrier 5->6 s.",
+  "mauga": "[2026-11-03] Armour 125->150, Chaingun burn 15->20.",
+  "mizuki": "[2026] New support (Season 1).",
+  "pharah": "[2026-02] Sky Spy perk removed.",
+  "ramattra": "[2026-11-03] Void Accelerator ammo 100->125.",
+  "reaper": "[2026-02] Shadow Step no longer cleanses. [2026-11-03] Health 275->300.",
+  "roadhog": "[2026-10-06] Reworked: two-burst Scrap Gun, Trash Compactor absorbs projectiles and fires them back, Hook stun 0.3 s and pull to 4.5 m, Breather retuned (2026-10-13). Less one-shot hook combo, more frontline mitigation.",
+  "shion": "[2026] New damage (Season 3). [2026-11-03] Execution spread tightened, ult faster.",
+  "sierra": "[2026] New damage (Season 2).",
+  "sombra": "[2026-10-06] Reworked into a Support (Tactician). Hack and Virus removed; Hotfix heals and hacks health packs/deployables; Cyberspace zone applies Weaken (cut target damage and healing by 50%, 40% after 2026-11-03). Only EMP hacks now, so \"Sombra hack cancels Ball/abilities\" counters need EMP.",
+  "tracer": "[2026-02] Flashback perk removed; Blink Packs moved to a major perk.",
+  "vendetta": "[2026-02] Health 150->175, armour 125->100. [2026-11-03] Slower combo and leap.",
+  "widowmaker": "[2026-02] Escape Plan perk removed. [2026-10-06] Hitscan projectile sizes reduced globally.",
+  "winston": "[2026-02] Barrier Toss perk removed. [2026-11-03] Revitalizing Barrier perk 35->30 hps.",
+  "wreckingball": "[2026-11-05] Faster Grappling Claw retract speed limit.",
+  "zarya": "[2026-02] Energy Lance no longer needs 50+ energy."
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "width": 2560,
+ "height": 1494,
+ "my_team": [
+  {
+   "hero": "domina",
+   "role": "tank"
+  },
+  {
+   "hero": "sojourn",
+   "role": "damage"
+  },
+  {
+   "hero": "cassidy",
+   "role": "damage"
+  },
+  {
+   "hero": "juno",
+   "role": "support"
+  },
+  {
+   "hero": "kiriko",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "winston",
+   "role": "tank"
+  },
+  {
+   "hero": "soldier76",
+   "role": "damage"
+  },
+  {
+   "hero": "anran",
+   "role": "damage"
+  },
+  {
+   "hero": "ana",
+   "role": "support"
+  },
+  {
+   "hero": "doctrine",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. 2560x1494.",
+ "phase": "end_of_match",
+ "phase_evidence": "Athena \"Defeat\" chat line"
+}

@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "junkerqueen",
+   "role": "tank"
+  },
+  {
+   "hero": "anran",
+   "role": "damage"
+  },
+  {
+   "hero": "reaper",
+   "role": "damage"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  },
+  {
+   "hero": "mercy",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "domina",
+   "role": "tank"
+  },
+  {
+   "hero": "soldier76",
+   "role": "damage"
+  },
+  {
+   "hero": "sojourn",
+   "role": "damage"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  },
+  {
+   "hero": "mercy",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team.",
+ "phase": "end_of_match",
+ "phase_evidence": "VICTOIRE watermark"
+}

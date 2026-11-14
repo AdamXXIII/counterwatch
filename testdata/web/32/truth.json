@@ -1,0 +1,51 @@
+{
+ "width": 2560,
+ "height": 1494,
+ "my_team": [
+  {
+   "hero": "wreckingball",
+   "role": "tank"
+  },
+  {
+   "hero": "pharah",
+   "role": "damage"
+  },
+  {
+   "hero": "shion",
+   "role": "damage"
+  },
+  {
+   "hero": "juno",
+   "role": "support"
+  },
+  {
+   "hero": "zenyatta",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "unknown",
+   "role": "tank"
+  },
+  {
+   "hero": "unknown",
+   "role": "damage"
+  },
+  {
+   "hero": "unknown",
+   "role": "damage"
+  },
+  {
+   "hero": "unknown",
+   "role": "support"
+  },
+  {
+   "hero": "unknown",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. 2560x1494. Tabbed variant, mid-match (TIME 4:52, enemy stats non-zero) yet all enemy portraits are \"?\" silhouettes; cause not confirmed. Chat line shows an ally swap: \"SleepyBear switched to Shion (was Genji)\" and row 3 already shows Shion.",
+ "phase": "mid_match",
+ "phase_evidence": "no victory/defeat/endorse marker seen; INTERACT button, match timer running"
+}

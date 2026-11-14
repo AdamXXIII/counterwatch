@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "reinhardt",
+   "role": "tank"
+  },
+  {
+   "hero": "tracer",
+   "role": "damage"
+  },
+  {
+   "hero": "mei",
+   "role": "damage"
+  },
+  {
+   "hero": "ana",
+   "role": "support"
+  },
+  {
+   "hero": "juno",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "wreckingball",
+   "role": "tank"
+  },
+  {
+   "hero": "genji",
+   "role": "damage"
+  },
+  {
+   "hero": "junkrat",
+   "role": "damage"
+  },
+  {
+   "hero": "sombra",
+   "role": "support"
+  },
+  {
+   "hero": "ana",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. Ally colour customised to yellow. Sombra with support icon.",
+ "phase": "end_of_match",
+ "phase_evidence": "INDICAR JOGADORES (endorse) button"
+}

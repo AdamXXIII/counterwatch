@@ -1,0 +1,7 @@
+image_url: https://images.steamusercontent.com/ugc/10196277699869089174/BE9FA4057C4F308A4D84D9D63A9E6C8571C38901/
+page: https://steamcommunity.com/sharedfiles/filedetails/?id=3586741859
+site: Steam Community screenshots for Overwatch (app 2357570), user-uploaded in-game screenshot
+date_posted: not confirmed (HTTP 429); by Steam file-ID order posted between 2025-08-21 (id 3553400504) and 2026-06-13 (id 3743944596); shows the 2025-style Stadium board
+original_size: 1920x1080 (Steam original, re-saved as PNG)
+downloaded: 2026-11-14
+original_format: JPEG (verified 2026-11-14: re-downloaded image_url decodes pixel-identical to image.png)

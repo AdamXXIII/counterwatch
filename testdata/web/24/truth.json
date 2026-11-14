@@ -1,0 +1,51 @@
+{
+ "width": 3840,
+ "height": 2160,
+ "my_team": [
+  {
+   "hero": "domina",
+   "role": "tank"
+  },
+  {
+   "hero": "sierra",
+   "role": "damage"
+  },
+  {
+   "hero": "pharah",
+   "role": "damage"
+  },
+  {
+   "hero": "wuyang",
+   "role": "support"
+  },
+  {
+   "hero": "juno",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "orisa",
+   "role": "tank"
+  },
+  {
+   "hero": "sierra",
+   "role": "damage"
+  },
+  {
+   "hero": "cassidy",
+   "role": "damage"
+  },
+  {
+   "hero": "lifeweaver",
+   "role": "support"
+  },
+  {
+   "hero": "ana",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. 3840x2160 (4K) source.",
+ "phase": "end_of_match",
+ "phase_evidence": "DEFEAT watermark"
+}

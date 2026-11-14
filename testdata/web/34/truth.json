@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "reaper",
+   "role": "damage"
+  },
+  {
+   "hero": "genji",
+   "role": "damage"
+  },
+  {
+   "hero": "dva",
+   "role": "tank"
+  },
+  {
+   "hero": "kiriko",
+   "role": "support"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "lucio",
+   "role": "support"
+  },
+  {
+   "hero": "empty",
+   "role": null
+  },
+  {
+   "hero": "empty",
+   "role": null
+  },
+  {
+   "hero": "empty",
+   "role": null
+  },
+  {
+   "hero": "empty",
+   "role": null
+  }
+ ],
+ "notes": "STADIUM (Payload Race), Nov 2026. Tabs \"TEAM BUILDS | SCOREBOARD | ENEMY BUILDS\"; round score boxes at top centre (0 - ROUND 3 - 3); extra columns (cash, BTY = bounty). Bigger rows: pitch ~71.5 px, ally rows y 211-569, enemy y 654-1012, portraits ~70 px at x 170-240, board left edge x=140. Rows NOT in role order. Four enemies left (\"WAITING FOR PLAYER\"), remaining enemy moved to top row. Interact mode (CLOSE, report buttons).",
+ "phase": "end_of_match",
+ "phase_evidence": "STAY AS TEAM prompt, VIEW ROUND STATS"
+}

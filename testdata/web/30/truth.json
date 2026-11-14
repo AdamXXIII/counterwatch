@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "zarya",
+   "role": "tank"
+  },
+  {
+   "hero": "freja",
+   "role": "damage"
+  },
+  {
+   "hero": "ashe",
+   "role": "damage"
+  },
+  {
+   "hero": "mercy",
+   "role": "support"
+  },
+  {
+   "hero": "mizuki",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "dva",
+   "role": "tank"
+  },
+  {
+   "hero": "genji",
+   "role": "damage"
+  },
+  {
+   "hero": "sojourn",
+   "role": "damage"
+  },
+  {
+   "hero": "kiriko",
+   "role": "support"
+  },
+  {
+   "hero": "juno",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. Italian UI, ally cyan / enemy orange.",
+ "phase": "end_of_match",
+ "phase_evidence": "ELOGIA GIOCATORI (endorse) button"
+}

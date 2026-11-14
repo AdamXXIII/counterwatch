@@ -1,0 +1,9 @@
+{
+ "width": 1600,
+ "height": 900,
+ "my_team": [],
+ "enemy_team": [],
+ "notes": "NEGATIVE CASE. 1600x900, STADIUM round 1 (TEAM BUILDS tab and round score header visible), Control Samoa. Scoreboard bug: header (E A D DMG H MIT), VS and hero panel (Wuyang) are drawn but no player rows at all. Uploader titled it \"They got rid of the scoreboard\". The 2026-11-05 patch notes list a fix for \"the Scoreboard and related screens would not display properly\" (https://overwatch.blizzard.com/en-us/news/patch-notes/live/2026/11/, opened 2026-11-14). Reader should return no heroes / low confidence, not guess.",
+ "phase": "mid_match",
+ "phase_evidence": "Stadium round 1, bugged empty board"
+}

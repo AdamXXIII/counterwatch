@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "doomfist",
+   "role": "tank"
+  },
+  {
+   "hero": "anran",
+   "role": "damage"
+  },
+  {
+   "hero": "tracer",
+   "role": "damage"
+  },
+  {
+   "hero": "wuyang",
+   "role": "support"
+  },
+  {
+   "hero": "doctrine",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "orisa",
+   "role": "tank"
+  },
+  {
+   "hero": "echo",
+   "role": "damage"
+  },
+  {
+   "hero": "junkrat",
+   "role": "damage"
+  },
+  {
+   "hero": "doctrine",
+   "role": "support"
+  },
+  {
+   "hero": "sombra",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. Sombra shown with the support icon (after the 2026-10-06 role change).",
+ "phase": "mid_match",
+ "phase_evidence": "no victory/defeat/endorse marker seen; INTERACT button, match timer running"
+}

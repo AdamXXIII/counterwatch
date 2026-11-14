@@ -1,0 +1,441 @@
+{
+ "cases": [
+  {
+   "id": "omzhh-p3-0026",
+   "coach": "Omzhh",
+   "source_url": "https://www.youtube.com/watch?v=bEMKDOEAZIs&t=26s",
+   "source_title": "Unranked to Champion but I only COUNTER SWAP the ENEMY TANK (Part 3 - Platinum to Diamond)",
+   "timestamp": "0:26",
+   "patch_or_date": "2026-07-10",
+   "role": "tank",
+   "current_hero": null,
+   "my_team": [
+    "mei",
+    "hanzo",
+    "kiriko",
+    "mercy"
+   ],
+   "enemy_team": [
+    "ramattra",
+    "sojourn"
+   ],
+   "call": {
+    "action": "swap",
+    "to": "roadhog",
+    "how": "Swap to Roadhog on the next death and play slowly into their team."
+   },
+   "reason": "Ramattra has no strong counter other than Roadhog.",
+   "notes": "Reason stated at 2:18. Self-call during his challenge of counter-swapping every enemy tank.",
+   "challenge_rule": true
+  },
+  {
+   "id": "omzhh-p3-2523",
+   "coach": "Omzhh",
+   "source_url": "https://www.youtube.com/watch?v=bEMKDOEAZIs&t=1523s",
+   "source_title": "Unranked to Champion but I only COUNTER SWAP the ENEMY TANK (Part 3 - Platinum to Diamond)",
+   "timestamp": "25:23",
+   "patch_or_date": "2026-07-10",
+   "role": "tank",
+   "current_hero": null,
+   "my_team": [],
+   "enemy_team": [
+    "sigma"
+   ],
+   "call": {
+    "action": "swap",
+    "to": "reinhardt",
+    "how": "Swap to Reinhardt."
+   },
+   "reason": "Reinhardt is his answer to Sigma.",
+   "notes": "Self-call during his challenge of counter-swapping every enemy tank.",
+   "challenge_rule": true
+  },
+  {
+   "id": "omzhh-p3-4051",
+   "coach": "Omzhh",
+   "source_url": "https://www.youtube.com/watch?v=bEMKDOEAZIs&t=2451s",
+   "source_title": "Unranked to Champion but I only COUNTER SWAP the ENEMY TANK (Part 3 - Platinum to Diamond)",
+   "timestamp": "40:51",
+   "patch_or_date": "2026-07-10",
+   "role": "tank",
+   "current_hero": null,
+   "my_team": [],
+   "enemy_team": [
+    "dva"
+   ],
+   "call": {
+    "action": "swap",
+    "to": "zarya",
+    "how": "Swap to Zarya."
+   },
+   "reason": "Zarya is his answer to D.Va.",
+   "notes": "Self-call during his challenge of counter-swapping every enemy tank.",
+   "challenge_rule": true
+  },
+  {
+   "id": "omzhh-p3-6731",
+   "coach": "Omzhh",
+   "source_url": "https://www.youtube.com/watch?v=bEMKDOEAZIs&t=4051s",
+   "source_title": "Unranked to Champion but I only COUNTER SWAP the ENEMY TANK (Part 3 - Platinum to Diamond)",
+   "timestamp": "67:31",
+   "patch_or_date": "2026-07-10",
+   "role": "tank",
+   "current_hero": null,
+   "my_team": [],
+   "enemy_team": [
+    "junkerqueen"
+   ],
+   "call": {
+    "action": "swap",
+    "to": "reinhardt",
+    "how": "Swap to Reinhardt."
+   },
+   "reason": "Reinhardt is his answer to Junker Queen.",
+   "notes": "Self-call during his challenge of counter-swapping every enemy tank.",
+   "challenge_rule": true
+  },
+  {
+   "id": "omzhh-p4-0511",
+   "coach": "Omzhh",
+   "source_url": "https://www.youtube.com/watch?v=3hSvUvmZCrQ&t=311s",
+   "source_title": "Unranked to Champion but I only COUNTER SWAP the ENEMY TANK (Part 4 - Diamond)",
+   "timestamp": "5:11",
+   "patch_or_date": "2026-07-15",
+   "role": "tank",
+   "current_hero": "orisa",
+   "my_team": [
+    "genji",
+    "tracer",
+    "cassidy",
+    "zenyatta"
+   ],
+   "enemy_team": [
+    "hazard",
+    "freja",
+    "genji",
+    "wuyang"
+   ],
+   "call": {
+    "action": "stay",
+    "to": null,
+    "how": "Stay on Orisa and hope for the best."
+   },
+   "reason": "He says Hazard has no direct counter on the roster, so there is nothing better to swap to.",
+   "notes": "He reads his team at 0:27 as Reinhardt (himself), Genji, Tracer, Cassidy and Zenyatta, then swaps to Orisa ('the horse') against the enemy Roadhog in the same game. Enemy Freja, Genji and Wuyang come from his ult tracking at 3:38. Self-call during his challenge of counter-swapping every enemy tank.",
+   "challenge_rule": true
+  },
+  {
+   "id": "omzhh-p2-1250",
+   "coach": "Omzhh",
+   "source_url": "https://www.youtube.com/watch?v=_3btGQfwipk&t=770s",
+   "source_title": "Unranked to Champion but I only COUNTER SWAP the ENEMY TANK (Part 2 - Placements)",
+   "timestamp": "12:50",
+   "patch_or_date": "2026-07-07",
+   "role": "tank",
+   "current_hero": "reinhardt",
+   "my_team": [],
+   "enemy_team": [
+    "zarya"
+   ],
+   "call": {
+    "action": "stay",
+    "to": null,
+    "how": "Stay on Reinhardt."
+   },
+   "reason": "The enemy went Zarya, which he counts as a hero Reinhardt beats.",
+   "notes": "Self-call during his challenge of counter-swapping every enemy tank.",
+   "challenge_rule": true
+  },
+  {
+   "id": "omzhh-p2-4433",
+   "coach": "Omzhh",
+   "source_url": "https://www.youtube.com/watch?v=_3btGQfwipk&t=2673s",
+   "source_title": "Unranked to Champion but I only COUNTER SWAP the ENEMY TANK (Part 2 - Placements)",
+   "timestamp": "44:33",
+   "patch_or_date": "2026-07-07",
+   "role": "tank",
+   "current_hero": "dva",
+   "my_team": [],
+   "enemy_team": [
+    "orisa"
+   ],
+   "call": {
+    "action": "swap",
+    "to": "zarya",
+    "how": "Swap to Zarya."
+   },
+   "reason": "Zarya is his answer to Orisa, though he notes Zarya into Orisa is weaker now that Orisa has a shield perk.",
+   "notes": "Orisa is called 'horse' in the transcript. Self-call during his challenge of counter-swapping every enemy tank.",
+   "challenge_rule": true
+  },
+  {
+   "id": "omzhh-p2-4747",
+   "coach": "Omzhh",
+   "source_url": "https://www.youtube.com/watch?v=_3btGQfwipk&t=2867s",
+   "source_title": "Unranked to Champion but I only COUNTER SWAP the ENEMY TANK (Part 2 - Placements)",
+   "timestamp": "47:47",
+   "patch_or_date": "2026-07-07",
+   "role": "tank",
+   "current_hero": null,
+   "my_team": [
+    "mei",
+    "genji",
+    "kiriko",
+    "lifeweaver"
+   ],
+   "enemy_team": [
+    "dva"
+   ],
+   "call": {
+    "action": "swap",
+    "to": "wreckingball",
+    "how": "Swap to Wrecking Ball (Roadhog considered)."
+   },
+   "reason": "Zarya, the usual answer to D.Va, is banned, and D.Va has few other counters.",
+   "notes": "Self-call during his challenge of counter-swapping every enemy tank.",
+   "challenge_rule": true
+  },
+  {
+   "id": "omzhh-p5-4730",
+   "coach": "Omzhh",
+   "source_url": "https://www.youtube.com/watch?v=jU-BgR3QIqs&t=2850s",
+   "source_title": "Unranked to Champion but I only COUNTER SWAP the ENEMY TANK (Part 5 - Diamond to Masters)",
+   "timestamp": "47:30",
+   "patch_or_date": "2026-07-19",
+   "role": "tank",
+   "current_hero": null,
+   "my_team": [],
+   "enemy_team": [
+    "roadhog"
+   ],
+   "call": {
+    "action": "swap",
+    "to": "orisa",
+    "how": "Swap to Orisa on the next death."
+   },
+   "reason": "Orisa is his answer to Roadhog.",
+   "notes": "Self-call during his challenge of counter-swapping every enemy tank.",
+   "challenge_rule": true
+  },
+  {
+   "id": "omzhh-p1-4408",
+   "coach": "Omzhh",
+   "source_url": "https://www.youtube.com/watch?v=a1reXMHmlI4&t=2648s",
+   "source_title": "Unranked to Champion but I only COUNTER SWAP the ENEMY TANK (Part 1 - Placements)",
+   "timestamp": "44:08",
+   "patch_or_date": "2026-07-05",
+   "role": "tank",
+   "current_hero": "orisa",
+   "my_team": [
+    "reaper",
+    "shion",
+    "kiriko",
+    "mercy"
+   ],
+   "enemy_team": [
+    "domina"
+   ],
+   "call": {
+    "action": "swap",
+    "to": "reinhardt",
+    "how": "Stick on Orisa for this round, then swap to Reinhardt (he does so at about 46:08)."
+   },
+   "reason": "He says Reinhardt is good into three tanks: Zarya, Domina and Sigma. He also says Roadhog into Domina is really bad (46:18).",
+   "notes": "Self-call during his challenge of counter-swapping every enemy tank.",
+   "challenge_rule": true
+  },
+  {
+   "id": "omzhh-jan-1301",
+   "coach": "Omzhh",
+   "source_url": "https://www.youtube.com/watch?v=dOdJmJNvAAs&t=781s",
+   "source_title": "Unranked to Champion but I only COUNTER SWAP the ENEMY TANK (Part 1 - Silver to Gold)",
+   "timestamp": "13:01",
+   "patch_or_date": "2026-01-18",
+   "role": "tank",
+   "current_hero": null,
+   "my_team": [
+    "torbjorn",
+    "ashe",
+    "zenyatta",
+    "mercy"
+   ],
+   "enemy_team": [
+    "dva"
+   ],
+   "call": {
+    "action": "swap",
+    "to": "wreckingball",
+    "how": "Swap to Wrecking Ball on the next death."
+   },
+   "reason": "Zarya, the usual answer to D.Va, was banned.",
+   "notes": "Self-call during his challenge of counter-swapping every enemy tank.",
+   "challenge_rule": true
+  },
+  {
+   "id": "omzhh-jan-5019",
+   "coach": "Omzhh",
+   "source_url": "https://www.youtube.com/watch?v=dOdJmJNvAAs&t=3019s",
+   "source_title": "Unranked to Champion but I only COUNTER SWAP the ENEMY TANK (Part 1 - Silver to Gold)",
+   "timestamp": "50:19",
+   "patch_or_date": "2026-01-18",
+   "role": "tank",
+   "current_hero": null,
+   "my_team": [],
+   "enemy_team": [
+    "sigma"
+   ],
+   "call": {
+    "action": "swap",
+    "to": "dva",
+    "how": "Swap to D.Va (or Reinhardt)."
+   },
+   "reason": "D.Va or Reinhardt are his answers to Sigma.",
+   "notes": "Self-call during his challenge of counter-swapping every enemy tank.",
+   "challenge_rule": true
+  },
+  {
+   "id": "spilo-swapguide-0525",
+   "coach": "Spilo",
+   "source_url": "https://www.youtube.com/watch?v=IG2b52Vofew&t=325s",
+   "source_title": "SWAP: a Guide to Overwatch 2 Counters",
+   "timestamp": "5:25",
+   "patch_or_date": "2023-11-28",
+   "role": "damage",
+   "current_hero": "ashe",
+   "my_team": [],
+   "enemy_team": [
+    "wreckingball",
+    "tracer"
+   ],
+   "call": {
+    "action": "stay",
+    "to": null,
+    "how": "Stay on Ashe on Junkertown first or third point and position well."
+   },
+   "reason": "Ball and Tracer struggle to reach a well-positioned Ashe there, so the counter is softer than it looks.",
+   "notes": "Worked example in a counter guide, not a live match.",
+   "challenge_rule": false
+  },
+  {
+   "id": "spilo-tracer-4114",
+   "coach": "Spilo",
+   "source_url": "https://www.youtube.com/watch?v=JP42ftb9GpY&t=2474s",
+   "source_title": "Grandmaster Tracer/Shion Coaching (Coaching Sunshinebread 2.0)",
+   "timestamp": "41:14",
+   "patch_or_date": "2026-11-02",
+   "role": "damage",
+   "current_hero": "tracer",
+   "my_team": [
+    "doomfist"
+   ],
+   "enemy_team": [
+    "pharah",
+    "zenyatta",
+    "juno"
+   ],
+   "call": {
+    "action": "swap",
+    "to": "shion",
+    "how": "The swap to Shion is fine; keep fixing lane discipline and engage timing."
+   },
+   "reason": "Shion suits this open map and feels good against Pharah, but it will not solve her problems (crossing lanes, engaging before the tank).",
+   "notes": "Enemy Zenyatta and Juno are mentioned at 35:18 to 40:20; the player's tank is a Doomfist (40:33).",
+   "challenge_rule": false
+  },
+  {
+   "id": "spilo-debunk-2453",
+   "coach": "Spilo",
+   "source_url": "https://www.youtube.com/watch?v=Ejdn1vhcdHM&t=1493s",
+   "source_title": "Debunking Overwatch's Most Misleading Advice",
+   "timestamp": "24:53",
+   "patch_or_date": "2025-09-03",
+   "role": "tank",
+   "current_hero": "ramattra",
+   "my_team": [],
+   "enemy_team": [
+    "reinhardt",
+    "zenyatta"
+   ],
+   "call": {
+    "action": "stay",
+    "to": null,
+    "how": "Do not tunnel the Reinhardt just because Ramattra counters him; take a position with cover first, then pressure whatever is convenient from it."
+   },
+   "reason": "Spilo mocks the clip's 'Ramattra counters Rein' logic: chasing the tank at the expense of position gets the Ramattra killed. Position first, target second (24:47 to 25:40).",
+   "notes": "Spilo reviewing a viewer clip about target priority. This is a how-to-play call, not a swap call.",
+   "challenge_rule": false
+  },
+  {
+   "id": "emongg-kiri-0852",
+   "coach": "emongg",
+   "source_url": "https://www.youtube.com/watch?v=7YgjWujJmBM&t=532s",
+   "source_title": "Their Widow RAGE QUIT After Not Getting Healed... What Really Went Wrong? - Overwatch Spectating",
+   "timestamp": "8:52",
+   "patch_or_date": "2026-10-17",
+   "role": "damage",
+   "current_hero": "widowmaker",
+   "my_team": [
+    "kiriko",
+    "echo",
+    "mercy"
+   ],
+   "enemy_team": [
+    "genji"
+   ],
+   "call": {
+    "action": "swap",
+    "to": "tracer",
+    "how": "Swap off Widowmaker to something more survivable (Genji, Tracer or Cassidy). The Widow went Tracer and he calls it the right play."
+   },
+   "reason": "The Genji keeps diving the backline, so a Widow just becomes bait.",
+   "notes": "The coach is commenting on a teammate of the reviewed Kiriko.",
+   "challenge_rule": false
+  },
+  {
+   "id": "emongg-kiri-2900",
+   "coach": "emongg",
+   "source_url": "https://www.youtube.com/watch?v=7YgjWujJmBM&t=1740s",
+   "source_title": "Their Widow RAGE QUIT After Not Getting Healed... What Really Went Wrong? - Overwatch Spectating",
+   "timestamp": "29:00",
+   "patch_or_date": "2026-10-17",
+   "role": "support",
+   "current_hero": "kiriko",
+   "my_team": [],
+   "enemy_team": [],
+   "call": {
+    "action": "swap",
+    "to": "moira",
+    "how": "The swap to Moira is okay: play to live."
+   },
+   "reason": "Late in a losing game, Moira lets the player survive, and he is fine with it.",
+   "notes": "The comp is not restated at this moment.",
+   "challenge_rule": false
+  },
+  {
+   "id": "gozembii-rein-0430",
+   "coach": "GoZembii",
+   "source_url": "https://www.youtube.com/watch?v=l_ciwvSCTHM&t=270s",
+   "source_title": "This Is Why You're Losing on Tank | Overwatch 2 VOD REVIEW (Rialto)",
+   "timestamp": "4:30",
+   "patch_or_date": "2026-02-20",
+   "role": "tank",
+   "current_hero": "reinhardt",
+   "my_team": [
+    "ana"
+   ],
+   "enemy_team": [
+    "orisa",
+    "bastion",
+    "cassidy"
+   ],
+   "call": {
+    "action": "swap",
+    "to": "ramattra",
+    "how": "Swap from Reinhardt to Ramattra, which he calls a very good choice."
+   },
+   "reason": "Orisa, Bastion and Cassidy bring a lot of shield break and counter Reinhardt.",
+   "notes": "The coach describes himself as a Top 500 player.",
+   "challenge_rule": false
+  }
+ ]
+}

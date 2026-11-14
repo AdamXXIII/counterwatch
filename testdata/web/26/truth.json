@@ -1,0 +1,51 @@
+{
+ "width": 2560,
+ "height": 1494,
+ "my_team": [
+  {
+   "hero": "sigma",
+   "role": "tank"
+  },
+  {
+   "hero": "ashe",
+   "role": "damage"
+  },
+  {
+   "hero": "genji",
+   "role": "damage"
+  },
+  {
+   "hero": "unknown",
+   "role": "support"
+  },
+  {
+   "hero": "lifeweaver",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "unknown",
+   "role": "tank"
+  },
+  {
+   "hero": "unknown",
+   "role": "damage"
+  },
+  {
+   "hero": "unknown",
+   "role": "damage"
+  },
+  {
+   "hero": "unknown",
+   "role": "support"
+  },
+  {
+   "hero": "unknown",
+   "role": "support"
+  }
+ ],
+ "notes": "Tabbed variant, TIME 0:00 (setup). Local player (row 4) has not picked: \"?\" silhouette. All enemy portraits \"?\". No hero panel, so the board is centred alone (left edge x~551 in 1080p space). All stats 0.",
+ "phase": "mid_match",
+ "phase_evidence": "no victory/defeat/endorse marker seen; INTERACT button, match timer running"
+}

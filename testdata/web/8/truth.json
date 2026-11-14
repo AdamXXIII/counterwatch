@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "ramattra",
+   "role": "tank"
+  },
+  {
+   "hero": "cassidy",
+   "role": "damage"
+  },
+  {
+   "hero": "shion",
+   "role": "damage"
+  },
+  {
+   "hero": "mercy",
+   "role": "support"
+  },
+  {
+   "hero": "mizuki",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "wreckingball",
+   "role": "tank"
+  },
+  {
+   "hero": "shion",
+   "role": "damage"
+  },
+  {
+   "hero": "bastion",
+   "role": "damage"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  },
+  {
+   "hero": "kiriko",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. Interact mode (button reads CLOSE): board shifts left (left edge x=230) and gains chat/mute/report button columns. Competitive hero bans shown as 4 red-framed portraits top-left. Same hero (shion) can appear on both teams.",
+ "phase": "end_of_match",
+ "phase_evidence": "VICTORY / FINAL SCORE watermark"
+}

@@ -1,0 +1,7 @@
+image_url: https://images.steamusercontent.com/ugc/10198102048582520082/9736B5AE675D6DA57F9D44F7537617EAC1343F1F/
+page: https://steamcommunity.com/sharedfiles/filedetails/?id=3746797055
+site: Steam Community screenshots for Overwatch (app 2357570), user-uploaded in-game screenshot
+date_posted: 2026-06-17 (Steam page: "17 Jun @ 9:21pm", current year)
+original_size: 1440x900 (Steam original, re-saved as PNG)
+downloaded: 2026-11-14
+original_format: JPEG (verified 2026-11-14: re-downloaded image_url decodes pixel-identical to image.png)

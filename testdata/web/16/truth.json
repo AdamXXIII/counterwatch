@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "hazard",
+   "role": "tank"
+  },
+  {
+   "hero": "vendetta",
+   "role": "damage"
+  },
+  {
+   "hero": "hanzo",
+   "role": "damage"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  },
+  {
+   "hero": "juno",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "dmon",
+   "role": "tank"
+  },
+  {
+   "hero": "shion",
+   "role": "damage"
+  },
+  {
+   "hero": "genji",
+   "role": "damage"
+  },
+  {
+   "hero": "ana",
+   "role": "support"
+  },
+  {
+   "hero": "kiriko",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. Local player is row 4 (highlighted).",
+ "phase": "end_of_match",
+ "phase_evidence": "DEFEAT watermark (faint; lower confidence)"
+}

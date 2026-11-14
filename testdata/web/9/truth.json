@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "sigma",
+   "role": "tank"
+  },
+  {
+   "hero": "sojourn",
+   "role": "damage"
+  },
+  {
+   "hero": "soldier76",
+   "role": "damage"
+  },
+  {
+   "hero": "ana",
+   "role": "support"
+  },
+  {
+   "hero": "kiriko",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "dmon",
+   "role": "tank"
+  },
+  {
+   "hero": "bastion",
+   "role": "damage"
+  },
+  {
+   "hero": "venture",
+   "role": "damage"
+  },
+  {
+   "hero": "kiriko",
+   "role": "support"
+  },
+  {
+   "hero": "ana",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team.",
+ "phase": "end_of_match",
+ "phase_evidence": "VICTORY / FINAL SCORE watermark"
+}

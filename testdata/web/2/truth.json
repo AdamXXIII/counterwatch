@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "dva",
+   "role": "tank"
+  },
+  {
+   "hero": "widowmaker",
+   "role": "damage"
+  },
+  {
+   "hero": "symmetra",
+   "role": "damage"
+  },
+  {
+   "hero": "zenyatta",
+   "role": "support"
+  },
+  {
+   "hero": "mercy",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "zarya",
+   "role": "tank"
+  },
+  {
+   "hero": "ashe",
+   "role": "damage"
+  },
+  {
+   "hero": "bastion",
+   "role": "damage"
+  },
+  {
+   "hero": "mercy",
+   "role": "support"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  }
+ ],
+ "notes": "August 2025 build, end of match (VICTORY behind board). Older layout without perk icons: row pitch ~62 px, ally rows y 206-514, enemy y 599-907, portraits x 312-372. Green strip on rows 4-5 = group members.",
+ "phase": "end_of_match",
+ "phase_evidence": "VICTORY watermark + Athena line"
+}

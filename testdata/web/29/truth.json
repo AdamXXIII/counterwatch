@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "doomfist",
+   "role": "tank"
+  },
+  {
+   "hero": "tracer",
+   "role": "damage"
+  },
+  {
+   "hero": "vendetta",
+   "role": "damage"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  },
+  {
+   "hero": "lifeweaver",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "hazard",
+   "role": "tank"
+  },
+  {
+   "hero": "anran",
+   "role": "damage"
+  },
+  {
+   "hero": "junkrat",
+   "role": "damage"
+  },
+  {
+   "hero": "doctrine",
+   "role": "support"
+  },
+  {
+   "hero": "kiriko",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. Italian UI. Custom colours: ally cyan, enemy orange. Local player row 4 (Moira).",
+ "phase": "mid_match",
+ "phase_evidence": "no victory/defeat/endorse marker seen; INTERACT button, match timer running"
+}

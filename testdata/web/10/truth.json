@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "winston",
+   "role": "tank"
+  },
+  {
+   "hero": "ashe",
+   "role": "damage"
+  },
+  {
+   "hero": "cassidy",
+   "role": "damage"
+  },
+  {
+   "hero": "mercy",
+   "role": "support"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "doomfist",
+   "role": "tank"
+  },
+  {
+   "hero": "vendetta",
+   "role": "damage"
+  },
+  {
+   "hero": "genji",
+   "role": "damage"
+  },
+  {
+   "hero": "mercy",
+   "role": "support"
+  },
+  {
+   "hero": "jetpackcat",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. Enemy colour customised to pink.",
+ "phase": "end_of_match",
+ "phase_evidence": "DEFEAT watermark"
+}

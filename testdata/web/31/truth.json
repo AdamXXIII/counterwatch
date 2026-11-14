@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "doomfist",
+   "role": "tank"
+  },
+  {
+   "hero": "hanzo",
+   "role": "damage"
+  },
+  {
+   "hero": "soldier76",
+   "role": "damage"
+  },
+  {
+   "hero": "zenyatta",
+   "role": "support"
+  },
+  {
+   "hero": "lifeweaver",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "doomfist",
+   "role": "tank"
+  },
+  {
+   "hero": "genji",
+   "role": "damage"
+  },
+  {
+   "hero": "vendetta",
+   "role": "damage"
+  },
+  {
+   "hero": "ana",
+   "role": "support"
+  },
+  {
+   "hero": "illari",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. Italian UI, ally cyan / enemy orange. Mirror tank (doomfist on both teams).",
+ "phase": "end_of_match",
+ "phase_evidence": "Athena \"Sconfitta\" chat line"
+}

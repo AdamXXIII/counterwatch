@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "reinhardt",
+   "role": "tank"
+  },
+  {
+   "hero": "genji",
+   "role": "damage"
+  },
+  {
+   "hero": "tracer",
+   "role": "damage"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  },
+  {
+   "hero": "kiriko",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "dva",
+   "role": "tank"
+  },
+  {
+   "hero": "reaper",
+   "role": "damage"
+  },
+  {
+   "hero": "ashe",
+   "role": "damage"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  },
+  {
+   "hero": "empty",
+   "role": null
+  }
+ ],
+ "notes": "STADIUM, older build (62 px row pitch like the 2025 shots #1-#2; post date only bounded Aug 2025-Jun 2026 by Steam file-ID order, so \"2025\" is inferred from the layout, not confirmed). End of match (4-3, ENDORSE PLAYERS). \"TOTAL STATS\" view, cash and BTY columns, Stadium rank badges (roman numerals) beside names. Ally rows y 216-524, enemy y 609-917 (pitch ~62), board left edge x=182. Enemy custom colour magenta. One enemy left: bottom row \"WAITING FOR PLAYER\".",
+ "phase": "end_of_match",
+ "phase_evidence": "ENDORSE PLAYERS button, STAY AS TEAM prompt"
+}

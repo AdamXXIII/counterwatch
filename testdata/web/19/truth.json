@@ -1,0 +1,51 @@
+{
+ "width": 3269,
+ "height": 1401,
+ "my_team": [
+  {
+   "hero": "reinhardt",
+   "role": "tank"
+  },
+  {
+   "hero": "anran",
+   "role": "damage"
+  },
+  {
+   "hero": "mei",
+   "role": "damage"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  },
+  {
+   "hero": "baptiste",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "domina",
+   "role": "tank"
+  },
+  {
+   "hero": "cassidy",
+   "role": "damage"
+  },
+  {
+   "hero": "bastion",
+   "role": "damage"
+  },
+  {
+   "hero": "kiriko",
+   "role": "support"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  }
+ ],
+ "notes": "Standard 5v5 role-queue Tab scoreboard (2026 layout). Rows top-to-bottom: tank, damage, damage, support, support for each team. 3269x1401 ultrawide, blurry upload.",
+ "phase": "end_of_match",
+ "phase_evidence": "ENDORSE PLAYERS button"
+}

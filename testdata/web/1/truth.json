@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "orisa",
+   "role": "tank"
+  },
+  {
+   "hero": "ana",
+   "role": "support"
+  },
+  {
+   "hero": "hazard",
+   "role": "tank"
+  },
+  {
+   "hero": "widowmaker",
+   "role": "damage"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "ana",
+   "role": "support"
+  },
+  {
+   "hero": "sigma",
+   "role": "tank"
+  },
+  {
+   "hero": "dva",
+   "role": "tank"
+  },
+  {
+   "hero": "ashe",
+   "role": "damage"
+  },
+  {
+   "hero": "moira",
+   "role": "support"
+  }
+ ],
+ "notes": "July 2025 build, mode \"Push - Random Heroes\" (Arcade): rows are NOT in role order and a team can have 2 tanks. Green role strip = players in your group. Older layout: row pitch ~62 px, ally top ~200, enemy top ~592.",
+ "phase": "mid_match",
+ "phase_evidence": "no victory/defeat/endorse marker seen; INTERACT button, match timer running"
+}

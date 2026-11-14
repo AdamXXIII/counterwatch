@@ -1,0 +1,51 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "my_team": [
+  {
+   "hero": "hazard",
+   "role": "tank"
+  },
+  {
+   "hero": "bastion",
+   "role": "damage"
+  },
+  {
+   "hero": "hanzo",
+   "role": "damage"
+  },
+  {
+   "hero": "ana",
+   "role": "support"
+  },
+  {
+   "hero": "baptiste",
+   "role": "support"
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "tracer",
+   "role": "damage"
+  },
+  {
+   "hero": "empty",
+   "role": null
+  },
+  {
+   "hero": "empty",
+   "role": null
+  },
+  {
+   "hero": "empty",
+   "role": null
+  },
+  {
+   "hero": "empty",
+   "role": null
+  }
+ ],
+ "notes": "Tabbed variant (Portuguese UI). Four enemy players have left: their rows read \"AGUARDANDO JOGADOR\" (waiting for player) with a three-dot placeholder instead of a portrait, and the one remaining enemy (Tracer, damage icon) is moved to the TOP enemy row, so enemy rows are not always tank-first. Ally rows show ult-charge % rings. Competitive bans (5 portraits) top-left.",
+ "phase": "mid_match",
+ "phase_evidence": "no victory/defeat/endorse marker seen; INTERACT button, match timer running"
+}
