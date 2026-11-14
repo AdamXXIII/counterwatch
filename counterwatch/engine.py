@@ -57,6 +57,15 @@ How it thinks (data/counters.json, swap_rules):
     "Mind their X" line) costs it, more when that enemy counters it outright, so an
     alternative that answers their tank AND that second threat moves up. The penalty ranks
     picks only; the stay-or-swap margin still compares plain scores.
+  * Round 6, whole-team pick: the veto is now any visible enemy beating a candidate by
+    VETO (6) or more, so a Bastion behind their tank or an Ana into a sustain tank removes the
+    pick instead of leaving it with a "Mind their X" line. Among the rest, a pick no enemy
+    beats by CLEAN_WORST is preferred unless a threatened one is clearly better; when nothing
+    left really answers their comp, the sturdy, generally accepted pick for the role (STURDY:
+    Orisa, Sigma, D.Va... on tank) is the call, and SAFE_VS kit facts (Fortify vs Sleep Dart,
+    Matrix vs Biotic Grenade, Barrier and Grasp vs Assault configuration) say why it holds up.
+    A current hero hard-countered by someone on their board swaps to a clean pick that is
+    VETO_ESCAPE_GAIN better (not with ult nearly up, not when a tank already wins the duel).
   * Banned heroes (ids or display names) and heroes already on the player's team are
     never offered, compared against or cited, and no hero is ruled out in the reasons
     for a weakness the recommended hero shares.
@@ -83,7 +92,28 @@ HARD_COUNTER = 9.0        # being on the wrong end of this many points twice for
 ENEMY_TANK_W = {"tank": 2.0, "damage": 1.0, "support": 1.0}
 WORST_W = 0.35            # extra penalty per point the single worst threat exceeds SOFT
 SOFT = 5.0
-VETO = 7.5                # any visible enemy beating a candidate by this much rules it out
+VETO = 6.0                # any visible enemy beating a candidate by this much rules it out
+#   (round 6: was 7.5, which let a Sojourn or Bastion behind their tank -6 to -7 through
+#   with only a "Mind their X" line; a counter that size from ANY enemy is disqualifying)
+CLEAN_SLACK = 3.0         # a pick nobody on their board soft-counters may trail a threatened one this much
+CLEAN_WORST = 4.0         # "clean": no visible enemy beats the pick by this much (a TANK_SOFT-size threat)
+STURDY_SLACK = 2.5        # when no pick really answers their comp, the sturdy pick may trail this much
+VETO_ESCAPE_GAIN = 1.0    # current hero hard-countered by a visible enemy: a clean pick this much better is a swap
+# The sturdy, generally accepted picks per role: what a coach says when nothing on the
+# board needs a specialist answer, or when the specialist answers are all hard-countered.
+STURDY = {"tank": ("orisa", "sigma", "dva", "reinhardt", "zarya"),
+          "damage": ("soldier76", "cassidy", "ashe", "sojourn"),
+          "support": ("kiriko", "baptiste", "ana", "lucio")}
+# Kit facts that keep a hero safe from a comp-level punisher (no edge either way, but the
+# punisher floor does not apply). (hero, enemy): reason the player can be told.
+SAFE_VS = {
+    ("orisa", "ana"): "Fortify makes Orisa immune to Sleep Dart and she has no lifesteal for Biotic Grenade to cut",
+    ("dva", "ana"): "Defense Matrix eats Sleep Dart and Biotic Grenade",
+    ("sigma", "ana"): "Kinetic Grasp eats Sleep Dart and Biotic Grenade, and Sigma needs no self-heal",
+    ("sigma", "bastion"): "Barrier Field and Kinetic Grasp soak Assault configuration fire",
+    ("dva", "bastion"): "Defense Matrix eats Bastion's bullets while D.Va closes the gap",
+    ("zarya", "bastion"): "Bubbles soak Assault configuration fire and charge Zarya's beam",
+}
 
 KILLER_W = 1.6            # extra weight on the hero that just killed you
 SYNERGY_VALUE = 0.8
@@ -121,7 +151,7 @@ PUNISHERS = [
     {   # anti-heal and sleep against tanks that live on self-sustain
         "enemies": {"ana": 8.0},
         "victims": {"mauga": 1.0, "roadhog": 1.0, "junkerqueen": 0.75, "ramattra": 0.6},
-        "say": "{e}'s Biotic Grenade and Sleep Dart shut off {c}'s self-sustain",
+        "say": "{e}'s Biotic Grenade shuts off {c}'s self-healing and Sleep Dart stops the engage",
     },
     {   # high sustained or burst DPS into a big hitbox
         "enemies": {"bastion": 8.0, "sojourn": 6.0, "widowmaker": 6.0, "symmetra": 5.5,
@@ -216,8 +246,8 @@ TANK_DUEL = {
     # sustained fire into a bubble tank: every bullet charges her beam
     ("zarya", "mauga"): (8.0, "Particle Barrier soaks Mauga's nonstop chaingun fire and every bullet charges Zarya's beam"),
     ("zarya", "dmon"): (5.5, "Bubbles soak D.Mon's Fusion Repeater fire and Saber swings, charging Zarya's beam"),
-    ("zarya", "orisa"): (5.5, "Bubbles block Energy Javelin and soak Fusion Driver fire, so Orisa's poke charges Zarya"),
-    ("zarya", "roadhog"): (5.5, "Particle Barrier cancels Chain Hook and soaks the Scrap Gun burst"),
+    ("zarya", "orisa"): (5.5, "Bubbles soak Energy Javelin and Fusion Driver damage, so Orisa's poke charges Zarya"),
+    ("zarya", "roadhog"): (5.5, "A bubble soaks the Chain Hook combo damage (not the pull) and charges Zarya's beam"),
     ("zarya", "junkerqueen"): (5.0, "Particle Barrier cleanses her wounds and Rampage anti-heal, and soaks the Scattergun"),
     ("zarya", "winston"): (5.0, "Tesla Cannon into her bubbles charges Zarya, and her beam melts his big hitbox"),
     ("zarya", "dva"): (8.0, "Particle Cannon beam ignores Defense Matrix and bubbles soak Micro Missiles"),
@@ -226,7 +256,7 @@ TANK_DUEL = {
     # barrier tanks and brawl
     ("reinhardt", "sigma"): (6.0, "Rein walks Hyperspheres off behind Barrier Field and Kinetic Grasp cannot eat hammer swings"),
     ("reinhardt", "junkerqueen"): (5.5, "Barrier Field blocks Jagged Blade and the Scattergun, and she has to walk into hammer range"),
-    ("orisa", "reinhardt"): (6.0, "Energy Javelin stops Charge, Fusion Driver chews through Barrier Field and Fortify ignores Earthshatter"),
+    ("orisa", "reinhardt"): (6.0, "Energy Javelin stops Charge and Fusion Driver chews through Barrier Field from range"),
     ("domina", "roadhog"): (6.0, "Barrier Array blocks Chain Hook and Photon Magnum pokes his huge hitbox from range"),
     ("roadhog", "ramattra"): (6.0, "Trash Compactor eats Void Accelerator fire and Chain Hook drags Ramattra away from his team"),
     ("dva", "sigma"): (5.5, "Defense Matrix eats Hyperspheres and Accretion, and Boosters fly past his barrier"),
@@ -282,6 +312,8 @@ def edge(a, b):
 def punisher(c, e):
     """(floor, reason) when enemy e is known to punish candidate c, else (0, None)."""
     best = (0.0, None)
+    if (c, e) in SAFE_VS:
+        return best
     for r in PUNISHERS:
         base = r["enemies"].get(e)
         f = r["victims"].get(c)
@@ -545,6 +577,20 @@ def _shares_weakness(pick, other, e):
     return p < 0 and p - comp_edge(other, e) < SOFT
 
 
+# How to play around the second threat that is left on their board (what a coach adds
+# after "mind their X"): one short, mechanic-specific instruction.
+MIND_TIP = {
+    "bastion": "fight off his sightline and make him leave Assault configuration first",
+    "ana": "bait Sleep Dart and Biotic Grenade before you commit",
+    "sojourn": "break her sightline so Railgun charge never lands",
+    "widowmaker": "stay out of her long sightlines",
+    "genji": "hold burst shots while Deflect is up",
+    "zenyatta": "fight around corners so Discord can't stay on you",
+    "cassidy": "keep out of Flashbang range",
+    "symmetra": "kill the turrets before you push in",
+}
+
+
 def _counter_threat_line(to, threats, vetoed):
     """One reason naming the counter-threat on their board: the enemy that rules out a
     higher-scoring pick, or the enemy that still beats this one. Never contradicts the
@@ -560,8 +606,13 @@ def _counter_threat_line(to, threats, vetoed):
         return line + (f" ({_clause(cause, 80)})." if cause else ".")
     if threats and threats[0][0] <= -2.0:
         _, e, why = threats[0]
+        tip = MIND_TIP.get(e)
+        if why and tip and len(_clause(why, 60)) <= 60:
+            return f"Mind their {name(e)}: {_clause(why, 60)}; {tip}."
         if why:
             return f"Mind their {name(e)}: {_clause(why, 90)}."
+        if tip:
+            return f"Mind their {name(e)}: {tip}."
         return f"Their {name(e)} still wins that matchup; take fights away from them."
     return None
 
@@ -586,6 +637,38 @@ def _norm_bans(bans):
     return {lookup.get(key(b), b) for b in (bans or []) if b}
 
 
+def _rank(s):
+    return s["total"] - s["threat_pen"]
+
+
+def _choose_pool(others, role):
+    """Order the picks a coach would offer, best first, judged against the WHOLE visible
+    enemy team:
+      1. drop every pick a visible enemy hard-counters (veto);
+      2. prefer a pick nobody on their board even soft-counters (worst < SOFT) unless a
+         threatened pick is clearly better;
+      3. when no remaining pick actually answers anything (no win of SOFT or more), go to the
+         sturdy, generally accepted pick for the role rather than a niche one;
+      4. if every pick is hard-countered, the least-bad ones, sturdy first."""
+    ok = [s for s in others if not s["veto"]]
+    if not ok:
+        st = STURDY.get(role, ())
+        return sorted(others, key=lambda s: (s["worst"] - (1.0 if s["hero"] in st else 0.0),
+                                              -s["total"]))
+    ok.sort(key=lambda s: -_rank(s))
+    clean = [s for s in ok if s["worst"] < CLEAN_WORST]
+    head = ok[0]
+    if clean and clean[0] is not head and _rank(clean[0]) >= _rank(head) - CLEAN_SLACK:
+        head = clean[0]
+    if head["best_win"] < SOFT:
+        st = STURDY.get(role, ())
+        sturdy = [s for s in (clean or ok) if s["hero"] in st
+                  and _rank(s) >= _rank(head) - STURDY_SLACK]
+        if sturdy:
+            head = min(sturdy, key=lambda s: (st.index(s["hero"]), -_rank(s)))
+    return [head] + [s for s in ok if s is not head]
+
+
 def advise(state, bans=None):
     counters, roster, _ = _data()
     bans = _norm_bans(bans)
@@ -608,8 +691,7 @@ def advise(state, bans=None):
     others = [s for s in scored if s["hero"] != me]
     # Never offer a hero that someone on their board hard-counters. If every
     # pick in the role is hard-countered, fall back to the least-bad ones.
-    alt_pool = [s for s in others if not s["veto"]] or sorted(
-        others, key=lambda s: (s["worst"], -s["total"]))
+    alt_pool = _choose_pool(others, role)
     best = alt_pool[0] if alt_pool else None
     # the higher-scoring heroes ruled out, so the reasons can say why they aren't the pick
     vetoed = [s for s in others if s["veto"] and best and s["total"] > best["total"]]
@@ -622,6 +704,7 @@ def advise(state, bans=None):
     tank_threats = []   # their tank(s) that counter my current hero
     escaping = []       # set when the swap is to get out of that duel
     escape = None       # the best even-duel pick into that tank, if any
+    fled = None         # the enemy that hard-counters the current hero, when that is the swap
     # --- decide ---
     if me is None and info == 0:
         action, to, gain, margin = "stay", None, 0.0, 0.0
@@ -637,8 +720,9 @@ def advise(state, bans=None):
         margin = SWAP_MARGIN.get(role, 4.0)
         if ult is not None and ult >= ULT_HIGH:
             margin += 3.0
-        if role == "tank" and any(role_of(e) == "tank" and cur["per"][e] >= SOFT
-                                  for e in weights):
+        wins_duel = role == "tank" and any(role_of(e) == "tank" and cur["per"][e] >= SOFT
+                                           for e in weights)
+        if wins_duel:
             margin += WIN_TANK_MARGIN
         arr = _arrivals(state, enemies)
         if arr and all(cur["per"][e] >= 0 for e in arr):
@@ -691,6 +775,12 @@ def advise(state, bans=None):
                       and s["total"] - s["threat_pen"] >= best["total"] - best["threat_pen"] - 2.0]
                 if hs and hs[0]["total"] - cur["total"] >= -HARD_ANSWER_SLACK:
                     hard_answer = hs[0]
+        # the current hero is hard-countered by someone on their board and a pick nobody
+        # hard-counters is on offer and no worse overall: get out (ult nearly up: spend it first)
+        veto_out = (cur["veto"] and best and not best["veto"] and info
+                    and not (ult is not None and ult >= ULT_HIGH)
+                    and gain >= VETO_ESCAPE_GAIN and not helps
+                    and not wins_duel)    # a tank winning the tank duel keeps it (normal margin)
         chosen = best
         if me in bans:
             action = "swap"
@@ -698,6 +788,10 @@ def advise(state, bans=None):
             action = "stay"
         elif forced or (gain >= margin and real):
             action = "swap"
+        elif veto_out:
+            action = "swap"
+            margin = VETO_ESCAPE_GAIN
+            fled = cur["veto"]
         elif hard_answer:
             action = "swap"
             chosen = hard_answer
@@ -729,6 +823,8 @@ def advise(state, bans=None):
     when = None
     if action == "swap" and to:
         sc = by[to]
+        kit_safe = next(((e, SAFE_VS[(to, e)]) for e in enemies if (to, e) in SAFE_VS
+                         and any(punisher(o, e)[0] >= SOFT for o in by if o != to)), None)
         wins = []
         for e, w in sorted(weights.items(), key=lambda kv: -kv[1] * comp_edge(to, kv[0])):
             m = _mech(to, e)
@@ -740,6 +836,8 @@ def advise(state, bans=None):
                    if t[2] and not _shares_weakness(to, me, t[1])]
             if escaping:
                 bad.sort(key=lambda t: t[1] not in escaping)   # their tank first
+            elif fled:
+                bad.sort(key=lambda t: t[1] != fled)           # the hard counter first
             lost = (f"{name(me)} loses to {name(bad[0][1])}: {_clause(bad[0][2], 100)}."
                     if bad else None)
             if escaping and (not bad or bad[0][1] not in escaping):
@@ -755,6 +853,8 @@ def advise(state, bans=None):
                 reasons.append(lost)
             if m and comp_edge(to, t0) > 0:
                 reasons.append(f"{name(to)} into {name(t0)}: {_clause(m, 110)}.")
+            elif kit_safe:
+                reasons.append(f"Safe into their {name(kit_safe[0])}: {kit_safe[1]}.")
             else:
                 reasons.append(f"{name(to)} is even into their {name(t0)}, so that duel "
                                "stops deciding the fight.")
@@ -770,7 +870,14 @@ def advise(state, bans=None):
             reasons.append(risk)
         reasons.extend(wins[0:1] if escaping else wins[1:2])
         safe = _safe_reason(to, enemies, options={s["hero"] for s in scored})
+        if kit_safe:
+            safe = f"Safe into their {name(kit_safe[0])}: {kit_safe[1]}."
         head = _swap_headline(to, weights, fresh=me is None)
+        if fled and me and not escaping:
+            why = next((t[2] for t in _threats(me, weights) if t[1] == fled and t[2]), None)
+            cl = _clause(why, 60) if why else ""
+            head = (f"Their {name(fled)} hard-counters {name(me)}: {cl}."
+                    if cl and len(cl) <= 60 else f"Their {name(fled)} hard-counters {name(me)}.")
         if escaping:
             t0 = escaping[0]
             if not (_mech(to, t0) and comp_edge(to, t0) > 0):
@@ -782,6 +889,8 @@ def advise(state, bans=None):
                 head = (f"Their {name(t0)} counters {name(me)}: {cl}."
                         if cl and len(cl) <= 64 else
                         f"Their {name(t0)} counters {name(me)}; take that duel away.")
+        elif head.startswith("Best overall fit") and kit_safe:
+            head = kit_safe[1][0].upper() + kit_safe[1][1:] + "."
         elif head.startswith("Best overall fit") and safe:
             head = safe     # say what it survives on their board instead
         elif safe and len(reasons) < 3:
