@@ -12,8 +12,11 @@ Pipeline (see data/scoreboard_layout.md for the measured geometry):
    * the official hero art in assets/heroes (weaker, covers heroes never seen on a board).
    Features are tint-robust: Lab colour standardised per channel (removes team tint and the
    darkening of dead portraits) plus a HOG edge descriptor. For a dead portrait the centre (where
-   the respawn ring is drawn) is blanked on both sides before comparing.
-4. The local player's row is the ally row drawn brighter than the rest; my_hero is that row's hero.
+   the respawn ring is drawn) is blanked on both sides before comparing, and the scoreboard crops
+   and the official views are ranked separately and combined (see _classify_dead).
+4. The local player's row is the ally row drawn brighter than the rest. my_hero is that row's hero
+   when it is alive and clear; otherwise the big portrait in the hero panel (never dimmed, never
+   tinted) decides, and failing that the last confident read this session (reset_session()).
 
 Only pixels of the captured frame are used. Nothing reads game memory, files or network.
 """
@@ -41,7 +44,9 @@ _TH = np.linspace(0, 2 * np.pi, 48, endpoint=False)
 UNKNOWN_MIN = 1.45   # a "?" silhouette matches its references almost perfectly (~1.9)
 EMPTY_MIN = 0.65
 OFFICIAL_WEIGHT = 0.90  # official art is a different style; real crops win when present
-DEAD_UNSURE = 0.06      # dead portrait whose best two heroes are this close -> "unknown"
+DEAD_UNSURE = 0.04      # dead portrait whose best two heroes (relative score) are this close -> "unknown"
+PANEL_MIN = 0.70        # hero-panel portrait must match a reference this well (seen: 0.90-1.92 real, <=0.46 no panel)
+MEMORY_S = 300.0        # how long the last confident read of your own hero is trusted
 
 
 # ----------------------------------------------------------------------------- features
@@ -206,27 +211,42 @@ def refs() -> _Refs:
 
 
 # ----------------------------------------------------------------------------- per row
+def _role_bonus(c: str, role: str | None) -> float:
+    heroes = data.heroes()
+    if c not in heroes or not role:
+        return 0.0
+    return 0.03 if (heroes[c]["role"] == role or c in _ROLE_CHANGED) else -0.25
+
+
+def _rel(best: np.ndarray, hero_mask: np.ndarray) -> np.ndarray:
+    """Per-source standardised class scores: how far each hero stands out from the source's field."""
+    ok = best > -9
+    v = best[ok & hero_mask]
+    if len(v) < 3:
+        return np.full(best.shape, np.nan, np.float32)
+    return np.where(ok, (best - np.median(v)) / (v.std() + 1e-6), np.nan)
+
+
 def _classify(crop: np.ndarray, dead: bool, role: str | None, exclude_tag: str | None):
+    """(hero id | "unknown", confidence, best raw similarity) for one 64x64 portrait."""
     R = refs()
+    heroes = data.heroes()
     f = _feat(crop, masked=dead)
-    sims = (R.Fm if dead else R.F) @ f
-    sims = sims * R.weight
-    if exclude_tag is not None:
-        sims = np.where(R.tags == exclude_tag, -9.0, sims)
+    raw = (R.Fm if dead else R.F) @ f
+    visible = np.ones(len(raw), bool) if exclude_tag is None else (R.tags != exclude_tag)
+    if dead:
+        return _classify_dead(raw, visible, role)
+    sims = np.where(visible, raw * R.weight, -9.0)
     best = np.full(len(R.classes), -9.0, np.float32)
     np.maximum.at(best, R.lab_idx, sims)
     scores = {}
-    heroes = data.heroes()
     for c, s in zip(R.classes, best):
         if s <= -9:
             continue
-        if c in heroes and role:
-            hr = heroes[c]["role"]
-            ok = hr == role or c in _ROLE_CHANGED
-            s = s + (0.03 if ok else -0.25)
-        scores[c] = float(s)
+        scores[c] = float(s) + _role_bonus(c, role)
     ranked = sorted(scores.items(), key=lambda kv: -kv[1])
     hero_ranked = [kv for kv in ranked if kv[0] in heroes]
+    top_raw = float(best.max())
     top, top_s = ranked[0]
     if top == "unknown" and top_s < UNKNOWN_MIN:
         top, top_s = hero_ranked[0]
@@ -235,11 +255,38 @@ def _classify(crop: np.ndarray, dead: bool, role: str | None, exclude_tag: str |
     if top in heroes:
         second = next((s for c, s in hero_ranked if c != top), 0.0)
         margin = top_s - second
-        if dead and margin < DEAD_UNSURE:
-            return "unknown", round(max(0.0, top_s / 2), 3)
         conf = max(0.0, min(1.0, 0.5 * top_s / 2 + 2.0 * margin))
-        return top, round(conf, 3)
-    return top, round(min(1.0, top_s / 2), 3)
+        return top, round(conf, 3), top_raw
+    return top, round(min(1.0, top_s / 2), 3), top_raw
+
+
+def _classify_dead(raw: np.ndarray, visible: np.ndarray, role: str | None):
+    """A dead portrait keeps only its rim (the respawn ring covers the face), so the absolute
+    similarity is low and real scoreboard crops of *any* hero beat the official art of the right
+    one just by sharing the scoreboard style. Rank each source on its own instead: standardise the
+    per-hero best score within the scoreboard crops and within the ring-masked official views, and
+    average the two (official alone when a hero has no visible crop)."""
+    R = refs()
+    heroes = data.heroes()
+    hero_mask = np.array([c in heroes for c in R.classes])
+    off = R.tags == "official"
+    bc = np.full(len(R.classes), -9.0, np.float32)
+    bo = np.full(len(R.classes), -9.0, np.float32)
+    np.maximum.at(bc, R.lab_idx, np.where(visible & ~off, raw, -9.0))
+    np.maximum.at(bo, R.lab_idx, np.where(visible & off, raw, -9.0))
+    unk = R.cls_idx.get("unknown")
+    if unk is not None and bc[unk] >= UNKNOWN_MIN:
+        return "unknown", round(min(1.0, float(bc[unk]) / 2), 3), float(bc[unk])
+    rc, ro = _rel(bc, hero_mask), _rel(bo, hero_mask)
+    z = np.where(np.isnan(rc), ro, np.where(np.isnan(ro), rc, (rc + ro) / 2))
+    sc = np.where(hero_mask & ~np.isnan(z), 0.1 * np.nan_to_num(z, nan=0.0), -99.0)
+    sc = sc + np.array([_role_bonus(c, role) for c in R.classes])
+    o = np.argsort(-sc)
+    top, margin = R.classes[o[0]], float(sc[o[0]] - sc[o[1]])
+    top_raw = float(max(bc.max(), bo.max()))
+    if margin < DEAD_UNSURE:
+        return "unknown", round(min(0.5, 2.0 * margin + 0.2), 3), top_raw
+    return top, round(max(0.0, min(1.0, 0.3 + 2.0 * margin)), 3), top_raw
 
 
 # Sombra moved damage -> support on 2026-10-06; older boards still show the damage icon.
@@ -290,7 +337,7 @@ def read(img_bgr: np.ndarray, _exclude_tag: str | None = None) -> dict:
                     rows.append({"hero": "empty", "role": None, "dead": False, "conf": 0.9})
                     continue
                 dead = is_dead(crop)
-                hero, conf = _classify(crop, dead, role, _exclude_tag)
+                hero, conf, _ = _classify(crop, dead, role, _exclude_tag)
                 rows.append({"hero": hero, "role": role, "dead": dead, "conf": conf})
             rows_out[key] = rows
         # a board whose ally rows are all empty is the bugged/blank board: no reading
@@ -299,10 +346,7 @@ def read(img_bgr: np.ndarray, _exclude_tag: str | None = None) -> dict:
             out.update(rows_out)
             out["my_row"] = _local_row(img, board)
             if out["my_row"] is not None:
-                r = out["my_team"][out["my_row"]]
-                if r["hero"] in data.heroes():
-                    out["my_hero"] = r["hero"]
-                    out["my_role"] = r["role"] or data.role(r["hero"])
+                _read_my_hero(out, img, board, _exclude_tag)
     out["ms"] = round((time.perf_counter() - t0) * 1000, 1)
     return out
 
@@ -315,3 +359,67 @@ def _local_row(img: np.ndarray, board: dict) -> int | None:
     if v[order[0]] - v[order[1]] >= 12:
         return int(order[0])
     return None
+
+
+# ----------------------------------------------------------------------------- your own hero
+_memory: dict = {}  # last confident read of your own hero: {"hero", "role", "t"}
+
+
+def reset_session() -> None:
+    """Forget the remembered own hero (call at the start of a new match or test image)."""
+    _memory.clear()
+
+
+def panel_crop(img: np.ndarray, board: dict) -> np.ndarray | None:
+    """Your hero's big portrait in the hero panel, cut to the scoreboard portrait's framing.
+
+    The panel (right of the board, see data/scoreboard_layout.md) shows the same art as the row
+    portrait at 2.65x, and it is never dimmed or ringed when you are dead and never team-tinted.
+    Measured by template matching on every 2026 board with a panel: the row-portrait framing sits at
+    x = 1920-L-431, y = 155, 170 px square (2025 build: 1920-L-436, y 154, 182 px). None when there
+    is no panel."""
+    L, pitch = board["L"], board["pitch"]
+    if L > 400:  # board centred alone: you have not picked a hero, no panel
+        return None
+    if 64.5 <= pitch <= 67.5:
+        x, y, n = 1920 - L - 431, 155, 170
+    elif 60.5 <= pitch <= 63.5:
+        x, y, n = 1920 - L - 436, 154, 182
+    else:
+        return None
+    if x < 0 or x + n > img.shape[1] or y + n > img.shape[0]:
+        return None
+    return cv2.resize(img[y:y + n, x:x + n], (S, S), interpolation=cv2.INTER_AREA)
+
+
+def _read_my_hero(out: dict, img: np.ndarray, board: dict, exclude_tag: str | None) -> None:
+    """my_hero from, in order: your row when alive and clear; the hero panel portrait; the last
+    confident read this session (if your row's role still matches). A dead row never on its own
+    drops my_hero to None."""
+    heroes = data.heroes()
+    i = out["my_row"]
+    row = out["my_team"][i]
+    hero, src = None, None
+    if row["hero"] in heroes and not row["dead"] and row["conf"] >= 0.3:
+        hero, src = row["hero"], "row"
+    if hero is None:
+        pc = panel_crop(img, board)
+        if pc is not None:
+            ph, pconf, praw = _classify(pc, False, row["role"], exclude_tag)
+            if ph in heroes and praw >= PANEL_MIN and pconf >= 0.4:
+                hero, src = ph, "panel"
+                if row["hero"] != ph:  # the panel is the clean view of the same portrait
+                    row["hero"], row["conf"] = ph, pconf
+    if hero is None and row["hero"] in heroes and row["conf"] >= 0.3:
+        hero, src = row["hero"], "row"
+    now = time.monotonic()
+    if hero is None and _memory and now - _memory["t"] < MEMORY_S \
+            and (row["role"] is None or row["role"] == _memory["role"]):
+        hero, src = _memory["hero"], "memory"
+    if hero is None:
+        return
+    out["my_hero"] = hero
+    out["my_role"] = row["role"] or data.role(hero)
+    out["my_hero_src"] = src
+    if src in ("row", "panel"):
+        _memory.update(hero=hero, role=out["my_role"], t=now)

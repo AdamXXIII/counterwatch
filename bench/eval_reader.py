@@ -1,8 +1,13 @@
 """Evaluate counterwatch.reader on the labelled captures.
 
-    python bench/eval_reader.py            # leave-one-image-out (honest: an image never sees its own crops)
-    python bench/eval_reader.py --full     # use every reference crop (what ships)
-    python bench/eval_reader.py --leave-match-out   # also hide crops from the same match (mine)
+    python bench/eval_reader.py                     # HEADLINE: leave-one-match-out
+    python bench/eval_reader.py --leave-image-out   # only hide the tested image's own crops
+    python bench/eval_reader.py --full              # use every reference crop (what ships)
+
+Leave-one-match-out is the headline because testdata/mine holds six near-identical boards from one
+match (A): with only the tested image hidden, its five siblings still supply crops of the same
+players, which flatters the score. Every web image is a different match, so for web the two modes
+agree. The reader's own-hero memory is reset before every image, so each read stands alone.
 
 Prints per-image and overall slot accuracy for testdata/mine and testdata/web (web split into
 mid-match and end-of-match boards), board_open, my_hero and dead-flag accuracy, and the median
@@ -23,16 +28,18 @@ sys.path.insert(0, os.path.join(ROOT, "tools", "reader"))
 from dataset import imread, labelled_images  # noqa: E402
 from counterwatch import reader  # noqa: E402
 
-# the user's own captures come from two matches; --leave-match-out hides a whole match
+# the user's own captures come from two matches; leave-one-match-out hides a whole match.
+# A mine capture not listed here counts as a match of its own.
 MATCH_OF = {"mine/tab-20261114-225509": "A", "mine/tab-20261114-225616": "A", "mine/tab-20261114-225812": "A",
-            "mine/tab-20261114-230053": "A", "mine/tab-20261114-230213": "A", "mine/tab-20261114-230347": "A",
-            "mine/tab-20261114-230858": "B"}
+            "mine/tab-20261114-230038": "A", "mine/tab-20261114-230053": "A", "mine/tab-20261114-230213": "A",
+            "mine/tab-20261114-230347": "A", "mine/tab-20261114-230858": "B"}
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--full", action="store_true")
-    ap.add_argument("--leave-match-out", action="store_true")
+    ap.add_argument("--leave-image-out", action="store_true")
+    ap.add_argument("--leave-match-out", action="store_true", help="the default; kept for old scripts")
     ap.add_argument("--rescale", help="WxH: resize each 1920x1080 capture to this 16:9 size first "
                     "(robustness check for other monitor resolutions)")
     args = ap.parse_args()
@@ -52,12 +59,13 @@ def main():
             w, h = map(int, args.rescale.lower().split("x"))
             img = cv2.resize(img, (w, h), interpolation=cv2.INTER_AREA if w < 1920 else cv2.INTER_CUBIC)
         excl = None if args.full else tag
-        if args.leave_match_out and tag in MATCH_OF:
+        if not args.full and not args.leave_image_out and tag in MATCH_OF:
             m = MATCH_OF[tag]
             R.tags = tags_backup.copy()
             for t, mm in MATCH_OF.items():
                 if mm == m:
                     R.tags[R.tags == t] = tag
+        reader.reset_session()
         t0 = time.perf_counter()
         out = reader.read(img, _exclude_tag=excl)
         ms = (time.perf_counter() - t0) * 1000
@@ -100,6 +108,8 @@ def main():
             my_ok += out["my_hero"] == truth.get("my_hero")
             if out["my_hero"] != truth.get("my_hero"):
                 errs.append(f"my_hero {truth.get('my_hero')}->{out['my_hero']}")
+            elif out.get("my_hero_src") not in (None, "row"):
+                errs.append(f"(my_hero {out['my_hero']} from {out['my_hero_src']})")
         groups.setdefault(g, [0, 0, 0, 0])
         groups[g][0] += ok
         groups[g][1] += n
@@ -107,7 +117,7 @@ def main():
         groups[g][3] += 1
         print(f"{tag:32s} {g:8s} {ok:2d}/{n:2d} {ms:6.1f} ms  {'; '.join(errs)}")
 
-    mode = "full reference set" if args.full else ("leave-one-match-out" if args.leave_match_out else "leave-one-image-out")
+    mode = "full reference set" if args.full else ("leave-one-image-out" if args.leave_image_out else "leave-one-match-out (headline)")
     print(f"\n== {mode} ==")
     for g in ("mine", "web/mid", "web/end"):
         if g in groups:
