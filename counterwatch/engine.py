@@ -544,6 +544,42 @@ def _swap_headline(to, weights, fresh):
     return f"Beats their {' and '.join(name(e) for e in beats)}."
 
 
+# --- unsure swaps: "stay, and swap if ..." ------------------------------------
+SWAP_SURE = 0.65          # a swap below this confidence is a condition, not a call (view: MAYBE)
+PRESSURE = {"dive": "keeps diving you", "poke": "keeps out-ranging you", "brawl": "keeps winning the brawl"}
+
+
+def _pressure(e):
+    """What enemy e keeps doing to you, as a verb phrase ("keeps diving you")."""
+    arche = _data()[0].get("archetypes") or {}
+    for a in ("dive", "poke", "brawl"):
+        if e in arche.get(a, ()):
+            return PRESSURE[a]
+    return "keeps winning that fight"
+
+
+def _conditional(me, to, e, weights, reasons):
+    """(headline, reasons) for a swap that is not sure enough to call: one coach sentence that
+    states the condition, and the reasons reordered so they all tell that same story (what e
+    does to you first, then what the candidate does about e, then its other wins)."""
+    beats = [b for b, w in sorted(weights.items(), key=lambda kv: -kv[1] * comp_edge(to, kv[0]))
+             if comp_edge(to, b) > 0]
+    if e and e in beats:
+        tail = f"go {name(to)}, who wins that fight"
+    elif beats:
+        tail = f"go {name(to)}, who beats their {name(beats[0])}"
+    else:
+        tail = f"go {name(to)}"
+    if e:
+        head = f"Stay {name(me)} for now. If their {name(e)} {_pressure(e)}, {tail}."
+    else:
+        head = f"Stay {name(me)} for now. If the next fight goes the same way, {tail}."
+    first = [r for r in reasons if e and r.startswith(f"{name(me)} loses to {name(e)}:")]
+    vs_e = [r for r in reasons if e and r.startswith(f"{name(to)} into {name(e)}:")]
+    rest = [r for r in reasons if r not in first and r not in vs_e]
+    return head, (first + vs_e + rest)[:3]
+
+
 # --- main -------------------------------------------------------------------
 SAFE_SAY = [
     "{c} has no self-sustain for {e}'s anti-nade to shut off",
@@ -820,6 +856,8 @@ def advise(state, bans=None):
 
     # --- words ---
     reasons = []
+    against = []        # counter-arguments to the call, drawn apart from the reasons
+    lost_to = None      # the enemy that beats the current hero, when that is the swap's story
     when = None
     if action == "swap" and to:
         sc = by[to]
@@ -840,6 +878,7 @@ def advise(state, bans=None):
                 bad.sort(key=lambda t: t[1] != fled)           # the hard counter first
             lost = (f"{name(me)} loses to {name(bad[0][1])}: {_clause(bad[0][2], 100)}."
                     if bad else None)
+            lost_to = bad[0][1] if bad else None
             if escaping and (not bad or bad[0][1] not in escaping):
                 # their tank wins on the counter stats with no mechanic on file
                 lost = (f"Their {name(escaping[0])} wins the duel into {name(me)} "
@@ -866,8 +905,10 @@ def advise(state, bans=None):
         # the counter-threat check: say what on their board rules out the obvious
         # pick, or what still threatens this one
         risk = _counter_threat_line(to, threats, vetoed)
-        if risk:
-            reasons.append(risk)
+        if risk and risk.startswith("Not "):
+            reasons.append(risk)        # why the obvious pick is not the pick: an argument FOR this one
+        elif risk:
+            against.append(risk)        # what still beats the pick: an argument against the swap
         reasons.extend(wins[0:1] if escaping else wins[1:2])
         safe = _safe_reason(to, enemies, options={s["hero"] for s in scored})
         if kit_safe:
@@ -986,6 +1027,20 @@ def advise(state, bans=None):
     conf *= 0.6 + 0.4 * min(1.0, info / 3.0) if info else 0.5
     conf = round(max(0.05, min(0.95, conf)), 2)
 
+    swap_how = None
+    if action == "swap" and to and me and conf < SWAP_SURE:
+        # Not sure enough to swap: the call is "stay, and swap IF ...". One sentence states the
+        # condition; the reasons all argue the same swap, threat to you first; PLAY IT coaches
+        # the hero you are on now.
+        e = lost_to or (escaping[0] if escaping else None) or fled
+        if e is None and threats:
+            e = threats[0][1]
+        swap_how = how
+        head, reasons = _conditional(me, to, e, weights, reasons)
+        cur_tgt = _best_target(me, weights)
+        my_threats = _threats(me, weights)
+        how = _how(me, cur_tgt[1] if cur_tgt else (my_threats[0][1] if my_threats else e))
+
     return {
         "action": action,
         "hero_now": me,
@@ -996,4 +1051,7 @@ def advise(state, bans=None):
         "how_to_play": how,
         "confidence": conf,
         "when": when,
+        "against": against[:1],
+        "conditional": swap_how is not None,     # below SWAP_SURE: the headline is "stay; swap if ..."
+        "swap_how_to_play": swap_how,           # the candidate's play line, for when the swap happens
     }

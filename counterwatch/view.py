@@ -240,7 +240,10 @@ MIN_ENEMIES = 3      # fewer enemy heroes read than this and the board is not cl
 
 
 def _read_ok(row: dict) -> bool:
-    return row.get("hero") in data.heroes() and (row.get("conf") is None or row["conf"] >= 0.5)
+    """A slot counts as read when its hero is known, or it is confidently empty (the player
+    left): an empty slot is a fact about their team, not a gap in the capture."""
+    sure = row.get("conf") is None or row["conf"] >= 0.5
+    return sure and (row.get("hero") in data.heroes() or row.get("hero") == "empty")
 
 
 def _dupes(rows: list[dict]) -> set[str]:
@@ -613,7 +616,14 @@ def _unsure_block(img, d, st, adv, cert, hero, swap, y) -> int:
     slanted_text(img, (lx, sy), rest, fs, SOFT)
     if not beside:
         conf_at(W - PAD - conf_w + 8, ly + 2)
-    return ly + ps + 26
+    return ly + ps + (16 if adv.get("conditional") and cert["read"] >= MIN_ENEMIES else 26)
+
+
+def _against_text(adv: dict) -> str:
+    """The engine's counter-argument without its "Mind their X:" lead-in (the label says it)."""
+    a = next((x for x in adv.get("against") or [] if x), "")
+    a = re.sub(r"^\s*mind their [^:]{1,30}:\s*", "", a, flags=re.I)
+    return a[:1].upper() + a[1:] if a else ""
 
 
 def _advice_text(img, d, st, adv, cert, top, accent, swap):
@@ -621,13 +631,18 @@ def _advice_text(img, d, st, adv, cert, top, accent, swap):
     # --- text: the largest type that fits, then both comps right underneath
     comps_h = 2 * 92
     foot_top = H - 58
-    headline = why_line(adv.get("headline") or "")
+    # an unsure swap is a condition ("Stay X for now. If their Y keeps ..., go Z"): the engine's
+    # sentence stands whole, directly under the decision, and replaces the NEXT box
+    cond = (not sure) and bool(adv.get("conditional")) and cert["read"] >= MIN_ENEMIES
+    headline = (adv.get("headline") or "") if cond else why_line(adv.get("headline") or "")
     reasons = _clean_reasons(headline, adv.get("reasons") or [])
+    against = _against_text(adv)
     htp = adv.get("how_to_play") or ""
     alts = [a for a in (adv.get("alternatives") or []) if a in data.heroes()][:3] if (sure and swap) else []
-    note = cert["why"]
+    note = None if cond else cert["why"]
     if note and any("tab" in r.lower().split() for r in reasons):
         note = None  # the engine already says to check Tab again
+    head_x = PAD + (20 if cond else 0)
 
     tiers = [(31, 22, 20, 40, 30), (29, 21, 19, 38, 28), (27, 19, 18, 36, 26), (25, 18, 17, 33, 24)]
 
@@ -636,17 +651,21 @@ def _advice_text(img, d, st, adv, cert, top, accent, swap):
         text is never cut; a smaller size or a shorter play line is tried instead."""
         hs, rs, ps, hl, rl_h = tier
         hf, rf, pf = body(hs, "semi"), body(rs), body(ps)
-        head = fits(headline, hf, W - 2 * PAD, head_lines) if headline else []
+        head = fits(headline, hf, W - PAD - head_x, head_lines + (1 if cond else 0)) if headline else []
         rl = [fits(r, rf, W - 2 * PAD - 44, max_rl) for r in reasons[:n_r]]
+        al = fits(against, rf, W - 2 * PAD - 104, 2) if against else []
         pl = fits(play, pf, W - 2 * PAD - 120, 4) if play else []
         nl = fits(note, pf, W - 2 * PAD - 120, 2) if note else []
+        if al is None:
+            al = []   # a counter-argument is worth less than any reason: drop it before shrinking
         if head is None or pl is None or nl is None or any(r is None for r in rl):
             return None
         h = len(head) * hl + 14 + sum(rl_h * len(x) + 12 for x in rl)
+        h += (rl_h * len(al) + 12) if al else 0
         h += (24 + (rl_h - 2) * len(pl) + 14) if pl else 0
         h += (24 + (rl_h - 2) * len(nl) + 14) if nl else 0
         h += 44 if use_alts else 0
-        return dict(hf=hf, rf=rf, pf=pf, hl=hl, rl_h=rl_h, head=head, rl=rl, pl=pl, nl=nl,
+        return dict(hf=hf, rf=rf, pf=pf, hl=hl, rl_h=rl_h, head=head, rl=rl, al=al, pl=pl, nl=nl,
                     alts=alts if use_alts else [], h=h)
 
     budget = foot_top - comps_h - 24 - top
@@ -677,8 +696,10 @@ def _advice_text(img, d, st, adv, cert, top, accent, swap):
 
     L = layout
     y = top
+    if cond and L["head"]:  # the condition hangs off the decision word: same colour rule
+        d.rectangle((PAD + 2, y + 4, PAD + 6, y + len(L["head"]) * L["hl"] - 6), fill=MAYBE)
     for line in L["head"]:
-        d.text((PAD, y), line, font=L["hf"], fill=INK if sure else SOFT)
+        d.text((head_x, y), line, font=L["hf"], fill=INK if (sure or cond) else SOFT)
         y += L["hl"]
     y += 14
     for i, lines in enumerate(L["rl"]):
@@ -686,6 +707,12 @@ def _advice_text(img, d, st, adv, cert, top, accent, swap):
                fill=accent if sure else MUTE)
         for line in lines:
             d.text((PAD + 44, y), line, font=L["rf"], fill=SOFT)
+            y += L["rl_h"]
+        y += 12
+    if L["al"]:  # the counter-argument: muted, unnumbered, so it never reads as a reason to swap
+        d.text((PAD, y + 3), "AGAINST", font=disp(L["rf"].size - 3, "Bold SemiCondensed"), fill=MUTE)
+        for line in L["al"]:
+            d.text((PAD + 104, y), line, font=L["rf"], fill=MUTE)
             y += L["rl_h"]
         y += 12
     for label, lines, col in (("PLAY IT", L["pl"], accent), ("NEXT", L["nl"], AMBER)):
