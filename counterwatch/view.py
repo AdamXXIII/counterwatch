@@ -60,7 +60,9 @@ def tw(font, text: str) -> int:
     return int(font.getlength(text))
 
 
-def wrap(text: str, font, width: int, max_lines: int) -> list[str]:
+def wrap(text: str, font, width: int, max_lines: int = 99) -> list[str]:
+    """Word-wrap. Never cuts text: when it needs more than max_lines, all the lines come back
+    and the caller picks a smaller size or shorter copy (see fits)."""
     words, lines, cur = text.split(), [], ""
     for w in words:
         trial = f"{cur} {w}".strip()
@@ -72,13 +74,19 @@ def wrap(text: str, font, width: int, max_lines: int) -> list[str]:
         cur = w
     if cur:
         lines.append(cur)
-    if len(lines) > max_lines:
-        lines = lines[:max_lines]
-        last = lines[-1]
-        while last and tw(font, last + "…") > width:
-            last = last[:-1]
-        lines[-1] = last.rstrip(" ,.;:") + "…"
     return lines
+
+
+def fits(text: str, font, width: int, max_lines: int) -> list[str] | None:
+    """The wrapped lines, or None when the whole text doesn't fit in max_lines."""
+    lines = wrap(text, font, width)
+    return lines if len(lines) <= max_lines and all(tw(font, l) <= width for l in lines) else None
+
+
+def shorter(text: str) -> str | None:
+    """The same advice one sentence shorter (drops the last sentence), or None."""
+    parts = re.split(r"(?<=[.!?])\s+", (text or "").strip())
+    return " ".join(parts[:-1]) if len(parts) > 1 else None
 
 
 def slanted_text(img: Image.Image, xy, text: str, font, fill, slant: float = 0.16, outline: int = 0):
@@ -220,7 +228,8 @@ def _message(img, d, call, col, line1, line2):
 
 
 # ---------------------------------------------------------------- how sure the call is
-SURE_AT = 0.5        # below this confidence the call is drawn as a guess
+SURE_AT = 0.5        # below this confidence any call is drawn as a guess
+SWAP_SURE_AT = 0.65  # a swap needs this for the full-weight call; 50-65% reads "MAYBE SWAP"
 MIN_ENEMIES = 3      # fewer enemy heroes read than this and the board is not clear enough
 
 
@@ -251,22 +260,61 @@ def certainty(st: dict, adv: dict) -> dict:
     if conf < SURE_AT:
         return {"sure": False, "word": "NOT SURE YET", "why": "It's close: play it for another fight, then check again.",
                 "read": read, "conf": conf}
+    if adv.get("action") == "swap" and adv.get("to") and conf < SWAP_SURE_AT:
+        return {"sure": False, "word": "MAYBE SWAP", "maybe": True,
+                "why": "Close call: swap only if the next fight goes the same way.",
+                "read": read, "conf": conf}
     return {"sure": True, "word": None, "why": None, "read": read, "conf": conf}
 
 
 def _clean_reasons(headline: str, reasons: list[str]) -> list[str]:
     """Drop a reason the headline already says (the engine often leads with reason 01)."""
     h = re.sub(r"[^a-z0-9 ]", "", headline.lower())
+    hb = re.sub(r"[^a-z0-9 ]", "", headline.split(":", 1)[-1].lower()).strip()  # after "Into their X:"
     out = []
     for r in reasons:
         if not r:
             continue
         body_ = r.split(":", 1)[1] if ":" in r else r
         b = re.sub(r"[^a-z0-9 ]", "", body_.lower()).strip()
-        if b and len(b) > 12 and b in h:
+        if b and len(b) > 12 and (b in h or (len(hb) > 12 and hb in b)):
             continue
         out.append(r)
     return out[:3]
+
+
+def swap_when(st: dict, adv: dict) -> str | None:
+    """"now" (dead, so swap on this respawn), "next_death", or None (hero not read)."""
+    if adv.get("when") in ("now", "next_death"):
+        return adv["when"]
+    me = adv.get("hero_now") or st.get("my_hero")
+    if not me or me not in data.heroes():
+        return None
+    dead = any(r.get("dead") for r in st.get("my_team") or [] if r.get("hero") == me)
+    return "now" if dead else "next_death"
+
+
+def call_label(st: dict, adv: dict, cert: dict) -> tuple[str, bool]:
+    """The caps line above the hero name: the timing a player needs mid-fight.
+    Returns (text, urgent); urgent draws it as a solid bar (you are dead: act now)."""
+    when = swap_when(st, adv)
+    if cert.get("maybe"):
+        return {"now": ("YOU'RE DEAD · MAYBE SWAP", False),
+                "next_death": ("MAYBE SWAP ON NEXT DEATH", False)}.get(when, ("MAYBE PICK", False))
+    if not cert["sure"]:
+        return cert["word"] + "  ·  MAYBE SWAP", False
+    return {"now": ("SWAP NOW, YOU'RE DEAD", True),
+            "next_death": ("SWAP ON NEXT DEATH", False)}.get(when, ("PICK", False))
+
+
+_CALL_PREFIX = re.compile(r"^\s*(?:swap to|go|stay|pick)\s+[^:;.]{1,40}?(?:\s+into their [^:;]{1,30})?\s*[:;]\s*",
+                          re.I)
+
+
+def why_line(headline: str) -> str:
+    """The headline minus any "Swap to X:" / "Stay X;" lead-in: the call above already says it."""
+    t = _CALL_PREFIX.sub("", headline or "").strip()
+    return t[:1].upper() + t[1:] if t else ""
 
 
 # ---------------------------------------------------------------- the advice screen
@@ -301,7 +349,14 @@ def _advice(img, d, result):
 
     if sure:
         if swap:
-            slanted_text(img, (x + 6, y + 30), "SWAP TO", disp(40), accent)
+            cap, urgent = call_label(st, adv, cert)
+            fc = fit_display(cap, avail - 30, 40, 26)
+            if urgent:  # dead right now: a solid amber bar, the one thing to do this second
+                bw_ = tw(fc, cap) + int(fc.size * 0.2) + 28
+                slant_box(d, x + 2, y + 28, bw_, fc.size + 10, 10, fill=AMBER)
+                slanted_text(img, (x + 18, y + 30 + (40 - fc.size) * 0.3), cap, fc, BG)
+            else:
+                slanted_text(img, (x + 6, y + 30 + (40 - fc.size) * 0.5), cap, fc, accent)
             nm = data.name(hero).upper()
             f = fit_display(nm, avail, 104, 48)
             slanted_text(img, (x + 4, y + 72 + (104 - f.size) * 0.6), nm, f, INK)
@@ -309,11 +364,15 @@ def _advice(img, d, result):
             slanted_text(img, (x + 4, y + 18), "STAY", disp(150), accent)
     else:
         # a guess: caption says so, the call itself is only an outline
-        cap = cert["word"] + ("  ·  MAYBE SWAP" if swap else "")
+        cap = call_label(st, adv, cert)[0] if swap else cert["word"]
         slanted_text(img, (x + 6, y + 30), cap, fit_display(cap, avail - 6, 34, 22), AMBER)
         call = data.name(hero).upper() if swap else "STAY"
-        f = fit_display(call, avail, 120 if swap else 132, 48)
-        slanted_text(img, (x + 4, y + 70 + (120 - f.size) * 0.45), call, f, SOFT, outline=2)
+        if swap:  # same box as a sure swap, so the name never runs into the "% SURE" line
+            f = fit_display(call, avail, 104, 48)
+            slanted_text(img, (x + 4, y + 72 + (104 - f.size) * 0.6), call, f, SOFT, outline=2)
+        else:
+            f = fit_display(call, avail, 132, 48)
+            slanted_text(img, (x + 4, y + 70 + (120 - f.size) * 0.45), call, f, SOFT, outline=2)
 
     # confidence: a readable number, not a footnote
     conf = cert["conf"]
@@ -329,7 +388,7 @@ def _advice(img, d, result):
     comps_h = 2 * 92
     foot_top = H - 58
     top = y + ph + 26
-    headline = adv.get("headline") or ""
+    headline = why_line(adv.get("headline") or "")
     reasons = _clean_reasons(headline, adv.get("reasons") or [])
     htp = adv.get("how_to_play") or ""
     alts = [a for a in (adv.get("alternatives") or []) if a in data.heroes()][:3] if (sure and swap) else []
@@ -339,13 +398,17 @@ def _advice(img, d, result):
 
     tiers = [(31, 22, 20, 40, 30), (29, 21, 19, 38, 28), (27, 19, 18, 36, 26), (25, 18, 17, 33, 24)]
 
-    def plan(tier, max_rl, n_r, head_lines, use_alts):
+    def plan(tier, max_rl, n_r, head_lines, use_alts, play):
+        """One candidate layout, or None if any block would need more lines than it has:
+        text is never cut; a smaller size or a shorter play line is tried instead."""
         hs, rs, ps, hl, rl_h = tier
         hf, rf, pf = body(hs, "semi"), body(rs), body(ps)
-        head = wrap(headline, hf, W - 2 * PAD, head_lines)
-        rl = [wrap(r, rf, W - 2 * PAD - 44, max_rl) for r in reasons[:n_r]]
-        pl = wrap(htp, pf, W - 2 * PAD - 120, 2) if htp else []
-        nl = wrap(note, pf, W - 2 * PAD - 120, 2) if note else []
+        head = fits(headline, hf, W - 2 * PAD, head_lines) if headline else []
+        rl = [fits(r, rf, W - 2 * PAD - 44, max_rl) for r in reasons[:n_r]]
+        pl = fits(play, pf, W - 2 * PAD - 120, 4) if play else []
+        nl = fits(note, pf, W - 2 * PAD - 120, 2) if note else []
+        if head is None or pl is None or nl is None or any(r is None for r in rl):
+            return None
         h = len(head) * hl + 14 + sum(rl_h * len(x) + 12 for x in rl)
         h += (24 + (rl_h - 2) * len(pl) + 14) if pl else 0
         h += (24 + (rl_h - 2) * len(nl) + 14) if nl else 0
@@ -360,15 +423,24 @@ def _advice(img, d, result):
     options = [(t, c) for c in ((3, 3, 2, True), (2, 3, 2, True)) for t in tiers[:2]]
     options += [(t, c) for c in ((3, 3, 2, False), (2, 3, 2, False), (2, 2, 2, False), (2, 2, 1, False))
                 for t in tiers]
-    for tier, (max_rl, n_r, head_lines, use_alts) in options:
-        if use_alts and not alts:
-            continue
-        cand = plan(tier, max_rl, n_r, head_lines, use_alts)
-        if cand["h"] <= budget:
-            layout = cand
+    plays = [htp]
+    while plays[-1] and shorter(plays[-1]):
+        plays.append(shorter(plays[-1]))
+    for play in plays:  # the full play line first; a sentence shorter only if nothing fits
+        for tier, (max_rl, n_r, head_lines, use_alts) in options:
+            if use_alts and not alts:
+                continue
+            cand = plan(tier, max_rl, n_r, head_lines, use_alts, play)
+            if cand and cand["h"] <= budget:
+                layout = cand
+                break
+        if layout:
             break
-    if layout is None:
-        layout = plan(tiers[-1], 2, 2, 1, False)
+    if layout is None:  # last resort: smallest type, fewer blocks, still never cut
+        for n_r in (2, 1, 0):
+            layout = plan(tiers[-1], 4, n_r, 3, False, plays[-1])
+            if layout:
+                break
 
     L = layout
     y = top
