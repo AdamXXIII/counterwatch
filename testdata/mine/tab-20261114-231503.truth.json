@@ -1,0 +1,65 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "board_open": true,
+ "my_team": [
+  {
+   "hero": "reinhardt",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "widowmaker",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "cassidy",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "mercy",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "unknown",
+   "role": "support",
+   "dead": false
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "unknown",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "unknown",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "unknown",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "unknown",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "unknown",
+   "role": "support",
+   "dead": false
+  }
+ ],
+ "my_hero": "widowmaker",
+ "my_role": "damage",
+ "notes": "Own capture, 1920x1080, match C. Local player is ally row 2 (highlighted; hero panel title WIDOWMAKER). No one dead. Labels checked by eye on enlarged row crops.",
+ "phase": "mid_match",
+ "phase_evidence": "own capture during play: no victory/defeat/endorse marker",
+ "match": "C"
+}

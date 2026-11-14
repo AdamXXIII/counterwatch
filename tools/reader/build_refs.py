@@ -16,11 +16,11 @@ sys.path.insert(0, HERE)
 from dataset import ROOT, imread, labelled_images  # noqa: E402
 from counterwatch import data  # noqa: E402
 from counterwatch.geometry import find_board, normalise  # noqa: E402
-from counterwatch.reader import REFS, _ring_score, row_crops  # noqa: E402
+from counterwatch.reader import REFS, _ring_score, is_dead, row_crops  # noqa: E402
 
 
 def main():
-    crops, labels, tags, strips, sroles = [], [], [], [], []
+    crops, labels, tags, strips, sroles, deads = [], [], [], [], [], []
     for _set, tag, path, truth in labelled_images():
         img = normalise(imread(path))
         b = find_board(img)
@@ -44,9 +44,10 @@ def main():
                     print("skip unknown label", tag, hero)
                     continue
                 crops.append(crop)
+                deads.append(bool(is_dead(crop)))
                 labels.append(hero)
                 tags.append(tag)
-    np.savez_compressed(REFS, crops=np.stack(crops), labels=np.array(labels), tags=np.array(tags),
+    np.savez_compressed(REFS, crops=np.stack(crops), labels=np.array(labels), tags=np.array(tags), dead=np.array(deads),
                         strips=np.stack(strips), strip_roles=np.array(sroles))
     print(f"{len(crops)} portrait crops ({len(set(labels))} classes), {len(strips)} role strips -> {REFS}")
     missing = sorted(set(data.heroes()) - set(labels))

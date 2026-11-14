@@ -11,7 +11,7 @@
    "role": "damage"
   },
   {
-   "hero": "unknown",
+   "hero": "hanzo",
    "role": "damage"
   },
   {
@@ -45,7 +45,7 @@
    "role": "support"
   }
  ],
- "notes": "Tabbed variant (\"HERO INFO | SCOREBOARD\" tabs top-left), 2560x1440, 13 Sep 2026. Ally rows show ultimate-charge % rings instead of perks. Rows 3 and 4 are dead: portrait greyed with a red respawn-timer ring (\"4\") drawn over it. Row 3 hero not identifiable under the timer. Row 4 is the local player (highlighted) and the hero panel says MERCY. Sombra still in the damage role (before the 2026-10-06 move to support). Burning (fire) icons left of some enemy rows. Doctrine on 13 Sep 2026 (before his 6 Oct launch) is explained by the limited Hero Trial of 12-14 Sep 2026 (https://beebom.com/overwatch-announces-new-hero-doctrine-coming-to-season-5/, opened 2026-11-14).",
+ "notes": "Tabbed variant (\"HERO INFO | SCOREBOARD\" tabs top-left), 2560x1440, 13 Sep 2026. Ally rows show ultimate-charge % rings instead of perks. Rows 3 and 4 are dead: portrait greyed with a red respawn-timer ring (\"4\") drawn over it. Row 3 hero not identifiable under the timer. Row 4 is the local player (highlighted) and the hero panel says MERCY. Sombra still in the damage role (before the 2026-10-06 move to support). Burning (fire) icons left of some enemy rows. Doctrine on 13 Sep 2026 (before his 6 Oct launch) is explained by the limited Hero Trial of 12-14 Sep 2026 (https://beebom.com/overwatch-announces-new-hero-doctrine-coming-to-season-5/, opened 2026-11-14). Relabelled 2026-11-14: ally row 3 was 'unknown' (dead, face under the ring); it is HANZO on the enlarged native 2560x1440 crop: swept-back dark hair, short beard, the white diagonal bow lines of the Hanzo portrait left of the ring; damage role icon.",
  "phase": "mid_match",
  "phase_evidence": "no victory/defeat/endorse marker seen; INTERACT button, match timer running"
 }

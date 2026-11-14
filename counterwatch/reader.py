@@ -12,8 +12,12 @@ Pipeline (see data/scoreboard_layout.md for the measured geometry):
    * the official hero art in assets/heroes (weaker, covers heroes never seen on a board).
    Features are tint-robust: Lab colour standardised per channel (removes team tint and the
    darkening of dead portraits) plus a HOG edge descriptor. For a dead portrait the centre (where
-   the respawn ring is drawn) is blanked on both sides before comparing, and the scoreboard crops
-   and the official views are ranked separately and combined (see _classify_dead).
+   the respawn ring is drawn) is blanked on both sides before comparing, only *live* scoreboard
+   crops are used (a ringed reference is mostly ring and tint, so it pulled dead queries towards
+   whoever happened to die in the reference captures), the scoreboard crops and the official views
+   are ranked separately and combined, and a close call comes back "unknown" (see _classify_dead).
+   While a row is dead, the last live read of that row this session wins over an unsure dead read
+   (_slot_memory_apply): a player cannot change hero while dead.
 4. The local player's row is the ally row drawn brighter than the rest. my_hero is that row's hero
    when it is alive and clear; otherwise the big portrait in the hero panel (never dimmed, never
    tinted) decides, and failing that the last confident read this session (reset_session()).
@@ -44,7 +48,10 @@ _TH = np.linspace(0, 2 * np.pi, 48, endpoint=False)
 UNKNOWN_MIN = 1.45   # a "?" silhouette matches its references almost perfectly (~1.9)
 EMPTY_MIN = 0.65
 OFFICIAL_WEIGHT = 0.90  # official art is a different style; real crops win when present
-DEAD_UNSURE = 0.04      # dead portrait whose best two heroes (relative score) are this close -> "unknown"
+DEAD_UNSURE = 0.10      # dead portrait whose best two heroes (relative score) are this close -> "unknown"
+                        # (conf < 0.5; seen: right reads 0.12-0.42, the overfit dead-Emre/Echo mix-up 0.07)
+DEAD_TRUST = 0.60       # a dead read at least this sure may overrule the slot's last live read (a swap)
+SLOT_MEMORY_S = 600.0   # how long the last live read of a row is used for that row while it is dead
 PANEL_MIN = 0.70        # hero-panel portrait must match a reference this well (seen: 0.90-1.92 real, <=0.46 no panel)
 MEMORY_S = 300.0        # how long the last confident read of your own hero is trusted
 
@@ -111,7 +118,9 @@ def is_dead(crop: np.ndarray) -> bool:
     g = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY).astype(np.float32)
     hsv = cv2.cvtColor(crop, cv2.COLOR_BGR2HSV)
     red = ((hsv[..., 0] < 10) | (hsv[..., 0] > 165)) & (hsv[..., 1] > 120) & (hsv[..., 2] > 130)
-    return _ring_edge(np.where(red, 230.0, g).astype(np.float32)) >= 0.70
+    # live portraits that reach this far peak at 0.59 (a light rim, e.g. Mei, Moira); a nearly
+    # finished respawn ring (timer at 1, short arc) is down to 0.69
+    return _ring_edge(np.where(red, 230.0, g).astype(np.float32)) >= 0.64
 
 
 def _ring_score(crop: np.ndarray) -> float:
@@ -136,12 +145,14 @@ def _ring_score(crop: np.ndarray) -> float:
 # ----------------------------------------------------------------------------- references
 class _Refs:
     def __init__(self):
-        labels, tags, kinds, crops = [], [], [], []
+        labels, tags, kinds, crops, deads = [], [], [], [], []
         role_v, role_l = [], []
         if os.path.exists(REFS):
             z = np.load(REFS, allow_pickle=False)
-            for c, lab, tag in zip(z["crops"], z["labels"], z["tags"]):
+            zd = z["dead"] if "dead" in z.files else [is_dead(c) for c in z["crops"]]
+            for c, lab, tag, d in zip(z["crops"], z["labels"], z["tags"], zd):
                 crops.append(c)
+                deads.append(bool(d))
                 labels.append(str(lab))
                 tags.append(str(tag))
                 kinds.append("crop")
@@ -157,8 +168,10 @@ class _Refs:
                 labels.append(hid)
                 tags.append("official")
                 kinds.append("official")
+                deads.append(False)
         self.labels = np.array(labels)
         self.tags = np.array(tags)
+        self.dead = np.array(deads, bool)  # ringed crops: never used as references for a dead portrait
         self.weight = np.array([OFFICIAL_WEIGHT if k == "official" else 1.0 for k in kinds], np.float32)
         self.crops = np.stack(crops)
         self.F = np.stack([_feat(c) for c in crops])
@@ -272,7 +285,9 @@ def _classify_dead(raw: np.ndarray, visible: np.ndarray, role: str | None):
     off = R.tags == "official"
     bc = np.full(len(R.classes), -9.0, np.float32)
     bo = np.full(len(R.classes), -9.0, np.float32)
-    np.maximum.at(bc, R.lab_idx, np.where(visible & ~off, raw, -9.0))
+    # Only live scoreboard crops: a ringed crop is mostly ring and team tint, so a dead query would
+    # match the dead crops of whichever players happened to die in the reference captures.
+    np.maximum.at(bc, R.lab_idx, np.where(visible & ~off & ~R.dead, raw, -9.0))
     np.maximum.at(bo, R.lab_idx, np.where(visible & off, raw, -9.0))
     unk = R.cls_idx.get("unknown")
     if unk is not None and bc[unk] >= UNKNOWN_MIN:
@@ -340,6 +355,8 @@ def read(img_bgr: np.ndarray, _exclude_tag: str | None = None) -> dict:
                 hero, conf, _ = _classify(crop, dead, role, _exclude_tag)
                 rows.append({"hero": hero, "role": role, "dead": dead, "conf": conf})
             rows_out[key] = rows
+        if any(r["hero"] != "empty" for r in rows_out["my_team"]):
+            _slot_memory_apply(rows_out)
         # a board whose ally rows are all empty is the bugged/blank board: no reading
         if any(r["hero"] != "empty" for r in rows_out["my_team"]):
             out["board_open"] = True
@@ -361,13 +378,47 @@ def _local_row(img: np.ndarray, board: dict) -> int | None:
     return None
 
 
-# ----------------------------------------------------------------------------- your own hero
+# ----------------------------------------------------------------------------- session memory
 _memory: dict = {}  # last confident read of your own hero: {"hero", "role", "t"}
+_slots: dict = {}   # last confident live read of each row: {("my_team", i): {"hero", "role", "t"}}
 
 
 def reset_session() -> None:
-    """Forget the remembered own hero (call at the start of a new match or test image)."""
+    """Forget everything remembered this session (own hero and the last live read of every row).
+    Call at the start of a new match or before an unrelated test image."""
     _memory.clear()
+    _slots.clear()
+
+
+def _slot_memory_apply(rows_out: dict) -> None:
+    """A dead portrait is mostly hidden by the respawn ring, so it is read far less reliably than a
+    live one. While a row is dead, use the hero that row showed the last time it was seen alive
+    (a player cannot change hero while dead), unless the dead read itself is sure of another hero
+    (they swapped since we last looked). Live reads refresh the memory. When several live rows
+    disagree with what was remembered, this is a different match: forget the rows."""
+    heroes = data.heroes()
+    now = time.monotonic()
+    live = [(k, i, r) for k in ("my_team", "enemy_team") for i, r in enumerate(rows_out[k])
+            if not r["dead"] and r["hero"] in heroes and r["conf"] >= 0.6]
+    changed = sum(1 for k, i, r in live if (k, i) in _slots and _slots[(k, i)]["hero"] != r["hero"])
+    if changed >= 3:
+        _slots.clear()
+    for k in ("my_team", "enemy_team"):
+        for i, r in enumerate(rows_out[k]):
+            m = _slots.get((k, i))
+            if not r["dead"] or not m or now - m["t"] > SLOT_MEMORY_S:
+                continue
+            if r["role"] is not None and r["role"] != m["role"]:
+                continue
+            if r["hero"] == m["hero"]:
+                r["conf"] = max(r["conf"], 0.8)
+            elif r["hero"] not in heroes or r["conf"] < DEAD_TRUST:
+                r["hero"], r["conf"], r["src"] = m["hero"], 0.7, "memory"
+    for k, i, r in live:
+        _slots[(k, i)] = {"hero": r["hero"], "role": r["role"], "t": now}
+
+
+# ----------------------------------------------------------------------------- your own hero
 
 
 def panel_crop(img: np.ndarray, board: dict) -> np.ndarray | None:

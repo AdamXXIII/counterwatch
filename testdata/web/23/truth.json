@@ -19,7 +19,7 @@
    "role": "support"
   },
   {
-   "hero": "unknown",
+   "hero": "mizuki",
    "role": "support"
   }
  ],
@@ -45,7 +45,7 @@
    "role": "support"
   }
  ],
- "notes": "Tabbed variant (Spanish UI, HERO INFO | SCOREBOARD tabs, competitive bans top-left). Ally rows show ult-charge % rings plus one perk slot. Ally rows 1 and 5 are dead: dark portrait with red respawn ring \"8\". Row 1 is zarya: pink hair visible around the ring, and the chat line \"[MAT2014 (ZARYA)]\" names that row player. Row 5 not identifiable. Chat also confirms enemy D.Va (KORPSEBUNNY) and Moira (HINITE). Escort map (Dorado, competitive, Spanish UI).",
+ "notes": "Tabbed variant (Spanish UI, HERO INFO | SCOREBOARD tabs, competitive bans top-left). Ally rows show ult-charge % rings plus one perk slot. Ally rows 1 and 5 are dead: dark portrait with red respawn ring \"8\". Row 1 is zarya: pink hair visible around the ring, and the chat line \"[MAT2014 (ZARYA)]\" names that row player. Row 5 not identifiable. Chat also confirms enemy D.Va (KORPSEBUNNY) and Moira (HINITE). Escort map (Dorado, competitive, Spanish UI). Relabelled 2026-11-14: ally row 5 was 'unknown' (dead, face under the ring); it is MIZUKI on the enlarged crop: dark hat brim with the teal band and green collar of the Mizuki portrait around the ring; support role icon.",
  "phase": "mid_match",
  "phase_evidence": "no victory/defeat/endorse marker seen; INTERACT button, match timer running"
 }

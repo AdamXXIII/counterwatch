@@ -1,0 +1,65 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "board_open": true,
+ "my_team": [
+  {
+   "hero": "reinhardt",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "anran",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "cassidy",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "mercy",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "sombra",
+   "role": "support",
+   "dead": false
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "winston",
+   "role": "tank",
+   "dead": true
+  },
+  {
+   "hero": "tracer",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "ashe",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "sombra",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "doctrine",
+   "role": "support",
+   "dead": true
+  }
+ ],
+ "my_hero": "anran",
+ "my_role": "damage",
+ "notes": "Own capture, 1920x1080, match C. Local player is ally row 2 (highlighted; hero panel title ANRAN). Dead (respawn ring): enemy 1 winston, enemy 5 doctrine; each dead hero named from the same player's live portrait in neighbouring captures of this match and the visible rim. Labels checked by eye on enlarged row crops.",
+ "phase": "mid_match",
+ "phase_evidence": "own capture during play: no victory/defeat/endorse marker",
+ "match": "C"
+}

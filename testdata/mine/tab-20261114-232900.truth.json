@@ -1,0 +1,65 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "board_open": true,
+ "my_team": [
+  {
+   "hero": "reinhardt",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "echo",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "sojourn",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "sombra",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "mercy",
+   "role": "support",
+   "dead": false
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "reinhardt",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "vendetta",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "genji",
+   "role": "damage",
+   "dead": true
+  },
+  {
+   "hero": "mercy",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "juno",
+   "role": "support",
+   "dead": false
+  }
+ ],
+ "my_hero": "sombra",
+ "my_role": "support",
+ "notes": "Own capture, 1920x1080, match D. Local player is ally row 4 (highlighted; hero panel title SOMBRA). Dead (respawn ring): enemy 3 genji; each dead hero named from the same player's live portrait in neighbouring captures of this match and the visible rim. Labels checked by eye on enlarged row crops.",
+ "phase": "mid_match",
+ "phase_evidence": "own capture during play: no victory/defeat/endorse marker",
+ "match": "D"
+}

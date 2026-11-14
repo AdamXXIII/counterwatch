@@ -1,0 +1,65 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "board_open": true,
+ "my_team": [
+  {
+   "hero": "domina",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "pharah",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "ashe",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "jetpackcat",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "doctrine",
+   "role": "support",
+   "dead": false
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "mauga",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "genji",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "tracer",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "juno",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "baptiste",
+   "role": "support",
+   "dead": false
+  }
+ ],
+ "my_hero": "pharah",
+ "my_role": "damage",
+ "notes": "Own capture, 1920x1080, match B. Local player is ally row 2 (highlighted; hero panel title PHARAH). No one dead. Labels checked by eye on enlarged row crops.",
+ "phase": "mid_match",
+ "phase_evidence": "own capture during play: no victory/defeat/endorse marker",
+ "match": "B"
+}
