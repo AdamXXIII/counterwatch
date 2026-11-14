@@ -7,20 +7,31 @@ advise(state, bans=None) -> dict
     Optional extra keys the engine understands when present:
       "killed_by": hero id that just killed the player,
       "ult_charge": 0-100 (player's ultimate charge),
-      "pool": [hero ids the player is comfortable on].
+      "pool": [hero ids the player is comfortable on],
+      "prev_enemy_team": the enemy team at the previous read (ids or reader rows).
 
 Returns {"action": "stay"|"swap", "hero_now", "to", "alternatives",
          "headline", "reasons", "how_to_play", "confidence"}.
 
 How it thinks (data/counters.json, swap_rules):
-  * Every candidate in the player's role is scored against the WHOLE visible
-    enemy comp: stat counter ratings (counterwatch.gg) plus sourced mechanic
-    matchups, with the enemy tank weighted up (one tank per side in 5v5).
+  * Every candidate in the player's role is scored against EVERY visible enemy,
+    not just their tank: stat counter ratings (counterwatch.gg) plus sourced
+    mechanic matchups (pairs the sources disagree on count half), averaged with
+    the enemy tank weighted up, plus an extra penalty for the single worst
+    threat so one hard counter anywhere in their comp sinks a candidate.
+  * Comp-level punishers (PUNISHERS) set a floor on how badly a matchup goes:
+    Ana anti-nade/sleep on sustain tanks (Mauga, Roadhog, JQ, Ramattra),
+    Bastion/Sojourn/Widowmaker/Symmetra/Sierra/Torbjorn on big hitboxes,
+    divers on immobile off-angle heroes, and dive on a backline whose damage
+    player is off flanking.
   * Team fit: listed synergies with the player's teammates and how well the
     candidate's archetype (dive / brawl / poke) matches what the team runs.
   * Default is to stay. A swap must beat the current hero by a clear margin
-    (bigger for damage/support than for tank, bigger again with ult nearly
-    up), or the current hero must be hard-countered twice over.
+    AND turn a key matchup by a hard-counter margin (or escape a hard counter);
+    soft edges never swap. The margin grows with ult nearly up, when a tank
+    already wins the tank duel, and when an enemy change (optional
+    state["prev_enemy_team"]) plays into the current hero. Being hard-countered
+    by two enemies at once forces a swap.
   * Banned heroes and heroes already on the player's team are never offered.
 """
 from __future__ import annotations
@@ -37,8 +48,14 @@ ROLE_SLOTS = {"tank": 1, "damage": 2, "support": 2}
 # --- tuning -----------------------------------------------------------------
 MECH_VALUE = 5.0          # edge credited for a sourced mechanic with no stat
 BOTH_BONUS = 1.5          # stat and mechanic agree
-HARD_COUNTER = 9.0        # a matchup edge this big is a hard counter
-ENEMY_TANK_W = {"tank": 2.5, "damage": 1.3, "support": 1.3}  # tank-vs-tank decides 5v5
+TOP_ANSWER_BONUS = 4.0    # counters.json top_answers: the first answer a table names
+HARD_EDGE = 7.0           # a single matchup edge this big is a real (not soft) counter
+HARD_COUNTER = 9.0        # being on the wrong end of this many points twice forces a swap
+# The enemy tank matters most in 5v5, but the other four still decide fights:
+# with these weights the tank is a third of the score for a tank, a fifth otherwise.
+ENEMY_TANK_W = {"tank": 2.0, "damage": 1.0, "support": 1.0}
+WORST_W = 0.35            # extra penalty per point the single worst threat exceeds SOFT
+SOFT = 5.0
 
 KILLER_W = 1.6            # extra weight on the hero that just killed you
 SYNERGY_VALUE = 0.8
@@ -46,12 +63,56 @@ ARCHETYPE_VALUE = 1.2
 POOL_BONUS = 2.0          # comfort beats paper counters
 # Duel scores are a weighted AVERAGE edge over the visible enemies, so a swap
 # margin is "rating points per enemy". Counter-swapping matters most on tank.
-SWAP_MARGIN = {"tank": 3.5, "damage": 5.0, "support": 5.0}
+SWAP_MARGIN = {"tank": 3.0, "damage": 3.5, "support": 3.5}
+HELPS_ME_MARGIN = 3.0     # an enemy swap that suits my hero: stay unless it is much worse
+WIN_TANK_MARGIN = 2.5     # a tank already winning the tank duel keeps it
 # Season 5 win-rate context from counterwatch.gg tier list (counters_notes.md):
 # a nudge only, never enough on its own to swap.
 META = {"reinhardt": 0.6, "domina": 0.6, "torbjorn": 0.6,
         "sojourn": -0.6, "mauga": -0.6, "baptiste": -0.6}
 ULT_HIGH = 70             # ult at or above this: spend it before swapping
+
+# --- punishers --------------------------------------------------------------
+# Comp-level threats the pairwise tables under-count. Each rule says: when this
+# enemy is visible, a candidate of this kind loses that matchup by at least
+# floor * factor points (unless the tables already say the candidate wins it).
+# Mechanics are from counters.json reasons (Ana > Mauga/Roadhog/JQ/Ramattra;
+# Bastion/Sojourn/Symmetra/Sierra > big tanks; divers > immobile backliners).
+PUNISHERS = [
+    {   # anti-heal and sleep against tanks that live on self-sustain
+        "enemies": {"ana": 8.0},
+        "victims": {"mauga": 1.0, "roadhog": 1.0, "junkerqueen": 0.75, "ramattra": 0.6},
+        "say": "{e}'s Biotic Grenade and Sleep Dart shut off {c}'s self-sustain",
+    },
+    {   # high sustained or burst DPS into a big hitbox
+        "enemies": {"bastion": 8.0, "sojourn": 6.0, "widowmaker": 6.0, "symmetra": 5.5,
+                    "sierra": 5.5, "torbjorn": 5.0, "zenyatta": 4.0},
+        "victims": {"roadhog": 1.0, "mauga": 1.0, "wreckingball": 0.9, "winston": 0.8,
+                    "junkerqueen": 0.8, "reinhardt": 0.7, "hazard": 0.7, "dmon": 0.7,
+                    "ramattra": 0.6, "orisa": 0.6, "domina": 0.6, "sigma": 0.5},
+        # hitscan picks are blocked by a barrier; Bastion shreds one
+        "barrier_blocks": {"sojourn", "widowmaker"},
+        "barrier": {"reinhardt", "sigma", "domina", "winston"},
+        "say": "{e} melts {c}'s big hitbox",
+    },
+    {   # divers reaching a hero who plays alone on an off-angle or cannot escape
+        "enemies": {"winston": 5.0, "dva": 4.0, "wreckingball": 4.0, "doomfist": 4.5,
+                    "genji": 5.0, "tracer": 5.0, "anran": 5.0, "venture": 4.0,
+                    "vendetta": 4.5, "shion": 4.0, "sombra": 4.5, "echo": 3.5},
+        "victims": {"widowmaker": 1.0, "bastion": 1.0, "ashe": 0.8, "hanzo": 0.8,
+                    "junkrat": 0.6, "torbjorn": 0.5, "emre": 0.5, "freja": 0.4,
+                    "ana": 1.0, "zenyatta": 1.0, "illari": 0.7, "baptiste": 0.5,
+                    "mercy": 0.5, "lifeweaver": 0.5},
+        "say": "{e} dives {c} on an off-angle with no escape",
+    },
+    {   # flankers leave their own backline alone against a dive comp
+        "enemies": {"winston": 3.0, "genji": 3.0, "tracer": 3.0, "anran": 3.0,
+                    "doomfist": 2.5, "wreckingball": 2.5, "dva": 2.0, "venture": 2.5},
+        "victims": {"tracer": 1.0, "genji": 1.0, "venture": 1.0, "anran": 0.8,
+                    "shion": 1.0, "vendetta": 1.0, "reaper": 0.6, "echo": 0.6},
+        "say": "{e} is on your backline while {c} is off flanking",
+    },
+]
 
 
 @lru_cache(maxsize=1)
@@ -97,24 +158,67 @@ def _mech(a, b):
             or M.get(b, {}).get("weak_vs", {}).get(a))
 
 
+def _top_answer(a, b):
+    c, _, _ = _data()
+    return (c.get("top_answers", {}).get(b) or {}).get(a)
+
+
 def _side(a, b):
     s = _stat(a, b)
     m = _mech(a, b)
     v = max(s, MECH_VALUE if m else 0.0)
     if s and m:
         v += BOTH_BONUS
+    if _top_answer(a, b):
+        v += TOP_ANSWER_BONUS
     return v
 
 
+@lru_cache(maxsize=1)
+def _low_conf():
+    c, _, _ = _data()
+    return {frozenset(p) for p in c.get("low_confidence_pairs", {}).get("pairs", [])}
+
+
+@lru_cache(maxsize=None)
 def edge(a, b):
-    """Positive: a wins the matchup against b."""
-    return _side(a, b) - _side(b, a)
+    """Positive: a wins the matchup against b (pairwise tables only).
+    Pairs where the sources disagree (low_confidence_pairs) count half."""
+    v = _side(a, b) - _side(b, a)
+    if frozenset((a, b)) in _low_conf():
+        v *= 0.5
+    return v
+
+
+def punisher(c, e):
+    """(floor, reason) when enemy e is known to punish candidate c, else (0, None)."""
+    best = (0.0, None)
+    for r in PUNISHERS:
+        base = r["enemies"].get(e)
+        f = r["victims"].get(c)
+        if not base or not f:
+            continue
+        if c in r.get("barrier", ()) and e in r.get("barrier_blocks", ()):
+            f *= 0.4
+        v = base * f
+        if v > best[0]:
+            best = (v, r["say"].format(e=name(e), c=name(c)))
+    return best
+
+
+def comp_edge(c, e):
+    """edge() plus comp-level punishers: what the matchup is worth in a real fight."""
+    v = edge(c, e)
+    if v >= SOFT:       # the tables say c wins it outright: trust them
+        return v
+    floor, _ = punisher(c, e)
+    return min(v, -floor) if floor else v
 
 
 def _enemy_weights(enemies, killed_by, role):
     w = {}
     for e in enemies:
-        x = ENEMY_TANK_W.get(role, 1.3) if role_of(e) == "tank" else 1.0
+        x = ENEMY_TANK_W.get(role, 1.0) if role_of(e) == "tank" else 1.0
         if killed_by and e == killed_by:
             x *= KILLER_W
         w[e] = w.get(e, 0.0) + x
@@ -143,11 +247,17 @@ def _team_fit(c, mates):
 
 
 def _score(c, weights, mates, pool):
+    """Score candidate c against EVERY visible enemy, not just their tank."""
     tw = sum(weights.values())
-    duel = sum(w * edge(c, e) for e, w in weights.items()) / tw if tw else 0.0
+    per = {e: comp_edge(c, e) for e in weights}
+    duel = sum(w * per[e] for e, w in weights.items()) / tw if tw else 0.0
+    worst = max([-v for v in per.values()] + [0.0])
+    duel -= WORST_W * max(0.0, worst - SOFT)
+    best_win = max([v for v in per.values()] + [0.0])
     fit, partners = _team_fit(c, mates)
     comfort = POOL_BONUS if pool and c in pool else 0.0
-    return {"hero": c, "duel": duel, "fit": fit, "partners": partners,
+    return {"hero": c, "duel": duel, "fit": fit, "partners": partners, "per": per,
+            "worst": worst, "best_win": best_win,
             "total": duel + fit + comfort + META.get(c, 0.0)}
 
 
@@ -197,19 +307,24 @@ def _best_target(c, weights):
         m = _mech(c, e)
         if not m:
             continue
-        v = w * edge(c, e)
+        v = w * comp_edge(c, e)
         if v > 0 and (best is None or v > best[0]):
             best = (v, e, m)
     return best
 
 
 def _threats(c, weights):
+    """Enemies that beat c in a real fight, worst first: (weighted, enemy, reason)."""
     out = []
     for e, w in weights.items():
-        v = edge(c, e)
+        v = comp_edge(c, e)
         if v < 0:
-            out.append((w * v, e, _mech(e, c)))
-    out.sort()
+            floor, why = punisher(c, e)
+            m = _mech(e, c)
+            # say the comp-level reason when it is what makes this matchup bad
+            reason = why if why and (not m or floor > -edge(c, e)) else m
+            out.append((w * v, e, reason))
+    out.sort(key=lambda t: t[0])
     return out
 
 
@@ -280,8 +395,8 @@ def _how(hero, focus):
 
 def _swap_headline(to, weights, fresh):
     verb = "Go" if fresh else "Swap to"
-    beats = [e for e, w in sorted(weights.items(), key=lambda kv: -kv[1] * edge(to, kv[0]))
-             if edge(to, e) > 0][:2]
+    beats = [e for e, w in sorted(weights.items(), key=lambda kv: -kv[1] * comp_edge(to, kv[0]))
+             if comp_edge(to, e) > 0][:2]
     if not beats:
         return f"{verb} {name(to)}: best overall fit into this comp."
     m = _mech(to, beats[0])
@@ -292,6 +407,36 @@ def _swap_headline(to, weights, fresh):
 
 
 # --- main -------------------------------------------------------------------
+SAFE_SAY = [
+    "{c} has no self-sustain for {e}'s anti-nade to shut off",
+    "{c} gives their {e} a smaller or shielded target",
+    "{c} can fight back when {e} dives",
+    "{c} stays with your backline against their {e}",
+]
+
+
+def _safe_reason(c, enemies):
+    """A visible punisher that would hurt other picks in the role but not c."""
+    _, roster, _ = _data()
+    role = role_of(c)
+    for i, r in enumerate(PUNISHERS):
+        for e in enemies:
+            if e not in r["enemies"] or c in r["victims"]:
+                continue
+            if any(roster.get(v, {}).get("role") == role for v in r["victims"]):
+                return SAFE_SAY[i].format(c=name(c), e=name(e)) + "."
+    return None
+
+
+def _arrivals(state, enemies):
+    """Enemy heroes new since the last board read (state["prev_enemy_team"], optional)."""
+    prev = state.get("prev_enemy_team")
+    if not prev:
+        return []
+    prev_ids = {p.get("hero") if isinstance(p, dict) else p for p in prev}
+    return [e for e in enemies if e not in prev_ids]
+
+
 def advise(state, bans=None):
     counters, roster, _ = _data()
     bans = {b for b in (bans or []) if b}
@@ -315,6 +460,8 @@ def advise(state, bans=None):
     best = alt_pool[0] if alt_pool else None
 
     info = len(enemies)
+    helps = []          # enemy arrivals that suit my current hero
+    soft_only = False
     # --- decide ---
     if me is None and info == 0:
         action, to, gain, margin = "stay", None, 0.0, 0.0
@@ -325,18 +472,40 @@ def advise(state, bans=None):
         margin = 0.0
     else:
         cur = by.get(me) or _score(me, weights, mates, pool)
+        by.setdefault(me, cur)
         gain = (best["total"] - cur["total"]) if best else 0.0
-        margin = SWAP_MARGIN.get(role, 9.0)
+        margin = SWAP_MARGIN.get(role, 4.0)
         if ult is not None and ult >= ULT_HIGH:
             margin += 3.0
-        hard = [e for e in weights if edge(me, e) <= -HARD_COUNTER]
-        forced = len(hard) >= 2 and gain > 0
-        if info == 0:
+        if role == "tank" and any(role_of(e) == "tank" and cur["per"][e] >= SOFT
+                                  for e in weights):
+            margin += WIN_TANK_MARGIN
+        arr = _arrivals(state, enemies)
+        if arr and all(cur["per"][e] >= 0 for e in arr):
+            helps = [e for e in arr if cur["per"][e] > 0]
+            if helps:
+                margin += HELPS_ME_MARGIN
+        # A swap needs a real (not soft) reason: it turns a key matchup (their
+        # tank for a tank, the hero killing you, anyone for damage/support)
+        # by a hard-counter margin, or it escapes a hero hard-countering you.
+        key = [e for e in weights
+               if role != "tank" or role_of(e) == "tank" or e == killed_by]
+        def lift(e):
+            return best["per"][e] - cur["per"][e] if best else 0.0
+        real = bool(best) and (
+            any(lift(e) >= HARD_EDGE for e in key)
+            or any(cur["per"][e] <= -HARD_COUNTER and lift(e) >= HARD_EDGE for e in weights))
+        hard = [e for e in weights if cur["per"][e] <= -HARD_COUNTER]
+        forced = len(hard) >= 2 and gain > 0 and not helps
+        if me in bans:
+            action = "swap"
+        elif info == 0:
             action = "stay"
-        elif gain >= margin or forced or me in bans:
+        elif forced or (gain >= margin and real):
             action = "swap"
         else:
             action = "stay"
+            soft_only = gain >= margin and not real
         to = best["hero"] if action == "swap" and best else None
 
     alts = [s["hero"] for s in alt_pool if s["hero"] != to][:3]
@@ -353,18 +522,26 @@ def advise(state, bans=None):
     if action == "swap" and to:
         sc = by[to]
         wins = []
-        for e, w in sorted(weights.items(), key=lambda kv: -kv[1] * edge(to, kv[0])):
+        for e, w in sorted(weights.items(), key=lambda kv: -kv[1] * comp_edge(to, kv[0])):
             m = _mech(to, e)
-            if m and edge(to, e) > 0:
+            if m and comp_edge(to, e) > 0:
                 wins.append(f"{name(to)} into {name(e)}: {_clause(m, 110)}.")
         reasons.extend(wins[:2])
         if me:
             bad = _threats(me, weights)
-            if bad and bad[0][2]:
-                reasons.append(f"{name(me)} loses to {name(bad[0][1])}: {_clause(bad[0][2], 100)}.")
+            if bad and bad[0][2] and len(reasons) < 3:
+                reasons.insert(min(1, len(reasons)),
+                               f"{name(me)} loses to {name(bad[0][1])}: {_clause(bad[0][2], 100)}.")
+        safe = _safe_reason(to, enemies)
+        if safe and len(reasons) < 3:
+            reasons.append(safe)
         if len(reasons) < 3 and sc["partners"]:
             reasons.append(f"Fits your team: pairs with {', '.join(name(p) for p in sc['partners'][:2])}.")
-        if not reasons:
+        if len(reasons) < 2 and sc["worst"] < HARD_EDGE:
+            reasons.append(f"Nothing else they have hard-counters {name(to)}."
+                           if wins and len(enemies) > 1
+                           else f"No visible enemy hard-counters {name(to)}.")
+        if len(reasons) < 2:
             reasons.append(f"{name(to)} has the best overall matchup into {', '.join(name(e) for e in enemies) or 'their comp'}.")
         head = _swap_headline(to, weights, fresh=me is None)
         me_dead = any(p.get("dead") for p in state.get("my_team") or []
@@ -380,18 +557,33 @@ def advise(state, bans=None):
             how = "Hold Tab for a moment so the board is fully visible."
         elif info == 0:
             head = f"Stay {name(me)}; their comp isn't visible yet."
-            reasons = ["No enemy heroes read yet, and an early counter gives them a free re-pick."]
+            reasons = ["No enemy heroes read yet, and an early counter gives them a free re-pick.",
+                       "Check Tab again once their whole team is on the board."]
             how = _how(me, None)
         else:
-            if tgt:
+            if helps:
+                h = helps[0]
+                m = _mech(me, h)
+                reasons.append(f"Their swap to {name(h)} suits you"
+                               + (f": {_clause(m, 100)}." if m else "."))
+            if tgt and not (helps and tgt[1] == helps[0]):
                 reasons.append(f"{name(me)} into {name(tgt[1])}: {_clause(tgt[2], 110)}.")
             if best and gain > 0:
-                reasons.append(f"{name(best['hero'])} is only a small edge; not worth losing ult charge on a swap.")
+                why = "only a soft counter" if soft_only or gain < margin else "a small edge"
+                reasons.append(f"{name(best['hero'])} is {why} here; not worth losing ult charge on a swap.")
             else:
                 reasons.append(f"Nothing in your role beats this comp better than {name(me)}.")
             if threats and threats[0][2]:
                 reasons.append(f"Watch the {name(threats[0][1])}: {_clause(threats[0][2], 100)}.")
-            if tgt and (not threats or -threats[0][0] < tgt[0]):
+            elif threats:
+                reasons.append(f"Their {name(threats[0][1])} wins that matchup on the stats; fight from cover away from them.")
+            elif not tgt:
+                et = [e for e in enemies if role_of(e) == "tank"]
+                vs = f"their {name(et[0])}" if et else "their comp"
+                reasons.append(f"{name(me)} is even into {vs}, and nobody on their team hard-counters you.")
+            if helps:
+                head = f"Stay {name(me)}: their {name(helps[0])} swap plays into you."
+            elif tgt and (not threats or -threats[0][0] < tgt[0]):
                 head = f"Stay {name(me)}: you win the {name(tgt[1])} matchup."
             elif threats:
                 head = f"Stay {name(me)}; nothing beats their {name(threats[0][1])} by enough to swap."
@@ -401,10 +593,10 @@ def advise(state, bans=None):
 
     # --- confidence ---
     if action == "swap" and me is not None:
-        conf = 0.45 + 0.35 * min(1.0, (gain - margin) / 12.0 + 0.3)
+        conf = 0.45 + 0.35 * min(1.0, max(0.0, gain - margin) / 12.0 + 0.3)
     elif action == "swap":
         second = alt_pool[1]["total"] if len(alt_pool) > 1 else 0.0
-        conf = 0.4 + 0.4 * min(1.0, max(0.0, best["total"] - second) / 10.0) if best else 0.2
+        conf = 0.4 + 0.4 * min(1.0, max(0.0, best["total"] - second) / 6.0) if best else 0.2
     else:
         conf = 0.5 + 0.35 * min(1.0, max(0.0, margin - gain) / max(margin, 1.0))
     conf *= 0.6 + 0.4 * min(1.0, info / 3.0) if info else 0.5

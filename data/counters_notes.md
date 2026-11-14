@@ -51,3 +51,7 @@ These sources were checked a second time: patch notes 2026/02, 2026/10 and 2026/
 - Open conflicts where JSON follows counterwatch.gg stats against the esports.gg table: Cassidy > Tracer (esports.gg says Tracer counters Cassidy), Orisa > Winston, Torbjorn > Winston, Symmetra > Zarya, Ramattra > Hazard, Venture > Sombra, Baptiste > Sombra, Moira > D.Va. Lucio > Sombra follows Mobalytics, though esports.gg says the reverse. esports.gg gives no reasons, so treat these as low confidence.
 - esports.gg lists 38 counter pairs that are not in `matchups` (for example D.Va > Winston, Sombra > Orisa, Widowmaker > Mercy). They were not added, because no mechanism was checked for them.
 - Unverified: Cassidy's Flashbang. The official Cassidy page does not list it as a base ability, and "hinder" comes only from Stadium/perk text. The 25% swap ult retention also remains unverified for 2026.
+
+## Round 2 data fixes (2026-11-14)
+- Removed "Reinhardt beats Zarya: hammer swings into bubbles gain her little". It is false: hammer swings and Fire Strike into her bubbles are exactly what build Zarya's charge. No source backed it, so the pair is now neutral.
+- Added D.Va > Mauga (esports.gg names D.Va against Mauga; Defense Matrix eats his chaingun fire) and a new `top_answers` key that makes D.Va the first tank answer to Mauga, ahead of Sigma's Kinetic Grasp.

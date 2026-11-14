@@ -618,7 +618,8 @@
     "junkrat": "Defense Matrix eats Frag Launcher grenades and Concussion Mines",
     "sombra": "Boosters chase the Translocator line and shoot Sombra out of stealth (Mobalytics)",
     "illari": "Defense Matrix eats Solar Rifle shots and Boosters dive Illari (esports.gg)",
-    "wuyang": "Defense Matrix eats Wuyang's orb and Boosters dive him (esports.gg)"
+    "wuyang": "Defense Matrix eats Wuyang's orb and Boosters dive him (esports.gg)",
+    "mauga": "Defense Matrix eats his Incendiary Chaingun fire, so he cannot build burn or Overdrive lifesteal (esports.gg names D.Va)"
    },
    "weak_vs": {
     "dmon": "Defense Matrix eats projectiles but not Plasma Saber melee, and Power Barrier absorbs Fusion Cannon spread",
@@ -960,7 +961,8 @@
     "freja": "Freja bursts from range Mauga cannot match and Updraft keeps her off his Overrun path",
     "torbjorn": "Turret and Overload armour (armour reduces Chaingun damage per bullet) out-trade Mauga",
     "mei": "Ice Wall splits Mauga from his team and Endothermic Blaster slows his Overrun",
-    "lucio": "Soundwave boops Mauga out of Cage Fight range and Sound Barrier absorbs it"
+    "lucio": "Soundwave boops Mauga out of Cage Fight range and Sound Barrier absorbs it",
+    "dva": "Defense Matrix eats Incendiary Chaingun fire, so he cannot build burn or Overdrive lifesteal (esports.gg names D.Va)"
    }
   },
   "mei": {
@@ -1135,8 +1137,7 @@
     "anran": "Anran fights at fan range, inside Rocket Hammer reach; Barrier Field eats her fire projectiles",
     "wreckingball": "Barrier Field and hammer swings punish Ball diving the frontline; Earthshatter knocks him down",
     "doomfist": "Hammer and Earthshatter punish Doomfist landing in melee; Barrier absorbs his poke",
-    "venture": "Hammer swings hit Venture as she surfaces from Burrow at melee range",
-    "zarya": "Barrier Field blocks her beam and hammer swings into bubbles gain her little"
+    "venture": "Hammer swings hit Venture as she surfaces from Burrow at melee range"
    },
    "weak_vs": {
     "pharah": "Flies above Barrier Field and splashes behind it; Rein has no ranged answer except Fire Strike",
@@ -1539,7 +1540,6 @@
     "brigitte": "Whip Shot and Shield Bash do not give Zarya much charge and Barrier Shield blocks her beam",
     "sombra": "[2026-10-06] Cyberspace Weaken ([2026-11-03] 40%, was 50%) cuts her Particle Cannon damage",
     "sierra": "Tracking Shot locks onto a slow brawl tank from range",
-    "reinhardt": "Barrier Field blocks her beam and hammer swings into bubbles gain her little",
     "soldier76": "Out-ranges her beam; Soldier kites while bubbles are down",
     "cassidy": "Peacekeeper out-ranges Particle Cannon; Cassidy shoots Zarya when both bubbles are on cooldown",
     "ashe": "Out-ranges her beam from high ground"
@@ -2917,5 +2917,52 @@
   "winston": "[2026-02] Barrier Toss perk removed. [2026-11-03] Revitalizing Barrier perk 35->30 hps.",
   "wreckingball": "[2026-11-05] Faster Grappling Claw retract speed limit.",
   "zarya": "[2026-02] Energy Lance no longer needs 50+ energy."
+ },
+ "top_answers": {
+  "note": "Hero-level answers a counter table names first. advise() treats them as a hard edge over that enemy, above other mechanic-only answers.",
+  "mauga": {
+   "dva": "esports.gg counter table names D.Va first against Mauga: Defense Matrix eats his chaingun fire"
+  }
+ },
+ "low_confidence_pairs": {
+  "note": "Winner first. counters.json follows counterwatch.gg stats here against the esports.gg table (or Mobalytics against esports.gg); see counters_notes.md 'Open conflicts'. advise() halves these edges so they never count as a hard counter.",
+  "pairs": [
+   [
+    "cassidy",
+    "tracer"
+   ],
+   [
+    "orisa",
+    "winston"
+   ],
+   [
+    "torbjorn",
+    "winston"
+   ],
+   [
+    "symmetra",
+    "zarya"
+   ],
+   [
+    "ramattra",
+    "hazard"
+   ],
+   [
+    "venture",
+    "sombra"
+   ],
+   [
+    "baptiste",
+    "sombra"
+   ],
+   [
+    "moira",
+    "dva"
+   ],
+   [
+    "lucio",
+    "sombra"
+   ]
+  ]
  }
 }
