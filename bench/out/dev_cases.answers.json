@@ -22,7 +22,10 @@
     "how_to_play": "Roll in on isolated backliners, Piledriver groups and grapple out early. Main target: their Sojourn.",
     "confidence": 0.43,
     "when": null,
-    "ms": 6.7
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 3.57
    }
   },
   {
@@ -46,7 +49,10 @@
     "how_to_play": "Bubble your tank or yourself on their burst and charge up before you fight. Main target: their Sigma.",
     "confidence": 0.33,
     "when": null,
-    "ms": 0.39
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 0.75
    }
   },
   {
@@ -70,7 +76,10 @@
     "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin. Main target: their D.Va.",
     "confidence": 0.37,
     "when": null,
-    "ms": 0.38
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 0.85
    }
   },
   {
@@ -94,7 +103,10 @@
     "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin. Main target: their Junker Queen.",
     "confidence": 0.35,
     "when": null,
-    "ms": 0.73
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 1.31
    }
   },
   {
@@ -118,7 +130,10 @@
     "how_to_play": "Hold the frontline, Fortify through their burst and Javelin anyone who commits. Main target: their Hazard.",
     "confidence": 0.75,
     "when": null,
-    "ms": 0.94
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 2.18
    }
   },
   {
@@ -142,7 +157,10 @@
     "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin.",
     "confidence": 0.62,
     "when": null,
-    "ms": 0.39
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 0.89
    }
   },
   {
@@ -165,7 +183,10 @@
     "how_to_play": "Matrix their key projectiles, boost onto their backline and peel your supports.",
     "confidence": 0.37,
     "when": null,
-    "ms": 0.39
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 0.71
    }
   },
   {
@@ -189,7 +210,10 @@
     "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin. Main target: their D.Va.",
     "confidence": 0.41,
     "when": null,
-    "ms": 0.37
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 0.75
    }
   },
   {
@@ -213,7 +237,10 @@
     "how_to_play": "Hold the choke, poke from behind Barrier Array and Repulse divers off you. Main target: their Roadhog.",
     "confidence": 0.33,
     "when": null,
-    "ms": 0.47
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 1.03
    }
   },
   {
@@ -237,7 +264,10 @@
     "how_to_play": "Hold the frontline, Fortify through their burst and Javelin anyone who commits.",
     "confidence": 0.37,
     "when": null,
-    "ms": 0.39
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 0.98
    }
   },
   {
@@ -261,7 +291,10 @@
     "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin. Main target: their D.Va.",
     "confidence": 0.45,
     "when": null,
-    "ms": 0.33
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 0.58
    }
   },
   {
@@ -285,7 +318,10 @@
     "how_to_play": "Bubble your tank or yourself on their burst and charge up before you fight. Main target: their Sigma.",
     "confidence": 0.33,
     "when": null,
-    "ms": 0.23
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 0.39
    }
   },
   {
@@ -310,7 +346,10 @@
     "how_to_play": "Set the turret behind cover near the point and Overload when they dive. Main target: their Wrecking Ball.",
     "confidence": 0.69,
     "when": "next_death",
-    "ms": 0.75
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 1.4
    }
   },
   {
@@ -332,7 +371,10 @@
     "how_to_play": "Harass their backline from flanks, Recall out and pulse on the engage. Main target: their Juno.",
     "confidence": 0.81,
     "when": null,
-    "ms": 0.77
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 0.75
    }
   },
   {
@@ -357,7 +399,10 @@
     "how_to_play": "Poke in Omnic form, then go Nemesis when they commit and punch through shields. Main target: their Reinhardt.",
     "confidence": 0.47,
     "when": null,
-    "ms": 0.66
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 0.48
    }
   },
   {
@@ -373,16 +418,19 @@
      "symmetra",
      "cassidy"
     ],
-    "headline": "Into their Genji: Fire burn keeps ticking through Deflect.",
+    "headline": "Stay Widowmaker for now. If their Genji keeps diving you, go Anran, who wins that fight.",
     "reasons": [
-     "Anran into Genji: Fire burn keeps ticking through Deflect and fans out-trade him at close range.",
      "Widowmaker loses to Genji: Genji dives Widowmaker on an off-angle with no escape.",
+     "Anran into Genji: Fire burn keeps ticking through Deflect and fans out-trade him at close range.",
      "Anran can fight back when Genji dives."
     ],
-    "how_to_play": "Flank wide, Inferno Rush onto isolated backliners, keep Dancing Blaze to escape. Main target: their Genji.",
+    "how_to_play": "Take a covered perch, reposition after each pick and grapple away from divers. Main target: their Genji.",
     "confidence": 0.59,
     "when": "next_death",
-    "ms": 1.01
+    "against": [],
+    "conditional": true,
+    "swap_how_to_play": "Flank wide, Inferno Rush onto isolated backliners, keep Dancing Blaze to escape. Main target: their Genji.",
+    "ms": 0.81
    }
   },
   {
@@ -406,7 +454,10 @@
     "how_to_play": "Stay near your tank, Suzu the key cleanse and teleport out when dove.",
     "confidence": 0.42,
     "when": null,
-    "ms": 0.3
+    "against": [],
+    "conditional": false,
+    "swap_how_to_play": null,
+    "ms": 0.21
    }
   },
   {
@@ -422,16 +473,19 @@
      "zarya",
      "domina"
     ],
-    "headline": "Their Orisa counters Reinhardt: Energy Javelin stops Charge.",
+    "headline": "Stay Reinhardt for now. If their Orisa keeps out-ranging you, go Sigma, who beats their Cassidy.",
     "reasons": [
      "Reinhardt loses to Orisa: Energy Javelin stops Charge and Fusion Driver chews through Barrier Field from range.",
      "Safe into their Bastion: Barrier Field and Kinetic Grasp soak Assault configuration fire.",
      "Sigma into Cassidy: Kinetic Grasp absorbs his shots and Barrier blocks Deadeye."
     ],
-    "how_to_play": "Barrier their poke, Grasp their key projectile and Accretion the peekers. Main target: their Cassidy.",
+    "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin. Main target: their Orisa.",
     "confidence": 0.64,
     "when": "next_death",
-    "ms": 1.07
+    "against": [],
+    "conditional": true,
+    "swap_how_to_play": "Barrier their poke, Grasp their key projectile and Accretion the peekers. Main target: their Cassidy.",
+    "ms": 0.68
    }
   }
  ]

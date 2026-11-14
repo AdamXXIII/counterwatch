@@ -1,0 +1,441 @@
+{
+ "cases_file": "bench\\holdout_cases.json",
+ "answers": [
+  {
+   "id": "omzhh-p3-1701",
+   "role": "tank",
+   "current_hero": null,
+   "answer": {
+    "action": "swap",
+    "hero_now": null,
+    "to": "roadhog",
+    "alternatives": [
+     "mauga",
+     "junkerqueen",
+     "ramattra"
+    ],
+    "headline": "Chain Hook pulls Winston out of a jump.",
+    "reasons": [
+     "Roadhog into Winston: Chain Hook pulls Winston out of a jump and Scrap Gun burst kills him before Barrier helps.",
+     "No visible enemy hard-counters Roadhog."
+    ],
+    "how_to_play": "Take cover angles, hook whoever is isolated and Compactor their burst. Main target: their Winston.",
+    "confidence": 0.39,
+    "when": null,
+    "ms": 2.59
+   }
+  },
+  {
+   "id": "omzhh-p3-2731",
+   "role": "tank",
+   "current_hero": null,
+   "answer": {
+    "action": "swap",
+    "hero_now": null,
+    "to": "mauga",
+    "alternatives": [
+     "domina",
+     "roadhog",
+     "junkerqueen"
+    ],
+    "headline": "Into their Wrecking Ball: Chainguns crit and burn melt Adaptive Shield.",
+    "reasons": [
+     "Mauga into Wrecking Ball: Chainguns crit and burn melt Adaptive Shield.",
+     "Fits your team: pairs with Kiriko."
+    ],
+    "how_to_play": "Push into their frontline, keep both guns on them and Overdrive in the brawl. Main target: their Wrecking Ball.",
+    "confidence": 0.59,
+    "when": null,
+    "ms": 0.45
+   }
+  },
+  {
+   "id": "omzhh-p3-5700",
+   "role": "tank",
+   "current_hero": null,
+   "answer": {
+    "action": "swap",
+    "hero_now": null,
+    "to": "dva",
+    "alternatives": [
+     "zarya",
+     "sigma",
+     "orisa"
+    ],
+    "headline": "Into their Mauga: Defense Matrix eats his Incendiary Chaingun fire.",
+    "reasons": [
+     "D.Va into Mauga: Defense Matrix eats his Incendiary Chaingun fire, so he cannot build burn or Overdrive lifesteal.",
+     "No visible enemy hard-counters D.Va."
+    ],
+    "how_to_play": "Matrix their key projectiles, boost onto their backline and peel your supports. Main target: their Mauga.",
+    "confidence": 0.33,
+    "when": null,
+    "ms": 0.64
+   }
+  },
+  {
+   "id": "omzhh-p3-7039",
+   "role": "tank",
+   "current_hero": null,
+   "answer": {
+    "action": "swap",
+    "hero_now": null,
+    "to": "mauga",
+    "alternatives": [
+     "roadhog",
+     "domina",
+     "junkerqueen"
+    ],
+    "headline": "Chainguns and armour out-sustain Doomfist burst.",
+    "reasons": [
+     "Mauga into Doomfist: Chainguns and armour out-sustain Doomfist burst.",
+     "No visible enemy hard-counters Mauga."
+    ],
+    "how_to_play": "Push into their frontline, keep both guns on them and Overdrive in the brawl. Main target: their Doomfist.",
+    "confidence": 0.59,
+    "when": null,
+    "ms": 0.52
+   }
+  },
+  {
+   "id": "omzhh-p4-1029",
+   "role": "tank",
+   "current_hero": "orisa",
+   "answer": {
+    "action": "swap",
+    "hero_now": "orisa",
+    "to": "reinhardt",
+    "alternatives": [
+     "hazard",
+     "domina",
+     "zarya"
+    ],
+    "headline": "Their Zarya counters Orisa: Bubbles soak Energy Javelin and Fusion Driver damage.",
+    "reasons": [
+     "Orisa loses to Zarya: Bubbles soak Energy Javelin and Fusion Driver damage, so Orisa's poke charges Zarya.",
+     "Reinhardt is even into their Zarya, so that duel stops deciding the fight.",
+     "Fits your team: pairs with Shion, Ana."
+    ],
+    "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin.",
+    "confidence": 0.57,
+    "when": "next_death",
+    "ms": 0.69
+   }
+  },
+  {
+   "id": "omzhh-p2-4414",
+   "role": "tank",
+   "current_hero": "roadhog",
+   "answer": {
+    "action": "swap",
+    "hero_now": "roadhog",
+    "to": "dva",
+    "alternatives": [
+     "zarya",
+     "sigma",
+     "reinhardt"
+    ],
+    "headline": "Into their Mauga: Defense Matrix eats his Incendiary Chaingun fire.",
+    "reasons": [
+     "Roadhog loses to Mauga: Incendiary Chaingun burn eats Roadhog's huge unarmoured health and outlasts Take a Breather.",
+     "D.Va into Mauga: Defense Matrix eats his Incendiary Chaingun fire, so he cannot build burn or Overdrive lifesteal."
+    ],
+    "how_to_play": "Matrix their key projectiles, boost onto their backline and peel your supports. Main target: their Mauga.",
+    "confidence": 0.68,
+    "when": "next_death",
+    "ms": 0.62
+   }
+  },
+  {
+   "id": "omzhh-p2-4516",
+   "role": "tank",
+   "current_hero": "zarya",
+   "answer": {
+    "action": "stay",
+    "hero_now": "zarya",
+    "to": null,
+    "alternatives": [
+     "domina",
+     "mauga"
+    ],
+    "headline": "You win the Roadhog matchup.",
+    "reasons": [
+     "Zarya into Roadhog: A bubble soaks the Chain Hook combo damage.",
+     "Domina is only a soft counter here; not worth losing ult charge on a swap."
+    ],
+    "how_to_play": "Bubble your tank or yourself on their burst and charge up before you fight. Main target: their Roadhog.",
+    "confidence": 0.57,
+    "when": null,
+    "ms": 0.48
+   }
+  },
+  {
+   "id": "omzhh-p5-0025",
+   "role": "tank",
+   "current_hero": null,
+   "answer": {
+    "action": "swap",
+    "hero_now": null,
+    "to": "sigma",
+    "alternatives": [
+     "orisa",
+     "domina",
+     "zarya"
+    ],
+    "headline": "Into their Hazard: Accretion stuns him out of Violent Leap.",
+    "reasons": [
+     "Sigma into Hazard: Accretion stuns him out of Violent Leap and Experimental Barrier blocks Downpour from above.",
+     "Safe into their Bastion: Barrier Field and Kinetic Grasp soak Assault configuration fire.",
+     "Fits your team: pairs with Sojourn."
+    ],
+    "how_to_play": "Barrier their poke, Grasp their key projectile and Accretion the peekers. Main target: their Hazard.",
+    "confidence": 0.44,
+    "when": null,
+    "ms": 0.89
+   }
+  },
+  {
+   "id": "omzhh-p5-5135",
+   "role": "tank",
+   "current_hero": null,
+   "answer": {
+    "action": "swap",
+    "hero_now": null,
+    "to": "doomfist",
+    "alternatives": [
+     "zarya",
+     "orisa",
+     "sigma"
+    ],
+    "headline": "Beats their Winston.",
+    "reasons": [
+     "Not Mauga: their Ana hard-counters it (Ana's Biotic Grenade shuts off Mauga's self-healing).",
+     "Doomfist has no self-sustain for Ana's anti-nade to shut off."
+    ],
+    "how_to_play": "Punch in on isolated backliners, block poke with Power Block and get out on Slam.",
+    "confidence": 0.46,
+    "when": null,
+    "ms": 1.12
+   }
+  },
+  {
+   "id": "omzhh-p1-3323",
+   "role": "tank",
+   "current_hero": null,
+   "answer": {
+    "action": "swap",
+    "hero_now": null,
+    "to": "zarya",
+    "alternatives": [
+     "winston",
+     "reinhardt",
+     "wreckingball"
+    ],
+    "headline": "Into their Sigma: Particle Cannon beam cannot be absorbed by Kinetic Grasp.",
+    "reasons": [
+     "Zarya into Sigma: Particle Cannon beam cannot be absorbed by Kinetic Grasp.",
+     "Zarya into Widowmaker: Bubbles protect allies from Widowmaker headshots.",
+     "Zarya gives their Widowmaker a smaller or shielded target."
+    ],
+    "how_to_play": "Bubble your tank or yourself on their burst and charge up before you fight. Main target: their Sigma.",
+    "confidence": 0.47,
+    "when": null,
+    "ms": 1.79
+   }
+  },
+  {
+   "id": "omzhh-jan-3216",
+   "role": "tank",
+   "current_hero": null,
+   "answer": {
+    "action": "swap",
+    "hero_now": null,
+    "to": "reinhardt",
+    "alternatives": [
+     "domina",
+     "hazard",
+     "ramattra"
+    ],
+    "headline": "Hammer swings hit Venture as she surfaces from Burrow at melee range.",
+    "reasons": [
+     "Reinhardt into Venture: Hammer swings hit Venture as she surfaces from Burrow at melee range.",
+     "Nothing else they have hard-counters Reinhardt."
+    ],
+    "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin. Main target: their Venture.",
+    "confidence": 0.5,
+    "when": null,
+    "ms": 1.17
+   }
+  },
+  {
+   "id": "spilo-swapguide-0430",
+   "role": "tank",
+   "current_hero": "zarya",
+   "answer": {
+    "action": "stay",
+    "hero_now": "zarya",
+    "to": null,
+    "alternatives": [
+     "doomfist",
+     "wreckingball",
+     "winston"
+    ],
+    "headline": "You win the Hanzo matchup.",
+    "reasons": [
+     "Zarya into Hanzo: Bubbles absorb Hanzo's burst and Zarya gains charge.",
+     "Doomfist is only a soft counter here; not worth losing ult charge on a swap.",
+     "Watch the Ashe: Out-ranges her beam from high ground."
+    ],
+    "how_to_play": "Bubble your tank or yourself on their burst and charge up before you fight. Main target: their Hanzo.",
+    "confidence": 0.43,
+    "when": null,
+    "ms": 0.72
+   }
+  },
+  {
+   "id": "spilo-6v6-7005",
+   "role": "tank",
+   "current_hero": "dva",
+   "answer": {
+    "action": "stay",
+    "hero_now": "dva",
+    "to": null,
+    "alternatives": [
+     "mauga",
+     "orisa",
+     "domina"
+    ],
+    "headline": "You win the Junkrat matchup.",
+    "reasons": [
+     "D.Va into Junkrat: Defense Matrix eats Frag Launcher grenades and Concussion Mines.",
+     "Mauga is only a soft counter here; not worth losing ult charge on a swap."
+    ],
+    "how_to_play": "Matrix their key projectiles, boost onto their backline and peel your supports. Main target: their Junkrat.",
+    "confidence": 0.78,
+    "when": null,
+    "ms": 0.92
+   }
+  },
+  {
+   "id": "spilo-junk-5026",
+   "role": "damage",
+   "current_hero": "junkrat",
+   "answer": {
+    "action": "stay",
+    "hero_now": "junkrat",
+    "to": null,
+    "alternatives": [
+     "widowmaker",
+     "genji",
+     "shion"
+    ],
+    "headline": "You win the Reaper matchup.",
+    "reasons": [
+     "Junkrat into Reaper: Frag spam and Steel Trap punish Reaper's walk-in long before his shotguns reach you.",
+     "Junkrat is already even or better into their Sojourn; a swap only trades ult charge for a paper edge."
+    ],
+    "how_to_play": "Spam the choke from cover, trap the flank route and mine away from divers. Main target: their Reaper.",
+    "confidence": 0.43,
+    "when": null,
+    "ms": 1.09
+   }
+  },
+  {
+   "id": "emongg-kiri-0819",
+   "role": "damage",
+   "current_hero": "ashe",
+   "answer": {
+    "action": "swap",
+    "hero_now": "ashe",
+    "to": "anran",
+    "alternatives": [
+     "mei",
+     "symmetra",
+     "cassidy"
+    ],
+    "headline": "Into their Genji: Fire burn keeps ticking through Deflect.",
+    "reasons": [
+     "Anran into Genji: Fire burn keeps ticking through Deflect and fans out-trade him at close range.",
+     "Ashe loses to Genji: Genji's Deflect sends Ashe's shots straight back.",
+     "Anran can fight back when Genji dives."
+    ],
+    "how_to_play": "Flank wide, Inferno Rush onto isolated backliners, keep Dancing Blaze to escape. Main target: their Genji.",
+    "confidence": 0.59,
+    "when": "next_death",
+    "ms": 1.34
+   }
+  },
+  {
+   "id": "emongg-kiri-1859",
+   "role": "damage",
+   "current_hero": "widowmaker",
+   "answer": {
+    "action": "swap",
+    "hero_now": "widowmaker",
+    "to": "anran",
+    "alternatives": [
+     "mei",
+     "symmetra",
+     "cassidy"
+    ],
+    "headline": "Into their Genji: Fire burn keeps ticking through Deflect.",
+    "reasons": [
+     "Anran into Genji: Fire burn keeps ticking through Deflect and fans out-trade him at close range.",
+     "Widowmaker loses to Genji: Genji dives Widowmaker on an off-angle with no escape.",
+     "Anran can fight back when Genji dives."
+    ],
+    "how_to_play": "Flank wide, Inferno Rush onto isolated backliners, keep Dancing Blaze to escape. Main target: their Genji.",
+    "confidence": 0.59,
+    "when": "next_death",
+    "ms": 1.25
+   }
+  },
+  {
+   "id": "emongg-ram-1155",
+   "role": "tank",
+   "current_hero": "ramattra",
+   "answer": {
+    "action": "stay",
+    "hero_now": "ramattra",
+    "to": null,
+    "alternatives": [
+     "zarya"
+    ],
+    "headline": "You win the D.Va matchup.",
+    "reasons": [
+     "Ramattra into D.Va: Ravenous Vortex pulls D.Va out of flight.",
+     "Zarya is only a soft counter here; not worth losing ult charge on a swap.",
+     "Watch the Torbj\u00f6rn: Torbj\u00f6rn melts Ramattra's big hitbox."
+    ],
+    "how_to_play": "Poke in Omnic form, then go Nemesis when they commit and punch through shields. Main target: their D.Va.",
+    "confidence": 0.69,
+    "when": null,
+    "ms": 0.79
+   }
+  },
+  {
+   "id": "gozembii-hog-1340",
+   "role": "tank",
+   "current_hero": "dva",
+   "answer": {
+    "action": "stay",
+    "hero_now": "dva",
+    "to": null,
+    "alternatives": [
+     "zarya",
+     "sigma",
+     "orisa"
+    ],
+    "headline": "No matchup here is worth a swap.",
+    "reasons": [
+     "D.Va is already even or better into their Orisa; a swap only trades ult charge for a paper edge.",
+     "D.Va is even into their Orisa, and nobody on their team hard-counters you."
+    ],
+    "how_to_play": "Matrix their key projectiles, boost onto their backline and peel your supports.",
+    "confidence": 0.5,
+    "when": null,
+    "ms": 0.35
+   }
+  }
+ ]
+}

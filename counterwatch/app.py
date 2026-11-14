@@ -341,6 +341,11 @@ class App:
         try:
             from . import stub_reader
             stub_reader._load_templates()
+            try:
+                from . import reader
+                reader.refs()  # build the hero portrait bank now, not on the first Tab press
+            except ImportError:
+                pass
             frame = imread(LAST) if os.path.exists(LAST) else np.zeros((1080, 1920, 3), np.uint8)
             pipeline.run(frame, [])
             view.render({"state": {"board_open": False}, "timing": {}})
