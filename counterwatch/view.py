@@ -174,7 +174,10 @@ def render(result: dict | None, status: dict | None = None) -> Image.Image:
                  "Hold Tab a beat longer, until the board is fully drawn.")
     else:
         try:
-            _advice(img, d, result)
+            if enemy_hidden(result.get("state") or {}):
+                _hidden(img, d, result)
+            else:
+                _advice(img, d, result)
         except Exception as e:  # never let a bad field take the window down
             import logging, traceback
             logging.getLogger("counterwatch").error("draw failed: %s", traceback.format_exc())
@@ -313,8 +316,159 @@ _CALL_PREFIX = re.compile(r"^\s*(?:swap to|go|stay|pick)\s+[^:;.]{1,40}?(?:\s+in
 
 def why_line(headline: str) -> str:
     """The headline minus any "Swap to X:" / "Stay X;" lead-in: the call above already says it."""
-    t = _CALL_PREFIX.sub("", headline or "").strip()
+    h = headline or ""
+    for hid, rec in data.heroes().items():  # "Soldier: 76" would end the lead-in at its colon
+        if ":" in rec["name"]:
+            h = h.replace(rec["name"], rec["name"].replace(":", "∶"))
+    t = _CALL_PREFIX.sub("", h).strip().replace("∶", ":")
     return t[:1].upper() + t[1:] if t else ""
+
+
+# ---------------------------------------------------------------- match start: enemy hidden
+def enemy_hidden(st: dict) -> bool:
+    """True when the game itself is hiding the enemy (setup, before the gates open): the board
+    read cleanly, at least four allies are known, and every enemy row is a confident "unknown"
+    silhouette. A low-confidence read is a capture problem, not this, and keeps the advice
+    screen with NEED A CLEARER BOARD."""
+    en = st.get("enemy_team") or []
+    allies = [r for r in st.get("my_team") or [] if r.get("hero") in data.heroes()]
+    if not en or len(allies) < 4:
+        return False
+    for r in en:
+        if r.get("hero") != "unknown":
+            return False
+        if r.get("conf") is not None and r["conf"] < 0.5:
+            return False
+    return True
+
+
+STYLE_WORD = {"brawl": "brawl", "dive": "dive", "poke": "poke"}
+
+
+def prefight(st: dict, adv: dict, bans=None) -> dict | None:
+    """A soft opening pick for your role from your own team's comp alone (no enemy to judge).
+    {"pick": id, "fits": bool (the pick is the hero you are on), "line": str, "alts": [ids]}."""
+    heroes, c = data.heroes(), data.counters()
+    me = st.get("my_hero") if st.get("my_hero") in heroes else None
+    role = st.get("my_role") or data.role(me)
+    if role not in ROLE_LABEL:
+        return None
+    mates = [r["hero"] for r in st.get("my_team") or [] if r.get("hero") in heroes and r["hero"] != me]
+    arche: dict[str, set] = {}
+    for a, ids in (c.get("archetypes") or {}).items():
+        for i in ids:
+            arche.setdefault(i, set()).add(a)
+    syn = c.get("synergies") or {}
+    counts: dict[str, int] = {}
+    for m in mates:
+        for a in arche.get(m, ()):
+            counts[a] = counts.get(a, 0) + 1
+    tank = next((m for m in mates if data.role(m) == "tank"), None)
+    style = None
+    if counts:
+        best = max(counts.values())
+        tops = [a for a, n in counts.items() if n == best]
+        style = next((a for a in tops if tank and a in arche.get(tank, ())), tops[0]) if best >= 2 else None
+
+    def fit(h):
+        partners = [m for m in mates if m in syn.get(h, []) or h in syn.get(m, [])]
+        return (style in arche.get(h, ()) if style else False), partners
+
+    banned = set(bans or [])
+    pool = [a for a in (adv.get("alternatives") or []) if a in heroes and a not in mates and a not in banned]
+    pool += [h for h, r in heroes.items() if r["role"] == role and h not in mates and h not in banned
+             and h not in pool and h != me and fit(h)[0]]
+    good = [h for h in pool if h != me and data.role(h) == role and (fit(h)[0] or fit(h)[1])]
+    if not style and not good:
+        return None
+    around = f" around {data.name(tank)}" if tank and style in arche.get(tank, ()) else ""
+    built = f"Your team is set up to {STYLE_WORD.get(style, style)}{around}." if style else ""
+    if me:
+        in_style, partners = fit(me)
+        if in_style or (not style and partners):
+            why = f"pairs with {data.name(partners[0])}" if partners else f"suits a {style} comp"
+            return {"pick": me, "fits": True, "alts": [],
+                    "line": f"{built} {data.name(me)} {why}: start on it.".strip()}
+    if not good:
+        return None
+    pick = good[0]
+    p_style, p_partners = fit(pick)
+    if style:
+        mine = f" {data.name(me)} is a {sorted(arche[me])[0]} hero." if me and arche.get(me) and style not in arche[me] else ""
+        tail = f" {data.name(pick)} fits the {style}." if p_style else f" {data.name(pick)} pairs with {data.name(p_partners[0])}."
+    else:
+        mine, tail = "", f" {data.name(pick)} pairs with {data.name(p_partners[0])}." if p_partners else ""
+    return {"pick": pick, "fits": False, "alts": good[1:3], "line": (built + mine + tail).strip()}
+
+
+def _hidden(img, d, result):
+    st, adv = result["state"], result.get("advice") or {}
+    me = st.get("my_hero") if st.get("my_hero") in data.heroes() else None
+    role = st.get("my_role") or data.role(me)
+    y = 84
+    who = "MATCH START"
+    if me:
+        who += f"  ·  ON {data.name(me).upper()}"
+    if role:
+        who += f"  ·  {ROLE_LABEL.get(role, role.upper())}"
+    d.text((PAD + 2, y), who, font=disp(18, "SemiBold SemiCondensed"), fill=MUTE)
+
+    # the state, not a call: the game is hiding them, nothing to judge yet
+    f1 = fit_display("ENEMY HIDDEN", W - 2 * PAD - 10, 112, 60)
+    slanted_text(img, (PAD + 8, y + 26), "ENEMY HIDDEN", f1, INK)
+    y2 = y + 26 + f1.size + 4
+    f2 = fit_display("UNTIL THE GATES OPEN", W - 2 * PAD - 10, 52, 32)
+    slanted_text(img, (PAD + 8, y2), "UNTIL THE GATES OPEN", f2, CYAN)
+    y = y2 + f2.size + 22
+    d.text((PAD, y), "The game hides their picks during setup, so there is nothing to counter yet.",
+           font=body(19), fill=MUTE)
+    y += 46
+
+    pf = prefight(st, adv, result.get("bans"))
+    if pf:
+        ps = 104
+        tx = PAD + 20 + ps + 18
+        nm = data.name(pf["pick"]).upper()
+        fn = fit_display(nm, W - PAD - 16 - tx, 58, 34)
+        tw_ = W - PAD - 20 - tx
+        lf = body(19) if fits(pf["line"], body(19), tw_, 3) else body(17)
+        lines = wrap(pf["line"], lf, tw_)
+        text_h = fn.size + 8 + len(lines) * 26
+        if pf["alts"] and y + 42 + max(ps, text_h + 44) + 18 + 14 + 52 > H - 58 - 2 * 92 - 12:
+            pf["alts"] = []  # never let the OR row push into the comps
+        alt_h = 44 if pf["alts"] else 0
+        bh = 42 + max(ps, text_h + alt_h) + 18
+        d.rectangle((PAD, y, W - PAD, y + bh), fill=PANEL)
+        d.rectangle((PAD, y, PAD + 4, y + bh), fill=MINT)
+        lab = "PRE-FIGHT PICK" + (f"  ·  {ROLE_LABEL.get(role, '')}" if role else "")
+        d.text((PAD + 20, y + 14), lab, font=disp(17, "Bold SemiCondensed"), fill=MINT)
+        px, py = PAD + 20, y + 42
+        p = portrait(pf["pick"], ps - 6)
+        if p:
+            img.paste(Image.new("RGB", (ps, ps), MINT), (px, py), slant_mask(ps, ps, 18))
+            img.paste(p, (px + 3, py + 3), slant_mask(ps - 6, ps - 6, 17))
+        slanted_text(img, (tx + 4, py - 4), nm, fn, INK)
+        for i, line in enumerate(lines):
+            d.text((tx + 2, py + fn.size + 6 + i * 26), line, font=lf, fill=SOFT)
+        if pf["alts"]:
+            ay = py + text_h + 6
+            d.text((tx + 2, ay + 5), "OR", font=disp(16, "Bold SemiCondensed"), fill=MUTE)
+            ax = tx + 36
+            for a_ in pf["alts"]:
+                ax = _mini_chip(img, d, ax, ay, a_) + 10
+        y += bh + 14
+
+    # what to do next
+    bh = 52
+    d.rectangle((PAD, y, W - PAD, y + bh), fill=PANEL)
+    d.rectangle((PAD, y, PAD + 4, y + bh), fill=AMBER)
+    d.text((PAD + 20, y + 17), "NEXT", font=disp(17, "Bold SemiCondensed"), fill=AMBER)
+    d.text((PAD + 104, y + 12), "Hold Tab again after first contact.", font=body(22, "semi"), fill=INK)
+
+    comps_h = 2 * 92
+    cy = H - 58 - comps_h
+    _comp(img, d, cy, "YOUR TEAM", CYAN, st.get("my_team") or [], me=me)
+    _comp(img, d, cy + 92, "ENEMY  ·  HIDDEN BY THE GAME", CORAL, st.get("enemy_team") or [], hidden=True)
 
 
 # ---------------------------------------------------------------- the advice screen
@@ -363,26 +517,29 @@ def _advice(img, d, result):
         else:
             slanted_text(img, (x + 4, y + 18), "STAY", disp(150), accent)
     else:
-        # a guess: caption says so, the call itself is only an outline
+        # a guess: the caption says so (MAYBE SWAP / NOT SURE YET); the call stays a solid
+        # word at reduced contrast, never an outline, so it still reads from across a desk
         cap = call_label(st, adv, cert)[0] if swap else cert["word"]
         slanted_text(img, (x + 6, y + 30), cap, fit_display(cap, avail - 6, 34, 22), AMBER)
         call = data.name(hero).upper() if swap else "STAY"
-        if swap:  # same box as a sure swap, so the name never runs into the "% SURE" line
-            f = fit_display(call, avail, 104, 48)
-            slanted_text(img, (x + 4, y + 72 + (104 - f.size) * 0.6), call, f, SOFT, outline=2)
-        else:
-            f = fit_display(call, avail, 132, 48)
-            slanted_text(img, (x + 4, y + 70 + (120 - f.size) * 0.45), call, f, SOFT, outline=2)
+        dim = MUTE if cert["read"] < MIN_ENEMIES else SOFT
+        # same box as a sure swap, so the word never runs into the "% SURE" / "READ" line
+        f = fit_display(call, avail, 104 if swap else 96, 48)
+        slanted_text(img, (x + 4, y + 72 + (104 - f.size) * 0.6), call, f, dim)
 
-    # confidence: a readable number, not a footnote
+    # confidence: a readable number, not a footnote. With too few enemies read there is
+    # nothing to be sure about, so it says how much of the board was read instead.
     conf = cert["conf"]
     by = y + ph - 12
     bw = 170
-    d.rounded_rectangle((x + 6, by, x + 6 + bw, by + 8), 4, fill=PANEL_HI)
-    d.rounded_rectangle((x + 6, by, x + 6 + max(8, int(bw * conf)), by + 8), 4,
-                        fill=accent if sure else AMBER)
-    d.text((x + bw + 20, by - 9), f"{round(conf * 100)}% SURE", font=disp(21, "Bold SemiCondensed"),
-           fill=accent if sure else AMBER)
+    if cert["read"] < MIN_ENEMIES:
+        d.text((x + 6, by - 9), f"{cert['read']} OF 5 ENEMIES READ", font=disp(21, "Bold SemiCondensed"), fill=AMBER)
+    else:
+        d.rounded_rectangle((x + 6, by, x + 6 + bw, by + 8), 4, fill=PANEL_HI)
+        d.rounded_rectangle((x + 6, by, x + 6 + max(8, int(bw * conf)), by + 8), 4,
+                            fill=accent if sure else AMBER)
+        d.text((x + bw + 20, by - 9), f"{round(conf * 100)}% SURE", font=disp(21, "Bold SemiCondensed"),
+               fill=accent if sure else AMBER)
 
     # --- text: the largest type that fits, then both comps right underneath
     comps_h = 2 * 92
@@ -522,7 +679,7 @@ def _mini_chip(img, d, x, y, hero_id) -> int:
     return x + w
 
 
-def _comp(img, d, y, label, col, rows, me=None, threats=frozenset()):
+def _comp(img, d, y, label, col, rows, me=None, threats=frozenset(), hidden=False):
     """One team as five chips. Every tag that applies is shown (THREAT, YOU, DEAD, UNSURE),
     stacked under the name, so one never hides another."""
     d.text((PAD, y), label, font=disp(15, "Bold SemiCondensed"), fill=col)
@@ -573,10 +730,12 @@ def _comp(img, d, y, label, col, rows, me=None, threats=frozenset()):
             tags.append(("DEAD", MUTE))
         if unsure:
             tags.append(("UNSURE", AMBER))
+        if hidden and not known and r.get("role") in ROLE_LABEL:
+            tags.append((ROLE_LABEL[r["role"]], MUTE))
 
         tx = x + 8 + ps + 7
         room = x + cw - 4 - tx
-        nm = data.name(hid) if known else ("Empty" if hid == "empty" else "Unknown")
+        nm = data.name(hid) if known else ("Empty" if hid == "empty" else ("Hidden" if hidden else "Unknown"))
         name_col = (MUTE if dead else INK) if known else MUTE
         parts = nm.replace(":", "").split()
         size = 17
