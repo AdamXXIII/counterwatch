@@ -2,7 +2,8 @@
 same image as a PNG, so what is reviewed is exactly what the player sees.
 
 Look: near-black navy, condensed slanted display type (Bahnschrift), a warm amber for SWAP, a
-cool mint for STAY, coral for enemy threats, cyan for your team. Original, not Blizzard art.
+cool mint for STAY, coral for enemy threats, cyan for your team, lilac for a call that is not sure
+(MAYBE / STAY FOR NOW / LOOK AGAIN as the big word, the candidate hero small under it). Original, not Blizzard art.
 """
 from __future__ import annotations
 
@@ -28,6 +29,8 @@ AMBER = (255, 178, 63)
 MINT = (82, 230, 178)
 CORAL = (255, 92, 110)
 CYAN = (70, 205, 235)
+# "not sure": its own colour, so it never borrows amber (SWAP NOW / NEXT / PLAY IT / reason numbers)
+MAYBE = (180, 150, 255)
 
 FONTS = "C:/Windows/Fonts/"
 ROLE_LABEL = {"tank": "TANK", "damage": "DAMAGE", "support": "SUPPORT"}
@@ -480,12 +483,17 @@ def _advice(img, d, result):
     accent = (AMBER if swap else MINT) if sure else SOFT
     hero = adv.get("to") if swap else (adv.get("hero_now") or st.get("my_hero"))
 
-    # --- hero block: slanted portrait + the call
     y = 84
+    if not sure:
+        top = _unsure_block(img, d, st, adv, cert, hero if hero in data.heroes() else None, swap, y)
+        _advice_text(img, d, st, adv, cert, top, accent, swap)
+        return
+
+    # --- hero block: slanted portrait + the call
     ph = 184
-    p = portrait(hero, ph - 8, dim=not sure) if hero in data.heroes() else None
+    p = portrait(hero, ph - 8) if hero in data.heroes() else None
     if p:
-        frame = Image.new("RGB", (ph, ph), accent if sure else LINE)
+        frame = Image.new("RGB", (ph, ph), accent)
         img.paste(frame, (PAD, y), slant_mask(ph, ph, 30))
         img.paste(p, (PAD + 4, y + 4), slant_mask(ph - 8, ph - 8, 29))
     else:
@@ -501,50 +509,118 @@ def _advice(img, d, result):
         who += f"  ·  {ROLE_LABEL.get(role, role.upper())}"
     d.text((x + 6, y + 2), who, font=disp(18, "SemiBold SemiCondensed"), fill=MUTE)
 
-    if sure:
-        if swap:
-            cap, urgent = call_label(st, adv, cert)
-            fc = fit_display(cap, avail - 30, 40, 26)
-            if urgent:  # dead right now: a solid amber bar, the one thing to do this second
-                bw_ = tw(fc, cap) + int(fc.size * 0.2) + 28
-                slant_box(d, x + 2, y + 28, bw_, fc.size + 10, 10, fill=AMBER)
-                slanted_text(img, (x + 18, y + 30 + (40 - fc.size) * 0.3), cap, fc, BG)
-            else:
-                slanted_text(img, (x + 6, y + 30 + (40 - fc.size) * 0.5), cap, fc, accent)
-            nm = data.name(hero).upper()
-            f = fit_display(nm, avail, 104, 48)
-            slanted_text(img, (x + 4, y + 72 + (104 - f.size) * 0.6), nm, f, INK)
+    if swap:
+        cap, urgent = call_label(st, adv, cert)
+        fc = fit_display(cap, avail - 30, 40, 26)
+        if urgent:  # dead right now: a solid amber bar, the one thing to do this second
+            bw_ = tw(fc, cap) + int(fc.size * 0.2) + 28
+            slant_box(d, x + 2, y + 28, bw_, fc.size + 10, 10, fill=AMBER)
+            slanted_text(img, (x + 18, y + 30 + (40 - fc.size) * 0.3), cap, fc, BG)
         else:
-            slanted_text(img, (x + 4, y + 18), "STAY", disp(150), accent)
+            slanted_text(img, (x + 6, y + 30 + (40 - fc.size) * 0.5), cap, fc, accent)
+        nm = data.name(hero).upper()
+        f = fit_display(nm, avail, 104, 48)
+        slanted_text(img, (x + 4, y + 72 + (104 - f.size) * 0.6), nm, f, INK)
     else:
-        # a guess: the caption says so (MAYBE SWAP / NOT SURE YET); the call stays a solid
-        # word at reduced contrast, never an outline, so it still reads from across a desk
-        cap = call_label(st, adv, cert)[0] if swap else cert["word"]
-        slanted_text(img, (x + 6, y + 30), cap, fit_display(cap, avail - 6, 34, 22), AMBER)
-        call = data.name(hero).upper() if swap else "STAY"
-        dim = MUTE if cert["read"] < MIN_ENEMIES else SOFT
-        # same box as a sure swap, so the word never runs into the "% SURE" / "READ" line
-        f = fit_display(call, avail, 104 if swap else 96, 48)
-        slanted_text(img, (x + 4, y + 72 + (104 - f.size) * 0.6), call, f, dim)
+        slanted_text(img, (x + 4, y + 18), "STAY", disp(150), accent)
 
-    # confidence: a readable number, not a footnote. With too few enemies read there is
-    # nothing to be sure about, so it says how much of the board was read instead.
+    # confidence: a readable number, not a footnote
     conf = cert["conf"]
     by = y + ph - 12
     bw = 170
-    if cert["read"] < MIN_ENEMIES:
-        d.text((x + 6, by - 9), f"{cert['read']} OF 5 ENEMIES READ", font=disp(21, "Bold SemiCondensed"), fill=AMBER)
-    else:
-        d.rounded_rectangle((x + 6, by, x + 6 + bw, by + 8), 4, fill=PANEL_HI)
-        d.rounded_rectangle((x + 6, by, x + 6 + max(8, int(bw * conf)), by + 8), 4,
-                            fill=accent if sure else AMBER)
-        d.text((x + bw + 20, by - 9), f"{round(conf * 100)}% SURE", font=disp(21, "Bold SemiCondensed"),
-               fill=accent if sure else AMBER)
+    d.rounded_rectangle((x + 6, by, x + 6 + bw, by + 8), 4, fill=PANEL_HI)
+    d.rounded_rectangle((x + 6, by, x + 6 + max(8, int(bw * conf)), by + 8), 4, fill=accent)
+    d.text((x + bw + 20, by - 9), f"{round(conf * 100)}% SURE", font=disp(21, "Bold SemiCondensed"), fill=accent)
+    _advice_text(img, d, st, adv, cert, y + ph + 26, accent, swap)
 
+
+def unsure_words(st: dict, adv: dict, cert: dict, swap: bool) -> tuple[str, str, str]:
+    """(the big word, the small second line, the timing tag for the top line) for a call that is
+    not sure. The decision is the big word; the hero is only what it is leaning towards."""
+    when = swap_when(st, adv)
+    now = adv.get("hero_now") or st.get("my_hero")
+    cand = data.name(adv["to"]).upper() if swap and adv.get("to") in data.heroes() else None
+    if cert["read"] < MIN_ENEMIES:
+        return "LOOK AGAIN", (f"LEANING {cand}" if cand else f"{cert['read']} OF 5 ENEMIES READ"), ""
+    if cert.get("maybe"):
+        tag = {"now": "YOU'RE DEAD: DECIDE NOW", "next_death": "DECIDE ON NEXT DEATH"}.get(when, "")
+        return "MAYBE", f"SWAP TO {cand}", tag
+    if cand:
+        return "STAY FOR NOW", f"LEANING {cand}", ""
+    return "STAY FOR NOW", (f"KEEP PLAYING {data.name(now).upper()}" if now in data.heroes() else "CHECK AGAIN LATER"), ""
+
+
+def _unsure_block(img, d, st, adv, cert, hero, swap, y) -> int:
+    """The top of the screen when the call is a guess. The decision word (MAYBE / STAY FOR NOW /
+    LOOK AGAIN) is the largest, brightest thing, in the MAYBE colour; the candidate hero drops to a
+    second line at about half its cap height, with a small dimmed portrait in a neutral frame.
+    Returns the y where the text below starts."""
+    big, small, tag = unsure_words(st, adv, cert, swap)
+    now = adv.get("hero_now") or st.get("my_hero")
+    role = st.get("my_role") or data.role(now)
+    who = f"ON {data.name(now).upper()}" if now in data.heroes() else "HERO NOT READ"
+    if role:
+        who += f"  ·  {ROLE_LABEL.get(role, role.upper())}"
+    if tag:
+        who += f"  ·  {tag}"
+    d.text((PAD + 2, y), who, font=disp(18, "SemiBold SemiCondensed"), fill=MUTE)
+
+    # confidence sits beside the word when there is room (MAYBE  59% SURE), else on the hero line
+    conf_txt = (f"{cert['read']} OF 5 READ" if cert["read"] < MIN_ENEMIES
+                else f"{round(cert['conf'] * 100)}% SURE")
+    cf = disp(26, "Bold SemiCondensed")
+    conf_w = max(150, tw(cf, conf_txt)) + 8
+    fb = fit_display(big, W - 2 * PAD - 12, 132, 72)
+    big_w = tw(fb, big) + int(fb.size * 0.2)
+    beside = PAD + 8 + big_w + 36 + conf_w <= W - PAD
+    wy = y + 22
+    slanted_text(img, (PAD + 8, wy), big, fb, MAYBE)
+    asc = fb.getbbox("M")  # (l, t, r, b) of a capital: for cap height and baseline
+    cap_top, cap_bot = wy + asc[1], wy + asc[3]
+
+    def conf_at(cx, cy):
+        d.text((cx, cy), conf_txt, font=cf, fill=MAYBE)
+        if cert["read"] >= MIN_ENEMIES:
+            by = cy + cf.size + 8
+            d.rounded_rectangle((cx + 2, by, cx + 152, by + 6), 3, fill=PANEL_HI)
+            d.rounded_rectangle((cx + 2, by, cx + 2 + max(6, int(150 * cert["conf"])), by + 6), 3, fill=MAYBE)
+
+    if beside:
+        conf_at(W - PAD - conf_w + 8, cap_bot - cf.size - 22)
+
+    # second line: the candidate, about half the cap height, plain and dimmed
+    cap_h = cap_bot - cap_top
+    ly = cap_bot + 22
+    ps = 52
+    lx = PAD + 8
+    p = portrait(hero, ps - 4, dim=True) if hero else None
+    if p:
+        img.paste(Image.new("RGB", (ps, ps), LINE), (lx, ly), slant_mask(ps, ps, 9))
+        img.paste(p, (lx + 2, ly + 2), slant_mask(ps - 4, ps - 4, 8))
+        lx += ps + 16
+    right = W - PAD - (0 if beside else conf_w + 16)
+    size = max(26, int(cap_h * 0.48 / 0.7))  # Bahnschrift caps are ~0.7 of the size
+    fs = disp(size, "SemiBold Condensed")
+    while size > 24 and tw(fs, small) + size * 0.2 > right - lx:
+        size -= 2
+        fs = disp(size, "SemiBold Condensed")
+    s_cap = fs.getbbox("M")
+    sy = ly + ps / 2 - (s_cap[1] + s_cap[3]) / 2
+    # the verb muted, the hero a step brighter: still well under the decision word
+    lead, _, rest = small.rpartition(" ") if small.startswith(("SWAP TO ", "LEANING ")) else ("", "", small)
+    if lead:
+        lx += slanted_text(img, (lx, sy), lead + " ", fs, MUTE)
+    slanted_text(img, (lx, sy), rest, fs, SOFT)
+    if not beside:
+        conf_at(W - PAD - conf_w + 8, ly + 2)
+    return ly + ps + 26
+
+
+def _advice_text(img, d, st, adv, cert, top, accent, swap):
+    sure = cert["sure"]
     # --- text: the largest type that fits, then both comps right underneath
     comps_h = 2 * 92
     foot_top = H - 58
-    top = y + ph + 26
     headline = why_line(adv.get("headline") or "")
     reasons = _clean_reasons(headline, adv.get("reasons") or [])
     htp = adv.get("how_to_play") or ""
