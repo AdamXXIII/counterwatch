@@ -468,6 +468,13 @@ def main(argv=None):
     args = ap.parse_args(argv)
     setup_logging()
     if args.image:
+        # warm up like the live app does before the first Tab, so the timings are the real ones
+        t = time.perf_counter()
+        try:
+            pipeline.run(imread(args.image[0]), [])
+        except Exception as e:
+            log.warning("warm-up failed: %s", e)
+        log.info("warm-up %.0f ms", (time.perf_counter() - t) * 1000)
         for p in args.image:
             test_image(p, parse_bans(args.bans), args.out)
         return
