@@ -22,7 +22,7 @@
     "how_to_play": "Roll in on isolated backliners, Piledriver groups and grapple out early. Main target: their Sojourn.",
     "confidence": 0.43,
     "when": null,
-    "ms": 3.36
+    "ms": 2.3
    }
   },
   {
@@ -34,9 +34,9 @@
     "hero_now": null,
     "to": "zarya",
     "alternatives": [
-     "ramattra",
-     "domina",
-     "reinhardt"
+     "reinhardt",
+     "dva",
+     "ramattra"
     ],
     "headline": "Into their Sigma: Particle Cannon beam cannot be absorbed by Kinetic Grasp.",
     "reasons": [
@@ -44,9 +44,9 @@
      "No visible enemy hard-counters Zarya."
     ],
     "how_to_play": "Bubble your tank or yourself on their burst and charge up before you fight. Main target: their Sigma.",
-    "confidence": 0.41,
+    "confidence": 0.33,
     "when": null,
-    "ms": 0.49
+    "ms": 0.34
    }
   },
   {
@@ -59,8 +59,8 @@
     "to": "reinhardt",
     "alternatives": [
      "dmon",
-     "ramattra",
-     "zarya"
+     "zarya",
+     "ramattra"
     ],
     "headline": "Into their D.Va: Barrier Field blocks Fusion Cannons.",
     "reasons": [
@@ -70,7 +70,7 @@
     "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin. Main target: their D.Va.",
     "confidence": 0.37,
     "when": null,
-    "ms": 0.41
+    "ms": 0.34
    }
   },
   {
@@ -80,21 +80,21 @@
    "answer": {
     "action": "swap",
     "hero_now": null,
-    "to": "domina",
+    "to": "reinhardt",
     "alternatives": [
-     "reinhardt",
-     "dmon",
-     "dva"
+     "zarya",
+     "domina",
+     "dmon"
     ],
-    "headline": "Best overall fit into this comp.",
+    "headline": "Into their Junker Queen: Barrier Field blocks Jagged Blade and the Scattergun.",
     "reasons": [
-     "No visible enemy hard-counters Domina.",
-     "Domina has the best overall matchup into Junker Queen."
+     "Reinhardt into Junker Queen: Barrier Field blocks Jagged Blade and the Scattergun, and she has to walk into hammer range.",
+     "No visible enemy hard-counters Reinhardt."
     ],
-    "how_to_play": "Hold the choke, poke from behind Barrier Array and Repulse divers off you.",
-    "confidence": 0.29,
+    "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin. Main target: their Junker Queen.",
+    "confidence": 0.35,
     "when": null,
-    "ms": 0.4
+    "ms": 0.34
    }
   },
   {
@@ -118,7 +118,7 @@
     "how_to_play": "Hold the frontline, Fortify through their burst and Javelin anyone who commits. Main target: their Hazard.",
     "confidence": 0.75,
     "when": null,
-    "ms": 0.86
+    "ms": 0.56
    }
   },
   {
@@ -131,8 +131,8 @@
     "to": null,
     "alternatives": [
      "domina",
-     "dmon",
-     "hazard"
+     "hazard",
+     "ramattra"
     ],
     "headline": "No matchup here is worth a swap.",
     "reasons": [
@@ -142,7 +142,7 @@
     "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin.",
     "confidence": 0.62,
     "when": null,
-    "ms": 0.47
+    "ms": 0.27
    }
   },
   {
@@ -154,18 +154,18 @@
     "hero_now": "dva",
     "to": null,
     "alternatives": [
-     "domina",
-     "reinhardt"
+     "zarya",
+     "domina"
     ],
     "headline": "No matchup here is worth a swap.",
     "reasons": [
-     "Domina is only a soft counter here; not worth losing ult charge on a swap.",
+     "D.Va is already even or better into their Orisa; a swap only trades ult charge for a paper edge.",
      "D.Va is even into their Orisa, and nobody on their team hard-counters you."
     ],
     "how_to_play": "Matrix their key projectiles, boost onto their backline and peel your supports.",
-    "confidence": 0.57,
+    "confidence": 0.37,
     "when": null,
-    "ms": 0.43
+    "ms": 0.26
    }
   },
   {
@@ -178,8 +178,8 @@
     "to": "reinhardt",
     "alternatives": [
      "dmon",
-     "ramattra",
-     "zarya"
+     "zarya",
+     "ramattra"
     ],
     "headline": "Into their D.Va: Barrier Field blocks Fusion Cannons.",
     "reasons": [
@@ -189,7 +189,7 @@
     "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin. Main target: their D.Va.",
     "confidence": 0.41,
     "when": null,
-    "ms": 0.46
+    "ms": 0.27
    }
   },
   {
@@ -199,21 +199,21 @@
    "answer": {
     "action": "swap",
     "hero_now": null,
-    "to": "orisa",
+    "to": "domina",
     "alternatives": [
-     "domina",
-     "reinhardt",
-     "dmon"
+     "mauga",
+     "zarya",
+     "orisa"
     ],
-    "headline": "Into their Roadhog: Fortify ignores Chain Hook pull and stun.",
+    "headline": "Into their Roadhog: Barrier Array blocks Chain Hook.",
     "reasons": [
-     "Orisa into Roadhog: Fortify ignores Chain Hook pull and stun.",
-     "No visible enemy hard-counters Orisa."
+     "Domina into Roadhog: Barrier Array blocks Chain Hook and Photon Magnum pokes his huge hitbox from range.",
+     "No visible enemy hard-counters Domina."
     ],
-    "how_to_play": "Hold the frontline, Fortify through their burst and Javelin anyone who commits. Main target: their Roadhog.",
-    "confidence": 0.51,
+    "how_to_play": "Hold the choke, poke from behind Barrier Array and Repulse divers off you. Main target: their Roadhog.",
+    "confidence": 0.33,
     "when": null,
-    "ms": 0.69
+    "ms": 0.34
    }
   },
   {
@@ -237,7 +237,7 @@
     "how_to_play": "Hold the frontline, Fortify through their burst and Javelin anyone who commits.",
     "confidence": 0.37,
     "when": null,
-    "ms": 0.52
+    "ms": 0.32
    }
   },
   {
@@ -251,7 +251,7 @@
     "alternatives": [
      "dmon",
      "ramattra",
-     "sigma"
+     "zarya"
     ],
     "headline": "Into their D.Va: Barrier Field blocks Fusion Cannons.",
     "reasons": [
@@ -261,7 +261,7 @@
     "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin. Main target: their D.Va.",
     "confidence": 0.45,
     "when": null,
-    "ms": 0.43
+    "ms": 0.26
    }
   },
   {
@@ -273,9 +273,9 @@
     "hero_now": null,
     "to": "zarya",
     "alternatives": [
-     "ramattra",
-     "domina",
-     "reinhardt"
+     "reinhardt",
+     "dva",
+     "ramattra"
     ],
     "headline": "Into their Sigma: Particle Cannon beam cannot be absorbed by Kinetic Grasp.",
     "reasons": [
@@ -283,9 +283,9 @@
      "No visible enemy hard-counters Zarya."
     ],
     "how_to_play": "Bubble your tank or yourself on their burst and charge up before you fight. Main target: their Sigma.",
-    "confidence": 0.41,
+    "confidence": 0.33,
     "when": null,
-    "ms": 0.36
+    "ms": 0.2
    }
   },
   {
@@ -310,7 +310,7 @@
     "how_to_play": "Set the turret behind cover near the point and Overload when they dive. Main target: their Wrecking Ball.",
     "confidence": 0.69,
     "when": "next_death",
-    "ms": 1.19
+    "ms": 0.61
    }
   },
   {
@@ -332,7 +332,7 @@
     "how_to_play": "Harass their backline from flanks, Recall out and pulse on the engage. Main target: their Juno.",
     "confidence": 0.81,
     "when": null,
-    "ms": 0.97
+    "ms": 0.65
    }
   },
   {
@@ -344,20 +344,20 @@
     "hero_now": "ramattra",
     "to": null,
     "alternatives": [
-     "junkerqueen",
      "zarya",
-     "sigma"
+     "dmon",
+     "winston"
     ],
     "headline": "Nothing beats their Zenyatta by enough to swap.",
     "reasons": [
      "Ramattra into Reinhardt: Nemesis Form punches pierce Barrier Field.",
-     "Junker Queen is only a soft counter here; not worth losing ult charge on a swap.",
+     "Zarya is only a soft counter here; not worth losing ult charge on a swap.",
      "Watch the Zenyatta: Orb of Discord from range."
     ],
     "how_to_play": "Poke in Omnic form, then go Nemesis when they commit and punch through shields. Main target: their Reinhardt.",
     "confidence": 0.47,
     "when": null,
-    "ms": 0.42
+    "ms": 0.38
    }
   },
   {
@@ -382,7 +382,7 @@
     "how_to_play": "Flank wide, Inferno Rush onto isolated backliners, keep Dancing Blaze to escape. Main target: their Genji.",
     "confidence": 0.59,
     "when": "next_death",
-    "ms": 0.79
+    "ms": 0.54
    }
   },
   {
@@ -406,7 +406,7 @@
     "how_to_play": "Stay near your tank, Suzu the key cleanse and teleport out when dove.",
     "confidence": 0.42,
     "when": null,
-    "ms": 0.29
+    "ms": 0.16
    }
   },
   {
@@ -414,23 +414,23 @@
    "role": "tank",
    "current_hero": "reinhardt",
    "answer": {
-    "action": "stay",
+    "action": "swap",
     "hero_now": "reinhardt",
-    "to": null,
+    "to": "dva",
     "alternatives": [
+     "zarya",
      "sigma",
-     "domina",
-     "dva"
+     "domina"
     ],
-    "headline": "Nothing beats their Bastion by enough to swap.",
+    "headline": "Their Orisa counters Reinhardt: Energy Javelin stops Charge.",
     "reasons": [
-     "Sigma is only a soft counter here; not worth losing ult charge on a swap.",
-     "Watch the Bastion: Assault configuration shreds Barrier Field."
+     "Reinhardt loses to Orisa: Energy Javelin stops Charge.",
+     "D.Va is even into their Orisa, so that duel stops deciding the fight."
     ],
-    "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin. Main target: their Bastion.",
-    "confidence": 0.61,
-    "when": null,
-    "ms": 0.79
+    "how_to_play": "Matrix their key projectiles, boost onto their backline and peel your supports.",
+    "confidence": 0.56,
+    "when": "next_death",
+    "ms": 0.5
    }
   }
  ]

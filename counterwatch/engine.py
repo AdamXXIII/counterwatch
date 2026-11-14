@@ -47,6 +47,16 @@ How it thinks (data/counters.json, swap_rules):
     better into theirs, vetoed by nobody and a bit better overall, is a swap (an escape
     from the duel) even with no hard counter back; staying then says their tank counters
     you instead of "even". A near-ready ult still means spend it first.
+  * Tank duel audit (TANK_DUEL): the tank-vs-tank duels the top-five stat lists miss
+    (sustained fire into Zarya's bubbles, Roadhog's big unarmoured health into Mauga's
+    burn, Orisa's Javelin into Rein's Charge...) are floors on the edge in both directions.
+    A tank soft-countered by their tank (TANK_SOFT) never gets "stay" while a tank that is
+    even or better into theirs, vetoed by nobody and no worse overall, is on offer; and when
+    a pick that HARD-counters their tank is close to the best overall, it is the call.
+  * Picks are ranked with a threat penalty: every enemy that still beats a pick (the
+    "Mind their X" line) costs it, more when that enemy counters it outright, so an
+    alternative that answers their tank AND that second threat moves up. The penalty ranks
+    picks only; the stay-or-swap margin still compares plain scores.
   * Banned heroes (ids or display names) and heroes already on the player's team are
     never offered, compared against or cited, and no hero is ruled out in the reasons
     for a weakness the recommended hero shares.
@@ -83,7 +93,17 @@ POOL_BONUS = 2.0          # comfort beats paper counters
 # margin is "rating points per enemy". Counter-swapping matters most on tank.
 SWAP_MARGIN = {"tank": 3.0, "damage": 3.5, "support": 3.5}
 HELPS_ME_MARGIN = 3.0     # an enemy swap that suits my hero: stay unless it is much worse
-ESCAPE_MARGIN = 1.0       # their tank counters my tank: an even duel only has to be a bit better overall
+ESCAPE_MARGIN = 0.0       # their tank counters my tank: an even duel only has to be no worse overall
+TANK_SOFT = 4.0           # their tank beating mine by this much is a (soft) counter: no "stay" on it
+HARD_ANSWER_SLACK = 1.0   # a tank that hard-counters theirs may trail the current hero this much overall
+# Ranking the picks (not the stay-or-swap margin): a pick that still loses to a visible
+# enemy is the "Mind their X" line in its own reasons, so it pays THREAT_W per point past
+# THREAT_FREE for every enemy that beats it, and COUNTER_PEN more when an enemy it is not
+# picked for counters it outright (TANK_SOFT or worse). An alternative that handles both the
+# target and that threat then moves up.
+THREAT_FREE = 2.0
+THREAT_W = 0.6
+COUNTER_PEN = 1.5
 WIN_TANK_MARGIN = 2.5     # a tank already winning the tank duel keeps it
 # Season 5 win-rate context from counterwatch.gg tier list (counters_notes.md):
 # a nudge only, never enough on its own to swap.
@@ -186,13 +206,41 @@ EXTRA_MECH = {
 }
 
 
+# Tank-vs-tank audit (round 5). The stat tables only list each hero's top five, so most
+# tank duels read 0 ("even") even where every coach knows who wins. These are the duels
+# the tables miss or under-rate, from kit mechanics and the coach calls: (winner, loser):
+# (minimum edge, mechanic). An entry sets a floor on the winner's edge in BOTH directions
+# (the loser's edge into the winner is at most minus that), and never lowers a table edge
+# that already says more. HARD_EDGE (7) and up is a hard counter, SOFT (5) a soft one.
+TANK_DUEL = {
+    # sustained fire into a bubble tank: every bullet charges her beam
+    ("zarya", "mauga"): (8.0, "Particle Barrier soaks Mauga's nonstop chaingun fire and every bullet charges Zarya's beam"),
+    ("zarya", "dmon"): (5.5, "Bubbles soak D.Mon's Fusion Repeater fire and Saber swings, charging Zarya's beam"),
+    ("zarya", "orisa"): (5.5, "Bubbles block Energy Javelin and soak Fusion Driver fire, so Orisa's poke charges Zarya"),
+    ("zarya", "roadhog"): (5.5, "Particle Barrier cancels Chain Hook and soaks the Scrap Gun burst"),
+    ("zarya", "junkerqueen"): (5.0, "Particle Barrier cleanses her wounds and Rampage anti-heal, and soaks the Scattergun"),
+    ("zarya", "winston"): (5.0, "Tesla Cannon into her bubbles charges Zarya, and her beam melts his big hitbox"),
+    ("zarya", "dva"): (8.0, "Particle Cannon beam ignores Defense Matrix and bubbles soak Micro Missiles"),
+    # big health, no armour, into crit and burn
+    ("mauga", "roadhog"): (6.5, "Incendiary Chaingun burn eats Roadhog's huge unarmoured health and outlasts Take a Breather"),
+    # barrier tanks and brawl
+    ("reinhardt", "sigma"): (6.0, "Rein walks Hyperspheres off behind Barrier Field and Kinetic Grasp cannot eat hammer swings"),
+    ("reinhardt", "junkerqueen"): (5.5, "Barrier Field blocks Jagged Blade and the Scattergun, and she has to walk into hammer range"),
+    ("orisa", "reinhardt"): (6.0, "Energy Javelin stops Charge, Fusion Driver chews through Barrier Field and Fortify ignores Earthshatter"),
+    ("domina", "roadhog"): (6.0, "Barrier Array blocks Chain Hook and Photon Magnum pokes his huge hitbox from range"),
+    ("roadhog", "ramattra"): (6.0, "Trash Compactor eats Void Accelerator fire and Chain Hook drags Ramattra away from his team"),
+    ("dva", "sigma"): (5.5, "Defense Matrix eats Hyperspheres and Accretion, and Boosters fly past his barrier"),
+}
+
+
 def _mech(a, b):
     """Sourced reason why a beats b, or None."""
     c, _, _ = _data()
     M = c["matchups"]
     return (M.get(a, {}).get("strong_vs", {}).get(b)
             or M.get(b, {}).get("weak_vs", {}).get(a)
-            or EXTRA_MECH.get((a, b)))
+            or EXTRA_MECH.get((a, b))
+            or (TANK_DUEL.get((a, b)) or (None, None))[1])
 
 
 def _top_answer(a, b):
@@ -224,6 +272,10 @@ def edge(a, b):
     v = _side(a, b) - _side(b, a)
     if frozenset((a, b)) in _low_conf():
         v *= 0.5
+    if (a, b) in TANK_DUEL:
+        v = max(v, TANK_DUEL[(a, b)][0])
+    elif (b, a) in TANK_DUEL:
+        v = min(v, -TANK_DUEL[(b, a)][0])
     return v
 
 
@@ -290,6 +342,11 @@ def _score(c, weights, mates, pool):
     duel = sum(w * per[e] for e, w in weights.items()) / tw if tw else 0.0
     worst = max([-v for v in per.values()] + [0.0])
     duel -= WORST_W * max(0.0, worst - SOFT)
+    # every enemy that still beats c is a threat the player must play around: a pick that
+    # answers their tank but feeds their Cassidy should rank below one that handles both
+    threat_pen = THREAT_W * sum(max(0.0, -v - THREAT_FREE) for v in per.values())
+    if any(v <= -TANK_SOFT for v in per.values()):
+        threat_pen += COUNTER_PEN
     best_win = max([v for v in per.values()] + [0.0])
     fit, partners = _team_fit(c, mates)
     comfort = POOL_BONUS if pool and c in pool else 0.0
@@ -297,7 +354,8 @@ def _score(c, weights, mates, pool):
     veto = min(((v, e) for e, v in per.items() if v <= -VETO), default=None)
     return {"hero": c, "duel": duel, "fit": fit, "partners": partners, "per": per,
             "worst": worst, "best_win": best_win, "veto": veto[1] if veto else None,
-            "total": duel + fit + comfort + META.get(c, 0.0)}
+            "total": duel + fit + comfort + META.get(c, 0.0),
+            "threat_pen": threat_pen}
 
 
 # --- state helpers ----------------------------------------------------------
@@ -334,7 +392,7 @@ def _clause(text, limit=80):
     """The first complete clause of a sourced reason. Never cut mid-phrase: when it is longer
     than limit, end it at a natural break (a comma, "while", "and") that still reads whole;
     if there is none, keep it whole and let the window wrap it."""
-    t = re.sub(r"\s*\[\d{4}(?:-\d{2}){0,2}\]", "", text)
+    t = re.sub(r"\s*\[\d{4}(?:-\d{2}){0,2}[^\]]*\]\s*", " ", text).strip()
     t = t.split(";")[0].split(" (")[0].strip().rstrip(".")
     if len(t) > limit:
         for sep in (", ", " while ", " so ", " which ", " and "):
@@ -545,7 +603,7 @@ def advise(state, bans=None):
     cands = [h for h, r in roster.items()
              if r["role"] == role and h not in bans and (h not in mates or h == me)]
     scored = sorted((_score(c, weights, mates, pool) for c in cands),
-                    key=lambda s: -s["total"])
+                    key=lambda s: -(s["total"] - s["threat_pen"]))
     by = {s["hero"]: s for s in scored}
     others = [s for s in scored if s["hero"] != me]
     # Never offer a hero that someone on their board hard-counters. If every
@@ -610,18 +668,29 @@ def advise(state, bans=None):
         # even duel is the escape. The escape must be even or better into every such
         # tank, not hard-countered by anyone else, and not lose the whole comp.
         tank_threats = [e for e in weights if role == "tank" and role_of(e) == "tank"
-                        and cur["per"][e] <= -SOFT]
+                        and cur["per"][e] <= -TANK_SOFT]
         escape = None
         if tank_threats:
             outs = [s for s in alt_pool if not s["veto"]
                     and all(s["per"][e] >= 0 for e in tank_threats)]
             if outs:
                 # prefer the hero that also wins that duel, then the best overall
-                escape = max(outs, key=lambda s: s["total"]
-                             + 0.25 * sum(max(0.0, s["per"][e]) for e in tank_threats))
+                escape = max(outs, key=lambda s: s["total"] - s["threat_pen"]
+                             + 0.15 * sum(max(0.0, s["per"][e]) for e in tank_threats))
         esc_margin = ESCAPE_MARGIN + (3.0 if ult is not None and ult >= ULT_HIGH else 0.0) \
             + (HELPS_ME_MARGIN if helps else 0.0)
         esc_gain = escape["total"] - cur["total"] if escape else 0.0
+        # Hard answer: the current tank is losing the tank duel and a pick that hard-counters
+        # their tank is on offer (vetoed by nobody, close to the best overall): take it.
+        hard_answer = None
+        if role == "tank" and not (ult is not None and ult >= ULT_HIGH):
+            losing_t = [e for e in weights if role_of(e) == "tank" and cur["per"][e] < 0]
+            if losing_t and best:
+                hs = [s for s in alt_pool if not s["veto"]
+                      and all(s["per"][e] >= HARD_EDGE for e in losing_t)
+                      and s["total"] - s["threat_pen"] >= best["total"] - best["threat_pen"] - 2.0]
+                if hs and hs[0]["total"] - cur["total"] >= -HARD_ANSWER_SLACK:
+                    hard_answer = hs[0]
         chosen = best
         if me in bans:
             action = "swap"
@@ -629,6 +698,10 @@ def advise(state, bans=None):
             action = "stay"
         elif forced or (gain >= margin and real):
             action = "swap"
+        elif hard_answer:
+            action = "swap"
+            chosen = hard_answer
+            gain, margin = hard_answer["total"] - cur["total"], 0.0
         elif escape and esc_gain >= esc_margin and not (ult is not None and ult >= ULT_HIGH):
             # (ult nearly up: spend it first, the headline says so)
             action = "swap"
