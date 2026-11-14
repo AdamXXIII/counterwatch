@@ -11,17 +11,18 @@
     "to": "wreckingball",
     "alternatives": [
      "doomfist",
-     "mauga",
-     "domina"
+     "domina",
+     "zarya"
     ],
-    "headline": "Go Wrecking Ball; it beats their Sojourn.",
+    "headline": "Ball dives Sojourn, and Railgun charge falls off when she is displaced.",
     "reasons": [
      "Wrecking Ball into Sojourn: Ball dives Sojourn, and Railgun charge falls off when she is displaced.",
      "Nothing else they have hard-counters Wrecking Ball."
     ],
     "how_to_play": "Roll in on isolated backliners, Piledriver groups and grapple out early. Main target: their Sojourn.",
     "confidence": 0.43,
-    "ms": 2.62
+    "when": null,
+    "ms": 2.07
    }
   },
   {
@@ -37,13 +38,14 @@
      "domina",
      "reinhardt"
     ],
-    "headline": "Go Zarya into their Sigma: Particle Cannon beam cannot be absorbed by Kinetic Grasp.",
+    "headline": "Particle Cannon beam cannot be absorbed by Kinetic Grasp.",
     "reasons": [
      "Zarya into Sigma: Particle Cannon beam cannot be absorbed by Kinetic Grasp.",
      "No visible enemy hard-counters Zarya."
     ],
     "how_to_play": "Bubble your tank or yourself on their burst and charge up before you fight. Main target: their Sigma.",
     "confidence": 0.41,
+    "when": null,
     "ms": 0.17
    }
   },
@@ -60,14 +62,15 @@
      "ramattra",
      "zarya"
     ],
-    "headline": "Go Reinhardt into their D.Va: Barrier Field blocks Fusion Cannons.",
+    "headline": "Barrier Field blocks Fusion Cannons.",
     "reasons": [
      "Reinhardt into D.Va: Barrier Field blocks Fusion Cannons.",
      "No visible enemy hard-counters Reinhardt."
     ],
     "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin. Main target: their D.Va.",
     "confidence": 0.37,
-    "ms": 0.15
+    "when": null,
+    "ms": 0.17
    }
   },
   {
@@ -83,14 +86,15 @@
      "dmon",
      "dva"
     ],
-    "headline": "Go Domina: best overall fit into this comp.",
+    "headline": "Best overall fit into this comp.",
     "reasons": [
      "No visible enemy hard-counters Domina.",
      "Domina has the best overall matchup into Junker Queen."
     ],
     "how_to_play": "Hold the choke, poke from behind Barrier Array and Repulse divers off you.",
     "confidence": 0.29,
-    "ms": 0.19
+    "when": null,
+    "ms": 0.15
    }
   },
   {
@@ -106,14 +110,15 @@
      "winston",
      "sigma"
     ],
-    "headline": "Stay Orisa: you win the Hazard matchup.",
+    "headline": "You win the Hazard matchup.",
     "reasons": [
      "Orisa into Hazard: Energy Javelin stuns him out of leap and Fortify blunts his burst.",
      "Wrecking Ball is only a soft counter here; not worth losing ult charge on a swap."
     ],
     "how_to_play": "Hold the frontline, Fortify through their burst and Javelin anyone who commits. Main target: their Hazard.",
     "confidence": 0.75,
-    "ms": 0.5
+    "when": null,
+    "ms": 0.56
    }
   },
   {
@@ -129,14 +134,15 @@
      "dmon",
      "hazard"
     ],
-    "headline": "Stay Reinhardt; no matchup here is worth a swap.",
+    "headline": "No matchup here is worth a swap.",
     "reasons": [
      "Nothing in your role beats this comp better than Reinhardt.",
      "Reinhardt is even into their Zarya, and nobody on their team hard-counters you."
     ],
     "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin.",
     "confidence": 0.62,
-    "ms": 0.14
+    "when": null,
+    "ms": 0.16
    }
   },
   {
@@ -151,14 +157,15 @@
      "domina",
      "reinhardt"
     ],
-    "headline": "Stay D.Va; no matchup here is worth a swap.",
+    "headline": "No matchup here is worth a swap.",
     "reasons": [
      "Domina is only a soft counter here; not worth losing ult charge on a swap.",
      "D.Va is even into their Orisa, and nobody on their team hard-counters you."
     ],
     "how_to_play": "Matrix their key projectiles, boost onto their backline and peel your supports.",
     "confidence": 0.57,
-    "ms": 0.13
+    "when": null,
+    "ms": 0.15
    }
   },
   {
@@ -174,14 +181,15 @@
      "ramattra",
      "zarya"
     ],
-    "headline": "Go Reinhardt into their D.Va: Barrier Field blocks Fusion Cannons.",
+    "headline": "Barrier Field blocks Fusion Cannons.",
     "reasons": [
      "Reinhardt into D.Va: Barrier Field blocks Fusion Cannons.",
      "Fits your team: pairs with Mei, Kiriko."
     ],
     "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin. Main target: their D.Va.",
     "confidence": 0.41,
-    "ms": 0.18
+    "when": null,
+    "ms": 0.16
    }
   },
   {
@@ -197,14 +205,15 @@
      "reinhardt",
      "dmon"
     ],
-    "headline": "Go Orisa into their Roadhog: Fortify ignores Chain Hook pull and stun.",
+    "headline": "Fortify ignores Chain Hook pull and stun.",
     "reasons": [
      "Orisa into Roadhog: Fortify ignores Chain Hook pull and stun.",
      "No visible enemy hard-counters Orisa."
     ],
     "how_to_play": "Hold the frontline, Fortify through their burst and Javelin anyone who commits. Main target: their Roadhog.",
     "confidence": 0.51,
-    "ms": 0.15
+    "when": null,
+    "ms": 0.27
    }
   },
   {
@@ -220,14 +229,15 @@
      "dva",
      "mauga"
     ],
-    "headline": "Stay Orisa; no matchup here is worth a swap.",
+    "headline": "No matchup here is worth a swap.",
     "reasons": [
-     "Reinhardt is only a soft counter here; not worth losing ult charge on a swap.",
+     "Orisa is already even or better into their Domina; a swap only trades ult charge for a paper edge.",
      "Orisa is even into their Domina, and nobody on their team hard-counters you."
     ],
     "how_to_play": "Hold the frontline, Fortify through their burst and Javelin anyone who commits.",
     "confidence": 0.37,
-    "ms": 0.2
+    "when": null,
+    "ms": 0.21
    }
   },
   {
@@ -243,14 +253,15 @@
      "ramattra",
      "sigma"
     ],
-    "headline": "Go Reinhardt into their D.Va: Barrier Field blocks Fusion Cannons.",
+    "headline": "Barrier Field blocks Fusion Cannons.",
     "reasons": [
      "Reinhardt into D.Va: Barrier Field blocks Fusion Cannons.",
      "Fits your team: pairs with Torbj\u00f6rn, Zenyatta."
     ],
     "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin. Main target: their D.Va.",
     "confidence": 0.45,
-    "ms": 0.15
+    "when": null,
+    "ms": 0.16
    }
   },
   {
@@ -266,14 +277,15 @@
      "domina",
      "reinhardt"
     ],
-    "headline": "Go Zarya into their Sigma: Particle Cannon beam cannot be absorbed by Kinetic Grasp.",
+    "headline": "Particle Cannon beam cannot be absorbed by Kinetic Grasp.",
     "reasons": [
      "Zarya into Sigma: Particle Cannon beam cannot be absorbed by Kinetic Grasp.",
      "No visible enemy hard-counters Zarya."
     ],
     "how_to_play": "Bubble your tank or yourself on their burst and charge up before you fight. Main target: their Sigma.",
     "confidence": 0.41,
-    "ms": 0.41
+    "when": null,
+    "ms": 0.1
    }
   },
   {
@@ -289,14 +301,15 @@
      "cassidy",
      "junkrat"
     ],
-    "headline": "Swap to Torbj\u00f6rn; it beats their Wrecking Ball and Tracer.",
+    "headline": "Turret targets Ball automatically and helps break Adaptive Shield.",
     "reasons": [
      "Torbj\u00f6rn into Wrecking Ball: Turret targets Ball automatically and helps break Adaptive Shield.",
      "Ashe loses to Wrecking Ball: Ball reaches her high ground and knocks her out of aim.",
      "Torbj\u00f6rn into Tracer: Turret tracks her and punishes flanks."
     ],
-    "how_to_play": "On your next death. Set the turret behind cover near the point and Overload when they dive. Main target: their Wrecking Ball.",
+    "how_to_play": "Set the turret behind cover near the point and Overload when they dive. Main target: their Wrecking Ball.",
     "confidence": 0.69,
+    "when": "next_death",
     "ms": 0.43
    }
   },
@@ -311,14 +324,15 @@
     "alternatives": [
      "ashe"
     ],
-    "headline": "Stay Tracer: you win the Juno matchup.",
+    "headline": "You win the Juno matchup.",
     "reasons": [
      "Tracer into Juno: Tracer dives Juno, who has no self-heal.",
      "Ashe is only a soft counter here; not worth losing ult charge on a swap."
     ],
     "how_to_play": "Harass their backline from flanks, Recall out and pulse on the engage. Main target: their Juno.",
     "confidence": 0.81,
-    "ms": 0.63
+    "when": null,
+    "ms": 0.48
    }
   },
   {
@@ -334,7 +348,7 @@
      "zarya",
      "sigma"
     ],
-    "headline": "Stay Ramattra; nothing beats their Zenyatta by enough to swap.",
+    "headline": "Nothing beats their Zenyatta by enough to swap.",
     "reasons": [
      "Ramattra into Reinhardt: Nemesis Form punches pierce Barrier Field.",
      "Junker Queen is only a soft counter here; not worth losing ult charge on a swap.",
@@ -342,7 +356,8 @@
     ],
     "how_to_play": "Poke in Omnic form, then go Nemesis when they commit and punch through shields. Main target: their Reinhardt.",
     "confidence": 0.47,
-    "ms": 0.28
+    "when": null,
+    "ms": 0.26
    }
   },
   {
@@ -356,17 +371,18 @@
     "alternatives": [
      "mei",
      "symmetra",
-     "pharah"
+     "cassidy"
     ],
-    "headline": "Swap to Anran; it beats their Genji.",
+    "headline": "Fire burn keeps ticking through Deflect.",
     "reasons": [
      "Anran into Genji: Fire burn keeps ticking through Deflect and fans out-trade him at close range.",
      "Widowmaker loses to Genji: Genji dives Widowmaker on an off-angle with no escape.",
      "Anran can fight back when Genji dives."
     ],
-    "how_to_play": "On your next death. Flank wide, Inferno Rush onto isolated backliners, keep Dancing Blaze to escape. Main target: their Genji.",
+    "how_to_play": "Flank wide, Inferno Rush onto isolated backliners, keep Dancing Blaze to escape. Main target: their Genji.",
     "confidence": 0.59,
-    "ms": 0.41
+    "when": "next_death",
+    "ms": 0.36
    }
   },
   {
@@ -382,13 +398,14 @@
      "ana",
      "brigitte"
     ],
-    "headline": "Stay Kiriko; their comp isn't visible yet.",
+    "headline": "Their comp isn't visible yet.",
     "reasons": [
      "No enemy heroes read yet, and an early counter gives them a free re-pick.",
      "Check Tab again once their whole team is on the board."
     ],
     "how_to_play": "Stay near your tank, Suzu the key cleanse and teleport out when dove.",
     "confidence": 0.42,
+    "when": null,
     "ms": 0.06
    }
   },
@@ -405,14 +422,15 @@
      "domina",
      "dva"
     ],
-    "headline": "Stay Reinhardt; nothing beats their Bastion by enough to swap.",
+    "headline": "Nothing beats their Bastion by enough to swap.",
     "reasons": [
      "Sigma is only a soft counter here; not worth losing ult charge on a swap.",
      "Watch the Bastion: Assault configuration shreds Barrier Field."
     ],
     "how_to_play": "Walk them back with Barrier up, swing when they close and save Charge for a pin. Main target: their Bastion.",
     "confidence": 0.61,
-    "ms": 0.54
+    "when": null,
+    "ms": 0.31
    }
   }
  ]

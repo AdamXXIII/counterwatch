@@ -11,7 +11,10 @@ advise(state, bans=None) -> dict
       "prev_enemy_team": the enemy team at the previous read (ids or reader rows).
 
 Returns {"action": "stay"|"swap", "hero_now", "to", "alternatives",
-         "headline", "reasons", "how_to_play", "confidence"}.
+         "headline", "reasons", "how_to_play", "confidence", "when"}.
+    headline is the single "why" clause; the window shows the call itself, so it never says
+    "swap to X" / "stay X" again. when (swaps only): "now" when the player is dead on the
+    board, "next_death" when alive, None when their hero wasn't read.
 
 How it thinks (data/counters.json, swap_rules):
   * Every candidate in the player's role is scored against EVERY visible enemy,
@@ -32,6 +35,13 @@ How it thinks (data/counters.json, swap_rules):
     already wins the tank duel, and when an enemy change (optional
     state["prev_enemy_team"]) plays into the current hero. Being hard-countered
     by two enemies at once forces a swap.
+  * Veto: a candidate that ANY visible enemy hard-counters (comp_edge <= -VETO,
+    e.g. Mauga into an Ana or a Bastion, Hanzo into a Genji's Deflect) is never
+    offered as the pick or an alternative, however well it does into their tank.
+    The reasons name the enemy that ruled out the obvious pick, or the one that
+    still threatens the pick.
+  * A swap must turn a matchup the current hero is actually LOSING (or escape a
+    hard counter). Even or better into every key enemy means stay.
   * Banned heroes and heroes already on the player's team are never offered.
 """
 from __future__ import annotations
@@ -56,6 +66,7 @@ HARD_COUNTER = 9.0        # being on the wrong end of this many points twice for
 ENEMY_TANK_W = {"tank": 2.0, "damage": 1.0, "support": 1.0}
 WORST_W = 0.35            # extra penalty per point the single worst threat exceeds SOFT
 SOFT = 5.0
+VETO = 7.5                # any visible enemy beating a candidate by this much rules it out
 
 KILLER_W = 1.6            # extra weight on the hero that just killed you
 SYNERGY_VALUE = 0.8
@@ -105,6 +116,16 @@ PUNISHERS = [
                     "mercy": 0.5, "lifeweaver": 0.5},
         "say": "{e} dives {c} on an off-angle with no escape",
     },
+    {   # Deflect sends projectile and burst shots straight back
+        "enemies": {"genji": 8.0},
+        # (Anran is not here: her burn ticks through Deflect, sourced in counters.json)
+        "victims": {"hanzo": 1.0, "bastion": 1.0, "freja": 0.9, "junkrat": 0.9,
+                    "sojourn": 0.7, "ashe": 0.7, "echo": 0.7, "sierra": 0.7, "pharah": 0.6,
+                    "torbjorn": 0.6, "venture": 0.5, "mei": 0.4,
+                    "illari": 0.6, "baptiste": 0.6, "kiriko": 0.6, "lifeweaver": 0.7,
+                    "wuyang": 0.6, "doctrine": 0.7},
+        "say": "{e}'s Deflect sends {c}'s shots straight back",
+    },
     {   # flankers leave their own backline alone against a dive comp
         "enemies": {"winston": 3.0, "genji": 3.0, "tracer": 3.0, "anran": 3.0,
                     "doomfist": 2.5, "wreckingball": 2.5, "dva": 2.0, "venture": 2.5},
@@ -150,12 +171,20 @@ def _stat(a, b):
                S.get(b, {}).get("countered_by", {}).get(a, 0.0))
 
 
+# Matchups the tables leave out that every coach agrees on (kit mechanics).
+EXTRA_MECH = {
+    ("junkrat", "reaper"): "Frag spam and Steel Trap punish Reaper's walk-in long before his shotguns reach you",
+    ("ashe", "reaper"): "Coach Gun blasts Reaper out of shotgun range and Ashe out-ranges him",
+}
+
+
 def _mech(a, b):
     """Sourced reason why a beats b, or None."""
     c, _, _ = _data()
     M = c["matchups"]
     return (M.get(a, {}).get("strong_vs", {}).get(b)
-            or M.get(b, {}).get("weak_vs", {}).get(a))
+            or M.get(b, {}).get("weak_vs", {}).get(a)
+            or EXTRA_MECH.get((a, b)))
 
 
 def _top_answer(a, b):
@@ -256,8 +285,10 @@ def _score(c, weights, mates, pool):
     best_win = max([v for v in per.values()] + [0.0])
     fit, partners = _team_fit(c, mates)
     comfort = POOL_BONUS if pool and c in pool else 0.0
+    # veto: the visible enemy that hard-counters c (worst first), if any
+    veto = min(((v, e) for e, v in per.items() if v <= -VETO), default=None)
     return {"hero": c, "duel": duel, "fit": fit, "partners": partners, "per": per,
-            "worst": worst, "best_win": best_win,
+            "worst": worst, "best_win": best_win, "veto": veto[1] if veto else None,
             "total": duel + fit + comfort + META.get(c, 0.0)}
 
 
@@ -292,11 +323,16 @@ def _teammates(state, me):
 
 # --- words ------------------------------------------------------------------
 def _clause(text, limit=80):
+    """The first complete clause of a sourced reason. Never cut mid-phrase: when it is longer
+    than limit, end it at a natural break (a comma, "while", "and") that still reads whole;
+    if there is none, keep it whole and let the window wrap it."""
     t = re.sub(r"\s*\[\d{4}(?:-\d{2}){0,2}\]", "", text)
     t = t.split(";")[0].split(" (")[0].strip().rstrip(".")
     if len(t) > limit:
-        cut = t[:limit].rsplit(" ", 1)[0]
-        t = cut.rstrip(",:")
+        for sep in (", ", " while ", " so ", " which ", " and "):
+            i = t.rfind(sep, 0, limit + 1)
+            if i >= 24:
+                return t[:i].rstrip(",:")
     return t
 
 
@@ -394,16 +430,18 @@ def _how(hero, focus):
 
 
 def _swap_headline(to, weights, fresh):
-    verb = "Go" if fresh else "Swap to"
+    """The one "why" clause under the call. The window already says SWAP TO / PICK and the
+    hero, so this never repeats it: e.g. "Steel Trap and Concussion Mine stop Anran on
+    Inferno Rush." """
     beats = [e for e, w in sorted(weights.items(), key=lambda kv: -kv[1] * comp_edge(to, kv[0]))
              if comp_edge(to, e) > 0][:2]
     if not beats:
-        return f"{verb} {name(to)}: best overall fit into this comp."
+        return f"Best overall fit into this comp."
     m = _mech(to, beats[0])
-    cl = _clause(m, 999) if m else ""
-    if cl and len(cl) <= 58:
-        return f"{verb} {name(to)} into their {name(beats[0])}: {cl}."
-    return f"{verb} {name(to)}; it beats their {' and '.join(name(e) for e in beats)}."
+    cl = _clause(m, 72) if m else ""
+    if cl and len(cl) <= 72:
+        return cl[0].upper() + cl[1:] + "."
+    return f"Beats their {' and '.join(name(e) for e in beats)}."
 
 
 # --- main -------------------------------------------------------------------
@@ -411,6 +449,7 @@ SAFE_SAY = [
     "{c} has no self-sustain for {e}'s anti-nade to shut off",
     "{c} gives their {e} a smaller or shielded target",
     "{c} can fight back when {e} dives",
+    "{c} doesn't feed {e}'s Deflect",
     "{c} stays with your backline against their {e}",
 ]
 
@@ -425,6 +464,25 @@ def _safe_reason(c, enemies):
                 continue
             if any(roster.get(v, {}).get("role") == role for v in r["victims"]):
                 return SAFE_SAY[i].format(c=name(c), e=name(e)) + "."
+    return None
+
+
+def _counter_threat_line(to, threats, vetoed):
+    """One reason naming the counter-threat on their board: the enemy that rules out a
+    higher-scoring pick, or the enemy that still beats this one. Never contradicts the
+    pick: a vetoed hero is never the pick, and a threat to the pick is called a threat."""
+    if vetoed:
+        v = vetoed[0]
+        floor, why = punisher(v["hero"], v["veto"])
+        m = _mech(v["veto"], v["hero"])
+        cause = why if why and (not m or floor > -edge(v["hero"], v["veto"])) else m
+        line = f"Not {name(v['hero'])}: their {name(v['veto'])} hard-counters it"
+        return line + (f" ({_clause(cause, 80)})." if cause else ".")
+    if threats and threats[0][0] <= -2.0:
+        _, e, why = threats[0]
+        if why:
+            return f"Mind their {name(e)}: {_clause(why, 90)}."
+        return f"Their {name(e)} still wins that matchup; take fights away from them."
     return None
 
 
@@ -456,8 +514,16 @@ def advise(state, bans=None):
     scored = sorted((_score(c, weights, mates, pool) for c in cands),
                     key=lambda s: -s["total"])
     by = {s["hero"]: s for s in scored}
-    alt_pool = [s for s in scored if s["hero"] != me]
+    others = [s for s in scored if s["hero"] != me]
+    # Never offer a hero that someone on their board hard-counters. If every
+    # pick in the role is hard-countered, fall back to the least-bad ones.
+    alt_pool = [s for s in others if not s["veto"]] or sorted(
+        others, key=lambda s: (s["worst"], -s["total"]))
     best = alt_pool[0] if alt_pool else None
+    # the higher-scoring heroes ruled out, so the reasons can say why they aren't the pick
+    vetoed = [s for s in others if s["veto"] and best and s["total"] > best["total"]]
+    even_main = False
+    main_threat = None
 
     info = len(enemies)
     helps = []          # enemy arrivals that suit my current hero
@@ -492,10 +558,15 @@ def advise(state, bans=None):
                if role != "tank" or role_of(e) == "tank" or e == killed_by]
         def lift(e):
             return best["per"][e] - cur["per"][e] if best else 0.0
+        # Only a matchup the current hero is LOSING can justify a swap: when it is
+        # already even or better into every key enemy, stay (unless hard-countered).
+        losing = [e for e in key if cur["per"][e] < 0]
+        hard = [e for e in weights if cur["per"][e] <= -VETO]
         real = bool(best) and (
-            any(lift(e) >= HARD_EDGE for e in key)
-            or any(cur["per"][e] <= -HARD_COUNTER and lift(e) >= HARD_EDGE for e in weights))
-        hard = [e for e in weights if cur["per"][e] <= -HARD_COUNTER]
+            any(lift(e) >= HARD_EDGE for e in losing)
+            or any(lift(e) >= HARD_EDGE for e in hard))
+        even_main = bool(key) and not losing and not hard
+        main_threat = max(key, key=lift) if key and best else None
         forced = len(hard) >= 2 and gain > 0 and not helps
         if me in bans:
             action = "swap"
@@ -508,10 +579,11 @@ def advise(state, bans=None):
             soft_only = gain >= margin and not real
         to = best["hero"] if action == "swap" and best else None
 
-    alts = [s["hero"] for s in alt_pool if s["hero"] != to][:3]
+    alts = [s["hero"] for s in alt_pool if s["hero"] != to and not s["veto"]][:3]
     if action == "stay" and me:
         # alternatives = the heroes to go to if it keeps going wrong
-        alts = [s["hero"] for s in alt_pool if s["total"] > by[me]["total"]][:3] or alts
+        alts = [s["hero"] for s in alt_pool
+                if s["total"] > by[me]["total"] and not s["veto"]][:3] or alts
 
     pick = to if action == "swap" else me
     tgt = _best_target(pick, weights) if pick else None
@@ -519,6 +591,7 @@ def advise(state, bans=None):
 
     # --- words ---
     reasons = []
+    when = None
     if action == "swap" and to:
         sc = by[to]
         wins = []
@@ -526,14 +599,22 @@ def advise(state, bans=None):
             m = _mech(to, e)
             if m and comp_edge(to, e) > 0:
                 wins.append(f"{name(to)} into {name(e)}: {_clause(m, 110)}.")
-        reasons.extend(wins[:2])
+        reasons.extend(wins[:1])
         if me:
             bad = _threats(me, weights)
-            if bad and bad[0][2] and len(reasons) < 3:
-                reasons.insert(min(1, len(reasons)),
-                               f"{name(me)} loses to {name(bad[0][1])}: {_clause(bad[0][2], 100)}.")
+            if bad and bad[0][2]:
+                reasons.append(f"{name(me)} loses to {name(bad[0][1])}: {_clause(bad[0][2], 100)}.")
+        # the counter-threat check: say what on their board rules out the obvious
+        # pick, or what still threatens this one
+        risk = _counter_threat_line(to, threats, vetoed)
+        if risk:
+            reasons.append(risk)
+        reasons.extend(wins[1:2])
         safe = _safe_reason(to, enemies)
-        if safe and len(reasons) < 3:
+        head = _swap_headline(to, weights, fresh=me is None)
+        if head.startswith("Best overall fit") and safe:
+            head = safe     # say what it survives on their board instead
+        elif safe and len(reasons) < 3:
             reasons.append(safe)
         if len(reasons) < 3 and sc["partners"]:
             reasons.append(f"Fits your team: pairs with {', '.join(name(p) for p in sc['partners'][:2])}.")
@@ -543,20 +624,20 @@ def advise(state, bans=None):
                            else f"No visible enemy hard-counters {name(to)}.")
         if len(reasons) < 2:
             reasons.append(f"{name(to)} has the best overall matchup into {', '.join(name(e) for e in enemies) or 'their comp'}.")
-        head = _swap_headline(to, weights, fresh=me is None)
-        me_dead = any(p.get("dead") for p in state.get("my_team") or []
-                      if me and p.get("hero") == me)
-        if me and not me_dead:
-            how = "On your next death. " + _how(to, tgt[1] if tgt else None)
+        how = _how(to, tgt[1] if tgt else None)
+        if me is None:
+            when = None
+        elif any(p.get("dead") for p in state.get("my_team") or [] if p.get("hero") == me):
+            when = "now"            # dead: the respawn screen is the free moment to swap
         else:
-            how = _how(to, tgt[1] if tgt else None)
+            when = "next_death"     # alive: swapping mid-fight throws the fight and ult charge
     else:
         if me is None:
             head = "Can't read the board yet; hold Tab again."
             reasons = ["Neither your hero nor the enemy comp was read from the scoreboard."]
             how = "Hold Tab for a moment so the board is fully visible."
         elif info == 0:
-            head = f"Stay {name(me)}; their comp isn't visible yet."
+            head = "Their comp isn't visible yet."
             reasons = ["No enemy heroes read yet, and an early counter gives them a free re-pick.",
                        "Check Tab again once their whole team is on the board."]
             how = _how(me, None)
@@ -566,11 +647,18 @@ def advise(state, bans=None):
                 m = _mech(me, h)
                 reasons.append(f"Their swap to {name(h)} suits you"
                                + (f": {_clause(m, 100)}." if m else "."))
-            if tgt and not (helps and tgt[1] == helps[0]):
+            if tgt and not helps:
                 reasons.append(f"{name(me)} into {name(tgt[1])}: {_clause(tgt[2], 110)}.")
-            if best and gain > 0:
+            if even_main and main_threat and gain >= margin:
+                reasons.append(f"{name(me)} is already even or better into their {name(main_threat)}; "
+                               "a swap only trades ult charge for a paper edge.")
+            elif best and gain > 0:
                 why = "only a soft counter" if soft_only or gain < margin else "a small edge"
                 reasons.append(f"{name(best['hero'])} is {why} here; not worth losing ult charge on a swap.")
+            elif vetoed:
+                v = vetoed[0]
+                reasons.append(f"The usual answers fail here: their {name(v['veto'])} "
+                               f"hard-counters {name(v['hero'])}.")
             else:
                 reasons.append(f"Nothing in your role beats this comp better than {name(me)}.")
             if threats and threats[0][2]:
@@ -581,14 +669,17 @@ def advise(state, bans=None):
                 et = [e for e in enemies if role_of(e) == "tank"]
                 vs = f"their {name(et[0])}" if et else "their comp"
                 reasons.append(f"{name(me)} is even into {vs}, and nobody on their team hard-counters you.")
+            # keep the counter-threat line when three reasons are too many
+            if len(reasons) > 3 and threats:
+                reasons = reasons[:2] + reasons[-1:]
             if helps:
-                head = f"Stay {name(me)}: their {name(helps[0])} swap plays into you."
+                head = f"Their {name(helps[0])} swap plays into you."
             elif tgt and (not threats or -threats[0][0] < tgt[0]):
-                head = f"Stay {name(me)}: you win the {name(tgt[1])} matchup."
+                head = f"You win the {name(tgt[1])} matchup."
             elif threats:
-                head = f"Stay {name(me)}; nothing beats their {name(threats[0][1])} by enough to swap."
+                head = f"Nothing beats their {name(threats[0][1])} by enough to swap."
             else:
-                head = f"Stay {name(me)}; no matchup here is worth a swap."
+                head = "No matchup here is worth a swap."
             how = _how(me, tgt[1] if tgt else (threats[0][1] if threats else None))
 
     # --- confidence ---
@@ -611,4 +702,5 @@ def advise(state, bans=None):
         "reasons": reasons[:3],
         "how_to_play": how,
         "confidence": conf,
+        "when": when,
     }
