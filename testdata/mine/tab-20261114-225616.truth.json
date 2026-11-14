@@ -1,0 +1,64 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "board_open": true,
+ "my_team": [
+  {
+   "hero": "reinhardt",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "emre",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "genji",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "kiriko",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "lifeweaver",
+   "role": "support",
+   "dead": false
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "reinhardt",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "anran",
+   "role": "damage",
+   "dead": true
+  },
+  {
+   "hero": "torbjorn",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "jetpackcat",
+   "role": "support",
+   "dead": true
+  },
+  {
+   "hero": "juno",
+   "role": "support",
+   "dead": false
+  }
+ ],
+ "my_hero": "emre",
+ "my_role": "damage",
+ "notes": "Own capture, 1920x1080, Escort Rialto, tabbed variant (HERO INFO | SCOREBOARD). Local player is ally row 2 (highlighted, hero panel says EMRE). TIME 1:07. Enemy rows 2 and 4 dead (dark portrait with grey skull ring and respawn '1'); row 2 still shows Anran's black hair and red tassel earring (same player NIMBLE is Anran in later captures), row 4 shows Jetpack Cat's cat ears and goggles. Mirror Reinhardt. L=318.",
+ "phase": "mid_match",
+ "phase_evidence": "own capture during a live match: INTERACT button, match timer 1:07, no victory/defeat/endorse marker"
+}

@@ -1,0 +1,12 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "board_open": false,
+ "my_team": [],
+ "enemy_team": [],
+ "my_hero": null,
+ "my_role": null,
+ "notes": "NEGATIVE CASE. Own capture, 1920x1080, every pixel black (6 KB PNG): no scoreboard, no game image (likely a capture during a loading/black screen or a failed grab). Reader must return board_open false.",
+ "phase": "unknown",
+ "phase_evidence": "all-black frame"
+}

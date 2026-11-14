@@ -1,0 +1,64 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "board_open": true,
+ "my_team": [
+  {
+   "hero": "reinhardt",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "emre",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "genji",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "kiriko",
+   "role": "support",
+   "dead": true
+  },
+  {
+   "hero": "lifeweaver",
+   "role": "support",
+   "dead": false
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "reinhardt",
+   "role": "tank",
+   "dead": true
+  },
+  {
+   "hero": "anran",
+   "role": "damage",
+   "dead": true
+  },
+  {
+   "hero": "torbjorn",
+   "role": "damage",
+   "dead": true
+  },
+  {
+   "hero": "ana",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "mercy",
+   "role": "support",
+   "dead": true
+  }
+ ],
+ "my_hero": "emre",
+ "my_role": "damage",
+ "notes": "Own capture, 1920x1080, Escort Rialto, tabbed variant (HERO INFO | SCOREBOARD). Local player is ally row 2 (highlighted, hero panel says EMRE). TIME 8:38. Dead (dark portrait, grey skull ring with respawn seconds): ally row 4 Kiriko (red fox-mask ears visible, '11'); enemy row 1 Reinhardt (white hair/beard, '12'), row 2 Anran (black hair, red tassel, '13'), row 3 Torbjorn (yellow beard, goggles, '2'), row 5 Mercy (blonde hair, '5'). Only enemy Ana alive. Heroes read from the visible parts of the darkened portraits, consistent with 7:04. L=268.",
+ "phase": "mid_match",
+ "phase_evidence": "own capture during a live match: INTERACT button, match timer 8:38, no victory/defeat/endorse marker"
+}

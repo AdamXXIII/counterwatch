@@ -1,0 +1,64 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "board_open": true,
+ "my_team": [
+  {
+   "hero": "reinhardt",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "emre",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "genji",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "kiriko",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "lifeweaver",
+   "role": "support",
+   "dead": false
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "unknown",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "unknown",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "unknown",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "unknown",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "unknown",
+   "role": "support",
+   "dead": false
+  }
+ ],
+ "my_hero": "emre",
+ "my_role": "damage",
+ "notes": "Own capture, 1920x1080, Escort Rialto, tabbed variant (HERO INFO | SCOREBOARD). Local player is ally row 2 (highlighted, hero panel says EMRE). TIME 0:00. All enemy portraits are grey '?' silhouettes (hidden, setup at TIME 0:00); enemy roles from role icons. Chat confirms 'Poyhgano (Reinhardt)'. Board left edge L=318, no perk column, all stats 0.",
+ "phase": "mid_match",
+ "phase_evidence": "own capture during a live match: INTERACT button, match timer 0:00, no victory/defeat/endorse marker"
+}

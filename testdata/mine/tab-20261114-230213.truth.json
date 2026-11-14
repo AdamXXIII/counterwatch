@@ -1,0 +1,64 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "board_open": true,
+ "my_team": [
+  {
+   "hero": "reinhardt",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "emre",
+   "role": "damage",
+   "dead": true
+  },
+  {
+   "hero": "genji",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "kiriko",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "lifeweaver",
+   "role": "support",
+   "dead": true
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "reinhardt",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "anran",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "torbjorn",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "ana",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "mercy",
+   "role": "support",
+   "dead": false
+  }
+ ],
+ "my_hero": "emre",
+ "my_role": "damage",
+ "notes": "Own capture, 1920x1080, Escort Rialto, tabbed variant (HERO INFO | SCOREBOARD). Local player is ally row 2 (highlighted, hero panel says EMRE). TIME 7:04. Ally rows 2 (local player, Emre; hero panel says EMRE) and 5 (Lifeweaver, white hair visible around the ring) are dead: dark portraits with grey skull ring '11'. Kill feed top right. L=268.",
+ "phase": "mid_match",
+ "phase_evidence": "own capture during a live match: INTERACT button, match timer 7:04, no victory/defeat/endorse marker"
+}

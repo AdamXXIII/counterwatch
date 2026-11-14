@@ -1,0 +1,64 @@
+{
+ "width": 1920,
+ "height": 1080,
+ "board_open": true,
+ "my_team": [
+  {
+   "hero": "domina",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "pharah",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "ashe",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "unknown",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "doctrine",
+   "role": "support",
+   "dead": false
+  }
+ ],
+ "enemy_team": [
+  {
+   "hero": "unknown",
+   "role": "tank",
+   "dead": false
+  },
+  {
+   "hero": "unknown",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "unknown",
+   "role": "damage",
+   "dead": false
+  },
+  {
+   "hero": "unknown",
+   "role": "support",
+   "dead": false
+  },
+  {
+   "hero": "unknown",
+   "role": "support",
+   "dead": false
+  }
+ ],
+ "my_hero": "pharah",
+ "my_role": "damage",
+ "notes": "Own capture, 1920x1080, Escort Shambali Monastery, tabbed variant, TIME 0:00 (setup), all stats 0, L=318. Local player is ally row 2 (highlighted, hero panel says PHARAH). Ally row 4 (LYNKU) has not picked yet: '?' silhouette in the ally colour, so 'unknown'. All enemy portraits are grey '?' silhouettes (hidden at setup); enemy roles from role icons.",
+ "phase": "mid_match",
+ "phase_evidence": "own capture at setup: INTERACT button, TIME 0:00, no victory/defeat/endorse marker"
+}
