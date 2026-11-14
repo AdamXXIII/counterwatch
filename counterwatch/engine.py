@@ -42,7 +42,14 @@ How it thinks (data/counters.json, swap_rules):
     still threatens the pick.
   * A swap must turn a matchup the current hero is actually LOSING (or escape a
     hard counter). Even or better into every key enemy means stay.
-  * Banned heroes and heroes already on the player's team are never offered.
+  * Reverse tank check: for a tank, the engine also asks "does THEIR tank counter MY
+    hero?" (a sourced edge of SOFT or more against me). If so, a tank that is even or
+    better into theirs, vetoed by nobody and a bit better overall, is a swap (an escape
+    from the duel) even with no hard counter back; staying then says their tank counters
+    you instead of "even". A near-ready ult still means spend it first.
+  * Banned heroes (ids or display names) and heroes already on the player's team are
+    never offered, compared against or cited, and no hero is ruled out in the reasons
+    for a weakness the recommended hero shares.
 """
 from __future__ import annotations
 
@@ -76,6 +83,7 @@ POOL_BONUS = 2.0          # comfort beats paper counters
 # margin is "rating points per enemy". Counter-swapping matters most on tank.
 SWAP_MARGIN = {"tank": 3.0, "damage": 3.5, "support": 3.5}
 HELPS_ME_MARGIN = 3.0     # an enemy swap that suits my hero: stay unless it is much worse
+ESCAPE_MARGIN = 1.0       # their tank counters my tank: an even duel only has to be a bit better overall
 WIN_TANK_MARGIN = 2.5     # a tank already winning the tank duel keeps it
 # Season 5 win-rate context from counterwatch.gg tier list (counters_notes.md):
 # a nudge only, never enough on its own to swap.
@@ -440,6 +448,8 @@ def _swap_headline(to, weights, fresh):
     m = _mech(to, beats[0])
     cl = _clause(m, 72) if m else ""
     if cl and len(cl) <= 72:
+        if not re.search(r"(?<![a-z])" + re.escape(name(beats[0]).lower()) + r"(?![a-z])", cl.lower()):
+            return f"Into their {name(beats[0])}: {cl}."   # "his hitbox" needs a who
         return cl[0].upper() + cl[1:] + "."
     return f"Beats their {' and '.join(name(e) for e in beats)}."
 
@@ -454,23 +464,35 @@ SAFE_SAY = [
 ]
 
 
-def _safe_reason(c, enemies):
-    """A visible punisher that would hurt other picks in the role but not c."""
+def _safe_reason(c, enemies, options=None):
+    """A visible punisher that would hurt other picks in the role but not c.
+    options: the heroes the player could actually pick (no bans, no teammates); a reason
+    never leans on a hero that was never an option."""
     _, roster, _ = _data()
     role = role_of(c)
     for i, r in enumerate(PUNISHERS):
         for e in enemies:
             if e not in r["enemies"] or c in r["victims"]:
                 continue
-            if any(roster.get(v, {}).get("role") == role for v in r["victims"]):
+            if any(roster.get(v, {}).get("role") == role and v != c
+                   and (options is None or v in options) for v in r["victims"]):
                 return SAFE_SAY[i].format(c=name(c), e=name(e)) + "."
     return None
+
+
+def _shares_weakness(pick, other, e):
+    """True when pick suffers threat e about as badly as other does: then the reasons
+    must not reject other (or the current hero) for it."""
+    p = comp_edge(pick, e)
+    return p < 0 and p - comp_edge(other, e) < SOFT
 
 
 def _counter_threat_line(to, threats, vetoed):
     """One reason naming the counter-threat on their board: the enemy that rules out a
     higher-scoring pick, or the enemy that still beats this one. Never contradicts the
-    pick: a vetoed hero is never the pick, and a threat to the pick is called a threat."""
+    pick: a vetoed hero is never the pick, a threat to the pick is called a threat, and
+    no hero is ruled out for a weakness the pick shares."""
+    vetoed = [v for v in vetoed if not _shares_weakness(to, v["hero"], v["veto"])]
     if vetoed:
         v = vetoed[0]
         floor, why = punisher(v["hero"], v["veto"])
@@ -495,9 +517,20 @@ def _arrivals(state, enemies):
     return [e for e in enemies if e not in prev_ids]
 
 
+def _norm_bans(bans):
+    """Ban list as hero ids: accepts ids or display names in any case ("D.Va", "dva")."""
+    _, roster, _ = _data()
+    key = lambda s: re.sub(r"[^a-z0-9]", "", str(s).lower())
+    lookup = {}
+    for h, r in roster.items():
+        lookup[key(h)] = h
+        lookup[key(r.get("name", h))] = h
+    return {lookup.get(key(b), b) for b in (bans or []) if b}
+
+
 def advise(state, bans=None):
     counters, roster, _ = _data()
-    bans = {b for b in (bans or []) if b}
+    bans = _norm_bans(bans)
     role = _infer_role(state)
     me = state.get("my_hero")
     if me in ("unknown", "empty") or (me and role_of(me) is None):
@@ -528,6 +561,9 @@ def advise(state, bans=None):
     info = len(enemies)
     helps = []          # enemy arrivals that suit my current hero
     soft_only = False
+    tank_threats = []   # their tank(s) that counter my current hero
+    escaping = []       # set when the swap is to get out of that duel
+    escape = None       # the best even-duel pick into that tank, if any
     # --- decide ---
     if me is None and info == 0:
         action, to, gain, margin = "stay", None, 0.0, 0.0
@@ -568,16 +604,42 @@ def advise(state, bans=None):
         even_main = bool(key) and not losing and not hard
         main_threat = max(key, key=lift) if key and best else None
         forced = len(hard) >= 2 and gain > 0 and not helps
+        # Reverse check on the tank duel: does THEIR tank counter MY hero? A known
+        # counter on the board (a sourced edge of SOFT or more against me) is a real
+        # reason to swap even when no tank hard-counters theirs back: getting to an
+        # even duel is the escape. The escape must be even or better into every such
+        # tank, not hard-countered by anyone else, and not lose the whole comp.
+        tank_threats = [e for e in weights if role == "tank" and role_of(e) == "tank"
+                        and cur["per"][e] <= -SOFT]
+        escape = None
+        if tank_threats:
+            outs = [s for s in alt_pool if not s["veto"]
+                    and all(s["per"][e] >= 0 for e in tank_threats)]
+            if outs:
+                # prefer the hero that also wins that duel, then the best overall
+                escape = max(outs, key=lambda s: s["total"]
+                             + 0.25 * sum(max(0.0, s["per"][e]) for e in tank_threats))
+        esc_margin = ESCAPE_MARGIN + (3.0 if ult is not None and ult >= ULT_HIGH else 0.0) \
+            + (HELPS_ME_MARGIN if helps else 0.0)
+        esc_gain = escape["total"] - cur["total"] if escape else 0.0
+        chosen = best
         if me in bans:
             action = "swap"
         elif info == 0:
             action = "stay"
         elif forced or (gain >= margin and real):
             action = "swap"
+        elif escape and esc_gain >= esc_margin and not (ult is not None and ult >= ULT_HIGH):
+            # (ult nearly up: spend it first, the headline says so)
+            action = "swap"
+            chosen, gain, margin = escape, esc_gain, esc_margin
+            escaping = tank_threats
         else:
             action = "stay"
             soft_only = gain >= margin and not real
-        to = best["hero"] if action == "swap" and best else None
+        to = chosen["hero"] if action == "swap" and chosen else None
+        if to and tank_threats and all(by[to]["per"][e] >= 0 for e in tank_threats):
+            escaping = tank_threats     # the story of this swap is their tank
 
     alts = [s["hero"] for s in alt_pool if s["hero"] != to and not s["veto"]][:3]
     if action == "stay" and me:
@@ -599,20 +661,55 @@ def advise(state, bans=None):
             m = _mech(to, e)
             if m and comp_edge(to, e) > 0:
                 wins.append(f"{name(to)} into {name(e)}: {_clause(m, 110)}.")
-        reasons.extend(wins[:1])
         if me:
-            bad = _threats(me, weights)
-            if bad and bad[0][2]:
-                reasons.append(f"{name(me)} loses to {name(bad[0][1])}: {_clause(bad[0][2], 100)}.")
+            # what the current hero loses to; never a weakness the pick shares
+            bad = [t for t in _threats(me, weights)
+                   if t[2] and not _shares_weakness(to, me, t[1])]
+            if escaping:
+                bad.sort(key=lambda t: t[1] not in escaping)   # their tank first
+            lost = (f"{name(me)} loses to {name(bad[0][1])}: {_clause(bad[0][2], 100)}."
+                    if bad else None)
+            if escaping and (not bad or bad[0][1] not in escaping):
+                # their tank wins on the counter stats with no mechanic on file
+                lost = (f"Their {name(escaping[0])} wins the duel into {name(me)} "
+                        "on the counter stats.")
+        else:
+            lost = None
+        if escaping:
+            t0 = escaping[0]
+            m = _mech(to, t0)
+            if lost:
+                reasons.append(lost)
+            if m and comp_edge(to, t0) > 0:
+                reasons.append(f"{name(to)} into {name(t0)}: {_clause(m, 110)}.")
+            else:
+                reasons.append(f"{name(to)} is even into their {name(t0)}, so that duel "
+                               "stops deciding the fight.")
+            wins = [w for w in wins if not w.startswith(f"{name(to)} into {name(t0)}:")]
+        else:
+            reasons.extend(wins[:1])
+            if lost:
+                reasons.append(lost)
         # the counter-threat check: say what on their board rules out the obvious
         # pick, or what still threatens this one
         risk = _counter_threat_line(to, threats, vetoed)
         if risk:
             reasons.append(risk)
-        reasons.extend(wins[1:2])
-        safe = _safe_reason(to, enemies)
+        reasons.extend(wins[0:1] if escaping else wins[1:2])
+        safe = _safe_reason(to, enemies, options={s["hero"] for s in scored})
         head = _swap_headline(to, weights, fresh=me is None)
-        if head.startswith("Best overall fit") and safe:
+        if escaping:
+            t0 = escaping[0]
+            if not (_mech(to, t0) and comp_edge(to, t0) > 0):
+                # the reason to swap is what their tank does to you, so say that
+                why = next((t[2] for t in _threats(me, weights) if t[1] == t0 and t[2]), None)
+                if why and ":" in why.split(";")[0]:
+                    why = why.split(":", 1)[1].strip()    # "Brawl tank: once Rein..." -> "once Rein..."
+                cl = _clause(why, 64) if why else ""
+                head = (f"Their {name(t0)} counters {name(me)}: {cl}."
+                        if cl and len(cl) <= 64 else
+                        f"Their {name(t0)} counters {name(me)}; take that duel away.")
+        elif head.startswith("Best overall fit") and safe:
             head = safe     # say what it survives on their board instead
         elif safe and len(reasons) < 3:
             reasons.append(safe)
@@ -649,23 +746,29 @@ def advise(state, bans=None):
                                + (f": {_clause(m, 100)}." if m else "."))
             if tgt and not helps:
                 reasons.append(f"{name(me)} into {name(tgt[1])}: {_clause(tgt[2], 110)}.")
-            if even_main and main_threat and gain >= margin:
+            if tank_threats and escape and ult is not None and ult >= ULT_HIGH:
+                reasons.append(f"Your ult is nearly up: use it, then go {name(escape['hero'])} "
+                               f"on the next death to get out of the {name(tank_threats[0])} duel.")
+            elif even_main and main_threat and gain >= margin:
                 reasons.append(f"{name(me)} is already even or better into their {name(main_threat)}; "
                                "a swap only trades ult charge for a paper edge.")
             elif best and gain > 0:
                 why = "only a soft counter" if soft_only or gain < margin else "a small edge"
                 reasons.append(f"{name(best['hero'])} is {why} here; not worth losing ult charge on a swap.")
-            elif vetoed:
-                v = vetoed[0]
+            elif [v for v in vetoed if not _shares_weakness(me, v["hero"], v["veto"])]:
+                v = [v for v in vetoed if not _shares_weakness(me, v["hero"], v["veto"])][0]
                 reasons.append(f"The usual answers fail here: their {name(v['veto'])} "
                                f"hard-counters {name(v['hero'])}.")
+            elif tank_threats:
+                reasons.append(f"No other tank is even into their {name(tank_threats[0])} "
+                               "without losing the rest of their comp.")
             else:
                 reasons.append(f"Nothing in your role beats this comp better than {name(me)}.")
             if threats and threats[0][2]:
                 reasons.append(f"Watch the {name(threats[0][1])}: {_clause(threats[0][2], 100)}.")
             elif threats:
                 reasons.append(f"Their {name(threats[0][1])} wins that matchup on the stats; fight from cover away from them.")
-            elif not tgt:
+            elif not tgt and not tank_threats:
                 et = [e for e in enemies if role_of(e) == "tank"]
                 vs = f"their {name(et[0])}" if et else "their comp"
                 reasons.append(f"{name(me)} is even into {vs}, and nobody on their team hard-counters you.")
@@ -674,6 +777,14 @@ def advise(state, bans=None):
                 reasons = reasons[:2] + reasons[-1:]
             if helps:
                 head = f"Their {name(helps[0])} swap plays into you."
+            elif tank_threats:
+                t0 = name(tank_threats[0])
+                if ult is not None and ult >= ULT_HIGH:
+                    head = f"Spend your ult first; their {t0} counters {name(me)}."
+                elif escape:
+                    head = f"Their {t0} counters you, but the rest of their comp suits {name(me)}."
+                else:
+                    head = f"Their {t0} counters {name(me)}, and no other tank answers it."
             elif tgt and (not threats or -threats[0][0] < tgt[0]):
                 head = f"You win the {name(tgt[1])} matchup."
             elif threats:
