@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+counterwatch/settings.json
+counterwatch/settings.json.tmp
+logs/
+captures/
