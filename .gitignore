@@ -4,3 +4,8 @@ counterwatch/settings.json
 counterwatch/settings.json.tmp
 logs/
 captures/
+progress.html
+bench/app_shots/
+# scoreboard screenshots show other players' BattleTags: keep them local
+testdata/mine/*.png
+testdata/web/*/image.png
